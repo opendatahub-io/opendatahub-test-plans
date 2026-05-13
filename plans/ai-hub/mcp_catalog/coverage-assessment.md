@@ -127,4 +127,3 @@ The test plan contains **69 test cases** across 6 categories, all automated acro
 | RBAC / multi-user | Not applicable | API is read-only — all authenticated users have same access; TC-SEC-001 covers unauthenticated denial |
 | Operator ConfigMap setup | Out of scope | Covered by its own testing ticket RHOAIENG-54874 |
 | Performance / scale | Out of scope | Explicitly deferred for v1 per test plan |
-

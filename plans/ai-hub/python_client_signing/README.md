@@ -77,7 +77,8 @@ result = signer.verify_image(image_ref)
 ```
 
 ### Manual Configuration
-Details can be found: https://github.com/jonburdo/model-signing-dev/blob/main/model-sign
+
+Details can be found: <https://github.com/jonburdo/model-signing-dev/blob/main/model-sign>
 
 ```python
 from model_registry.signing import ModelSigner
@@ -120,7 +121,6 @@ OIDC_ISSUER=$(curl -sS -H "Authorization: Bearer $TOKEN" \
 echo "OIDC Issuer: $OIDC_ISSUER"
 ```
 
-
 ## Testing
 
 Run the test suite:
@@ -141,5 +141,5 @@ pytest --cov=model_registry.signing tests/signing/
 - **Epic**: [RHOAIENG-45133](https://issues.redhat.com/browse/RHOAIENG-45133)
 - **Parent Feature**: [RHAISTRAT-1074](https://issues.redhat.com/browse/RHAISTRAT-1074)
 - **TAS Setup**: [model-signing-dev/testing](https://github.com/jonburdo/model-signing-dev/tree/main/testing)
-- **Sigstore Documentation**: https://docs.sigstore.dev/
-- **Cosign Documentation**: https://docs.sigstore.dev/cosign/overview/
+- **Sigstore Documentation**: <https://docs.sigstore.dev/>
+- **Cosign Documentation**: <https://docs.sigstore.dev/cosign/overview/>

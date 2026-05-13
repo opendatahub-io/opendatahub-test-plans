@@ -4,12 +4,14 @@
 **Objective**: Verify filter_options endpoint returns all filterable fields
 
 **Test Steps**:
+
 1. Send GET request to `/api/model_catalog/v1alpha1/mcp_servers/filter_options`
 2. Verify response status is 200 OK
 3. Verify response contains all filterable properties
 4. Verify each property has correct type (string, array, boolean, enum)
 
 **Expected Results**:
+
 - Status: 200 OK
 - Filterable properties include:
   - Entity: id, name, externalId, createTimeSinceEpoch, lastUpdateTimeSinceEpoch
@@ -19,11 +21,13 @@
   - Booleans: verifiedSource, secureEndpoint, sast, readOnlyTools
 
 **Test Data**:
+
 ```bash
 GET /api/model_catalog/v1alpha1/mcp_servers/filter_options
 ```
 
 **Expected Response**:
+
 ```json
 {
   "filterableProperties": [
