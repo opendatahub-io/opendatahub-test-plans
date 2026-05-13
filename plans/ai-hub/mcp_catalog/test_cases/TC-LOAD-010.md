@@ -4,7 +4,9 @@
 **Objective**: Verify custom properties loaded correctly
 
 **Preconditions**:
+
 - YAML defines customProperties:
+
   ```yaml
   customProperties:
     observability:
@@ -16,6 +18,7 @@
   ```
 
 **Test Steps**:
+
 1. Load catalog
 2. Query server via API
 3. Verify customProperties in response
@@ -23,6 +26,7 @@
 5. Verify booleans stored as MetadataBoolValue
 
 **Expected Results**:
+
 - Tags stored correctly (empty string value)
 - Booleans stored correctly (true/false)
 - Properties accessible via API and filterable

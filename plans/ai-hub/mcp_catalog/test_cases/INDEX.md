@@ -3,6 +3,7 @@
 This directory contains all test cases for the MCP Catalog Backend feature, organized as individual markdown files for easy reference and maintenance.
 
 ## Quick Stats
+
 - **Total Test Cases**: 69
 - **P0 (Critical)**: 15 test cases
 - **P1 (High)**: 49 test cases

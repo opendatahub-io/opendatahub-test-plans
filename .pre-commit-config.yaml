@@ -1,0 +1,38 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-yaml
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.44.0
+    hooks:
+      - id: markdownlint
+        name: Lint Markdown files
+        files: \.md$
+        args: ["--fix"]
+
+  - repo: https://github.com/espressif/conventional-precommit-linter
+    rev: v1.11.0
+    hooks:
+      - id: conventional-precommit-linter
+        stages: [commit-msg]
+        args:
+          - --types=ci,docs,feat,fix,revert,style
+          - --subject-min-length=10
+          - --subject-max-length=80
+
+  - repo: local
+    hooks:
+      - id: check-signoff
+        name: Check Signed-off-by
+        stages: [commit-msg]
+        language: system
+        entry: >
+          bash -c 'grep -q "^Signed-off-by: .* <.*@.*>" "$1" ||
+          { echo "ERROR: Commit message must include a valid Signed-off-by trailer.";
+          echo "  Use: git commit -s";
+          echo "  Or add manually: Signed-off-by: Your Name <your@email.com>"; exit 1; }' --

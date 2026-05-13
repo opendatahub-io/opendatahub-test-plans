@@ -4,26 +4,31 @@
 **Objective**: Verify basic listing of MCP servers from catalog
 
 **Preconditions**:
+
 - Catalog contains at least 5 MCP servers
 - YAML catalog files loaded successfully
 
 **Test Steps**:
+
 1. Send GET request to `/api/model_catalog/v1alpha1/mcp_servers`
 2. Verify response status is 200 OK
 3. Verify response contains `mcpServers` array
 4. Verify each server has required fields: id, name, provider, description
 
 **Expected Results**:
+
 - Status: 200 OK
 - Response body contains array of MCP servers
 - Each server includes: id, name, externalId, provider, description, version, transports, tools, artifacts
 
 **Test Data**:
+
 ```bash
 GET /api/model_catalog/v1alpha1/mcp_servers
 ```
 
 **Expected Response**:
+
 ```json
 {
   "mcpServers": [
