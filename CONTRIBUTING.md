@@ -1,4 +1,4 @@
-# Welcome to odh-test-plans contributing guide
+# Welcome to opendatahub-test-plans contributing guide
 
 Thank you for contributing to our project!
 
@@ -49,8 +49,8 @@ Use categories that make sense for your feature. Keep numbering sequential withi
 
 ## Issues
 
-If you find a problem, [search if an issue already exists](https://github.com/opendatahub-io/odh-test-plans/issues).
-If a related issue doesn't exist, you can open a new [issue](https://github.com/opendatahub-io/odh-test-plans/issues/new).
+If you find a problem, [search if an issue already exists](https://github.com/opendatahub-io/opendatahub-test-plans/issues).
+If a related issue doesn't exist, you can open a new [issue](https://github.com/opendatahub-io/opendatahub-test-plans/issues/new).
 
 ## Pull requests
 

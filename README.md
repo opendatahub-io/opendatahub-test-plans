@@ -1,4 +1,4 @@
-# odh-test-plans
+# opendatahub-test-plans
 
 Central repository for test plans and test case specifications for [Red Hat OpenShift AI (RHOAI)](https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-ai) and [Open Data Hub (ODH)](https://opendatahub.io/).
 
@@ -7,7 +7,7 @@ Test plans document the test strategy, approach, and individual test cases for e
 ## Repository Structure
 
 ```
-odh-test-plans/
+opendatahub-test-plans/
 ├── README.md
 ├── CONTRIBUTING.md
 ├── plans/                          # All test plans live here
