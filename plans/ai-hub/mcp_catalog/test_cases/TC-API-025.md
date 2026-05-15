@@ -4,9 +4,11 @@
 **Objective**: Verify transports are derived from endpoints for remote servers
 
 **Preconditions**:
+
 - Remote server with HTTP endpoint defined
 
 **Test Steps**:
+
 1. Load remote server with http endpoint
 2. Get server via API
 3. Verify transports array includes "http"
@@ -17,12 +19,14 @@
 8. Verify transports array includes both
 
 **Expected Results**:
+
 - HTTP endpoint → transports includes "http"
 - SSE endpoint → transports includes "sse"
 - Both endpoints → transports includes both
 - Transport derivation automatic for remote servers
 
 **Test Data**:
+
 ```yaml
 # Server with HTTP endpoint
 name: http-server
@@ -38,6 +42,7 @@ endpoints:
 ```
 
 **Expected Response**:
+
 ```json
 {
   "name": "http-server",

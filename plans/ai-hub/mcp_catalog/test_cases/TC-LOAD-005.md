@@ -4,6 +4,7 @@
 **Objective**: Verify include and exclude patterns work together (exclusion wins)
 
 **Test Steps**:
+
 1. Configure source with:
    - `includedServers: ["github-*"]`
    - `excludedServers: ["*-alpha"]`
@@ -13,5 +14,6 @@
 5. Verify "github-mcp" loaded (included, not excluded)
 
 **Expected Results**:
+
 - Exclusions take precedence
 - Server matching both include and exclude is filtered out

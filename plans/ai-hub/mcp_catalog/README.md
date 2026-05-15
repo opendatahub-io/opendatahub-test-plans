@@ -5,12 +5,16 @@ This folder contains the comprehensive test plan and test cases for the **MCP Ca
 ## 📚 Documentation
 
 ### Main Documents
+
 - **[TestPlan.md](TestPlan.md)** - Complete test strategy, approach, and execution plan
 - **[test_cases/INDEX.md](test_cases/INDEX.md)** - Index of all 69 test cases organized by category
-- **[coverage-assessment.md](coverage-assessment.md)** - Assessment of test automation coverage and epic validation completeness
+- **[coverage-assessment.md](coverage-assessment.md)** - Assessment of test automation coverage
+  and epic validation completeness
 
 ### Test Cases
-All test cases are extracted into individual markdown files in the `test_cases/` directory for easy reference and maintenance.
+
+All test cases are extracted into individual markdown files in the `test_cases/` directory for
+easy reference and maintenance.
 
 ## 🔗 Related Links
 
@@ -20,7 +24,7 @@ All test cases are extracted into individual markdown files in the `test_cases/`
 
 ## 📁 Directory Structure
 
-```
+```text
 mcp_catalog/
 ├── README.md                 # This file
 ├── TestPlan.md              # Main test plan document

@@ -1,6 +1,7 @@
 # Python Client Signing Functionality
 
-Model and container image signing using the Model Registry Python client with Trusted Artifact Signer (TAS).
+Model and container image signing using the Model Registry Python client with Trusted Artifact
+Signer (TAS).
 
 ## Quick Start
 
@@ -8,7 +9,8 @@ Model and container image signing using the Model Registry Python client with Tr
 
 - **OpenShift Cluster**: 4.19+ with RHOAI 3.4+
 - **TAS Instance**: Securesign deployed in `trusted-artifact-signer` namespace
-  - See [TAS Setup Guide](https://github.com/jonburdo/model-signing-dev/tree/main/testing) for installation
+  - See [TAS Setup Guide](https://github.com/jonburdo/model-signing-dev/tree/main/testing) for
+    installation
 - **Python Client**: Latest model-registry package from PyPI
 
 ### 1. Install Python Client
@@ -77,7 +79,8 @@ result = signer.verify_image(image_ref)
 ```
 
 ### Manual Configuration
-Details can be found: https://github.com/jonburdo/model-signing-dev/blob/main/model-sign
+
+Details can be found: <https://github.com/jonburdo/model-signing-dev/blob/main/model-sign>
 
 ```python
 from model_registry.signing import ModelSigner
@@ -120,7 +123,6 @@ OIDC_ISSUER=$(curl -sS -H "Authorization: Bearer $TOKEN" \
 echo "OIDC Issuer: $OIDC_ISSUER"
 ```
 
-
 ## Testing
 
 Run the test suite:
@@ -140,6 +142,7 @@ pytest --cov=model_registry.signing tests/signing/
 
 - **Epic**: [RHOAIENG-45133](https://issues.redhat.com/browse/RHOAIENG-45133)
 - **Parent Feature**: [RHAISTRAT-1074](https://issues.redhat.com/browse/RHAISTRAT-1074)
-- **TAS Setup**: [model-signing-dev/testing](https://github.com/jonburdo/model-signing-dev/tree/main/testing)
-- **Sigstore Documentation**: https://docs.sigstore.dev/
-- **Cosign Documentation**: https://docs.sigstore.dev/cosign/overview/
+- **TAS Setup**: [model-signing-dev/testing](<https://github.com/jonburdo/model-signing-dev/tree>
+  /main/testing)
+- **Sigstore Documentation**: <https://docs.sigstore.dev/>
+- **Cosign Documentation**: <https://docs.sigstore.dev/cosign/overview/>

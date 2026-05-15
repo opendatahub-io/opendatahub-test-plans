@@ -5,10 +5,12 @@
 **Automation Status**: Covered by upstream Go unit tests (`TestGetMCPServerTool` in `api_mcp_catalog_service_service_test.go`)
 
 **Preconditions**:
+
 - MCP server with ID exists in catalog
 - Server has a tool with known name
 
 **Test Steps**:
+
 1. Send GET request to `/api/model_catalog/v1alpha1/mcp_servers/{server_id}/tools/{tool_name}`
 2. Verify response status is 200 OK
 3. Verify response contains McpToolWithServer entity
@@ -16,6 +18,7 @@
 5. Verify server context is included
 
 **Expected Results**:
+
 - Status: 200 OK
 - Response body contains McpToolWithServer with:
   - Tool details: name, description, accessType, parameters
@@ -23,11 +26,13 @@
 - Tool data matches YAML configuration
 
 **Test Data**:
+
 ```bash
 GET /api/model_catalog/v1alpha1/mcp_servers/123/tools/query
 ```
 
 **Expected Response**:
+
 ```json
 {
   "name": "query",

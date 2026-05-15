@@ -4,9 +4,11 @@
 **Objective**: Verify remote MCP servers have correct endpoint fields
 
 **Preconditions**:
+
 - Catalog contains remote HTTP/SSE servers
 
 **Test Steps**:
+
 1. Get remote server with HTTP endpoint
 2. Verify `deploymentMode` = "remote"
 3. Verify `endpoints.http` present
@@ -15,17 +17,20 @@
 6. Verify `endpoints.sse` present
 
 **Expected Results**:
+
 - Remote servers have deploymentMode = "remote"
 - HTTP servers have `http` in endpoints
 - SSE servers have `sse` in endpoints
 - Remote servers do not have OCI artifacts
 
 **Test Data**:
+
 ```bash
 GET /api/model_catalog/v1alpha1/mcp_servers/{remote_server_id}
 ```
 
 **Expected Response**:
+
 ```json
 {
   "deploymentMode": "remote",

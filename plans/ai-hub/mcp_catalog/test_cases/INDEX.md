@@ -1,8 +1,10 @@
 # MCP Catalog Test Cases Index
 
-This directory contains all test cases for the MCP Catalog Backend feature, organized as individual markdown files for easy reference and maintenance.
+This directory contains all test cases for the MCP Catalog Backend feature, organized as individual
+markdown files for easy reference and maintenance.
 
 ## Quick Stats
+
 - **Total Test Cases**: 69
 - **P0 (Critical)**: 15 test cases
 - **P1 (High)**: 49 test cases
@@ -113,4 +115,5 @@ This directory contains all test cases for the MCP Catalog Backend feature, orga
 
 - **Main Test Plan**: [../TestPlan.md](../TestPlan.md)
 - **Feature Epic**: [RHOAIENG-44926](https://issues.redhat.com/browse/RHOAIENG-44926)
-- **ADR**: [MCP Catalog Backend ADR](https://docs.google.com/document/d/17PBwS5DzDI79eGXUkHowmlQlVSKOwXbBl__DtNRAwfU/edit?usp=sharing)
+- **ADR**: [MCP Catalog Backend ADR](<https://docs.google.com/document/d/17PBwS5DzDI79eGXUkHowmlQlVSK>
+  OwXbBl__DtNRAwfU/edit?usp=sharing)

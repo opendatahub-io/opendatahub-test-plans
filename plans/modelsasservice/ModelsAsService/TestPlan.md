@@ -17,17 +17,26 @@
 
 ### 1.1 Purpose
 
-This test plan defines the testing approach for the **ModelsAsService** feature in Red Hat OpenShift AI (RHOAI). MaaS provides a managed model serving platform where users access LLM inference endpoints through API keys, with access governed by subscriptions, RBAC groups, and authentication policies enforced at the Kuadrant-based gateway.
+This test plan defines the testing approach for the **ModelsAsService** feature in Red Hat
+OpenShift AI (RHOAI). MaaS provides a managed model serving platform where users access LLM
+inference endpoints through API keys, with access governed by subscriptions, RBAC groups, and
+authentication policies enforced at the Kuadrant-based gateway.
 
 ### 1.2 Scope
 
 #### In Scope
 
-- **Component Health** - DSC conditions, CRD existence, controller/API deployments and pods, subscription stack readiness
-- **API Key Management** - CRUD lifecycle, authorization, expiration, ephemeral cleanup, bulk operations
-- **Subscription Management** - MaaSSubscription CR enforcement, cascade deletion, multi-subscription behavior
-- **OIDC Authentication** - External OpenID Connect token flows, multi-user key isolation, header injection security
-- **External Model** - ExternalModel CR lifecycle, credentialed external endpoint routing, resource discovery (HTTPRoute/Service), auth enforcement, egress forwarding, OwnerReference cleanup
+- **Component Health** - DSC conditions, CRD existence, controller/API deployments and pods,
+  subscription stack readiness
+- **API Key Management** - CRUD lifecycle, authorization, expiration, ephemeral cleanup, bulk
+  operations
+- **Subscription Management** - MaaSSubscription CR enforcement, cascade deletion,
+  multi-subscription behavior
+- **OIDC Authentication** - External OpenID Connect token flows, multi-user key isolation, header
+  injection security
+- **External Model** - ExternalModel CR lifecycle, credentialed external endpoint routing,
+  resource discovery (HTTPRoute/Service), auth enforcement, egress forwarding, OwnerReference
+  cleanup
 
 #### Out of Scope
 
@@ -35,16 +44,16 @@ This test plan defines the testing approach for the **ModelsAsService** feature 
 - Model deployment and serving runtime (Model Serving team)
 - Kuadrant operator internals (Kuadrant team)
 
-
 ### 1.3 Test Objectives
 
-- Validate MaaS component health: DSC conditions, CRDs, deployments, pods, and subscription CR readiness
+- Validate MaaS component health: DSC conditions, CRDs, deployments, pods, and subscription CR
+  readiness
 - Validate API key CRUD lifecycle including show-once, revocation, and expiration enforcement
 - Verify subscription-based access control and cascade deletion behavior
 - Confirm OIDC token authentication with Keycloak and multi-user key isolation
 - Validate gateway security: deny-by-default, header injection prevention, auth policy enforcement
-- Verify ExternalModel CR reconciliation (HTTPRoute, backend Service) and credentialed egress to external inference endpoints
-
+- Verify ExternalModel CR reconciliation (HTTPRoute, backend Service) and credentialed egress to
+  external inference endpoints
 
 ---
 
@@ -54,12 +63,13 @@ This test plan defines the testing approach for the **ModelsAsService** feature 
 
 - **API Integration Testing** - Primary focus, testing REST endpoints against the MaaS API server
 - **E2E Functional Testing** - End-to-end flows through the gateway with real authentication
-- **Security Testing** - Auth policy enforcement, header injection, token tampering, gateway deny-by-default
-
+- **Security Testing** - Auth policy enforcement, header injection, token tampering, gateway deny-
+  by-default
 
 ### 2.2 Test Types
 
-- **Positive Testing** - Valid inputs, expected workflows (e.g., create API key, list models, run inference)
+- **Positive Testing** - Valid inputs, expected workflows (e.g., create API key, list models, run
+  inference)
 - **Negative Testing** - Invalid tokens, unauthorized access, revoked keys, tampered JWTs
 - **Boundary Testing** - Expiration limits, rate limit thresholds
 - **Security Testing** - Header injection, forged JWTs, IDOR protection, unauthenticated access
@@ -143,12 +153,12 @@ This test plan defines the testing approach for the **ModelsAsService** feature 
 | `/v1/subscriptions` | GET | List user's accessible subscriptions | P1 |
 | `/v1/model/{model-id}/subscriptions` | GET | List subscriptions for a specific model | P1 |
 
-
 ---
 
 ## 5. Test Cases
 
-All test cases are listed in the index file for organized reference. There are no individual test case files — all cases are documented in the index.
+All test cases are listed in the index file for organized reference. There are no individual test
+case files — all cases are documented in the index.
 
 📋 **Complete Test Case Index:** [test_cases/INDEX.md](test_cases/INDEX.md)
 

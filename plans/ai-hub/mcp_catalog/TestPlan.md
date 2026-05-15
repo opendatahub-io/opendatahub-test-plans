@@ -1,11 +1,14 @@
 # MCP Catalog Backend Test Plan
+
 **AI Hub Team - Backend API Testing**
 
 ## Document Information
+
 - **Feature**: MCP Catalog – Enterprise Control of MCP Assets
 - **Epic**: [RHOAIENG-44926](https://issues.redhat.com/browse/RHOAIENG-44926)
 - **Feature Story**: [RHAISTRAT-1084](https://issues.redhat.com/browse/RHAISTRAT-1084)
-- **ADR**: [MCP Catalog Backend ADR](https://docs.google.com/document/d/17PBwS5DzDI79eGXUkHowmlQlVSKOwXbBl__DtNRAwfU/edit?usp=sharing) (January 7, 2026)
+- **ADR**: [MCP Catalog Backend ADR](<https://docs.google.com/document/d/17PBwS5DzDI79eGXUkHowmlQlVSK>
+  OwXbBl__DtNRAwfU/edit?usp=sharing) (January 7, 2026)
 - **Team**: AI Hub
 - **Version**: 1.9.1
 - **Last Updated**: 2026-03-27
@@ -15,11 +18,15 @@
 ## 1. Executive Summary
 
 ### 1.1 Purpose
-This test plan defines the testing approach for the **MCP Catalog Backend** delivered by the AI Hub team. The backend provides REST API endpoints for discovering, browsing, and retrieving MCP (Model Context Protocol) server metadata from configured catalog sources.
+
+This test plan defines the testing approach for the **MCP Catalog Backend** delivered by the AI
+Hub team. The backend provides REST API endpoints for discovering, browsing, and retrieving MCP
+(Model Context Protocol) server metadata from configured catalog sources.
 
 ### 1.2 Scope
 
 #### In Scope (AI Hub Backend Responsibilities)
+
 - **MCP Catalog API Endpoints** - REST APIs for listing, filtering, and retrieving MCP servers
 - **YAML Catalog Loading** - Reading MCP server definitions from YAML configuration files
 - **Database Storage** - Persisting MCP server metadata in ml_metadata database
@@ -31,6 +38,7 @@ This test plan defines the testing approach for the **MCP Catalog Backend** deli
 - **Custom Properties** - Support for tags and security indicators via custom properties
 
 #### Out of Scope (Other Teams)
+
 - **UI Dashboard** - MCP Catalog UI, deployment wizard, deployed servers view (Dashboard team)
 - **MCP Gateway/MCPServer CRDs** - Runtime MCP server infrastructure (Agentic MCP team)
 - **Deployment Workflow** - Kubernetes resource creation, helm charts (MCP team)
@@ -38,6 +46,7 @@ This test plan defines the testing approach for the **MCP Catalog Backend** deli
 - **Tool Invocation** - MCP tool execution and testing (out of scope per feature doc)
 
 ### 1.3 Test Objectives
+
 1. Validate all MCP Catalog REST API endpoints return correct data
 2. Verify YAML catalog loading populates database correctly
 3. Confirm filtering, search, and pagination work as specified
@@ -51,26 +60,32 @@ This test plan defines the testing approach for the **MCP Catalog Backend** deli
 ## 2. Test Strategy
 
 ### 2.1 Test Levels
+
 - **API Integration Testing** - Primary focus, testing REST endpoints against database
 - **Data Validation Testing** - YAML loading, data transformation, database persistence
 - **Functional Testing** - Business logic, filtering, search, pagination
 - **Security Testing** - Authentication, authorization (basic validation)
 
 ### 2.2 Test Types
+
 - **Positive Testing** - Valid inputs, expected workflows
 - **Negative Testing** - Invalid inputs, error conditions, edge cases
 - **Boundary Testing** - Pagination limits, filter combinations, large datasets
 - **Regression Testing** - Ensure existing functionality remains intact
 
 ### 2.3 Test Priorities
+
 - **P0 (Critical)** - Core API endpoints, catalog loading, basic filtering
 - **P1 (High)** - Advanced filtering, search, pagination, source merging
 - **P2 (Medium)** - Edge cases, optional features
 
 ### 2.4 Performance Baseline Measurement
-While there are no formal performance requirements, response times should be measured and recorded to establish a performance baseline:
+
+While there are no formal performance requirements, response times should be measured and recorded
+to establish a performance baseline:
 
 **Measurement Points:**
+
 - List MCP servers (small dataset: <100 servers)
 - List MCP servers (large dataset: 500+ servers)
 - Get single MCP server by ID
@@ -78,19 +93,22 @@ While there are no formal performance requirements, response times should be mea
 - Search queries
 
 **Purpose:**
+
 - Establish baseline performance characteristics
 - Detect performance regressions in future releases
 - Provide data for future performance requirement discussions
 - Identify potential optimization opportunities
 
 **Recording:**
-Response times should be documented in test execution reports but are informational only (no pass/fail criteria).
+Response times should be documented in test execution reports but are informational only (no
+pass/fail criteria).
 
 ---
 
 ## 3. Test Environment
 
 ### 3.1 Test Cluster Configuration
+
 - **OpenShift**: Version 4.14+
 - **RHOAI**: Version 3.4+ (with AI Hub components)
 - **Database**: ml_metadata (PostgreSQL-based)
@@ -99,6 +117,7 @@ Response times should be documented in test execution reports but are informatio
 ### 3.2 Test Data Requirements
 
 #### Catalog Sources Configuration
+
 ```yaml
 # Test catalog sources (dev-mcp-catalog-sources.yaml)
 catalogs:
@@ -114,6 +133,7 @@ catalogs:
 ```
 
 ### 3.3 Test Users
+
 - **API Client** - Service account with catalog read permissions
 - **Admin Client** - Admin user for full API access
 
@@ -147,7 +167,8 @@ catalogs:
 
 ## 5. Test Cases
 
-All test cases have been extracted into individual markdown files for better organization and maintainability.
+All test cases have been extracted into individual markdown files for better organization and
+maintainability.
 
 **📁 Test Cases Directory**: [test_cases/](test_cases/)
 
@@ -155,7 +176,8 @@ All test cases have been extracted into individual markdown files for better org
 
 ### 5.1 Test Case Organization
 
-Test cases are organized by category and stored as individual markdown files in the `test_cases/` directory:
+Test cases are organized by category and stored as individual markdown files in the `test_cases/`
+directory:
 
 | Category | Test Cases | Priority Distribution |
 |----------|------------|----------------------|
@@ -200,12 +222,14 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ## 7. Test Environment Requirements
 
 ### 10.1 Infrastructure
+
 - **OpenShift Cluster**: 4.14+
 - **RHOAI**: 3.4 with AI Hub components deployed
 - **Database**: PostgreSQL (via ml_metadata)
 - **Catalog Service**: AI Hub backend with MCP catalog enabled
 
 ### 10.2 Configuration
+
 - **Catalog Sources**: 2-3 sources configured (org, community)
 - **YAML Files**: Located at `/etc/catalog/` or configurable path
 - **Environment Variables**:
@@ -213,6 +237,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
   - Database connection settings
 
 ### 10.3 Test Tools
+
 - **API Testing**: curl, Postman, or pytest + requests
 - **Database Query**: psql or database admin tool
 - **Log Viewing**: oc logs, kubectl logs
@@ -252,7 +277,8 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 | `GET /sources` | TC-API-027 to 029 | ✅ Complete |
 | `GET /labels` | TC-API-033 to 035 | ✅ Complete |
 
-**Note**: Tools can be accessed via `includeTools` and `toolLimit` parameters on server endpoints, or via dedicated `/tools` endpoints for detailed tool listing.
+**Note**: Tools can be accessed via `includeTools` and `toolLimit` parameters on server endpoints,
+or via dedicated `/tools` endpoints for detailed tool listing.
 
 ### 8.3 Document Change Log
 

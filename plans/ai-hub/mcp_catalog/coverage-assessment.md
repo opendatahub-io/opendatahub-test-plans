@@ -8,7 +8,9 @@
 
 ## 1. Coverage Summary
 
-The test plan contains **69 test cases** across 6 categories, all automated across upstream Go unit tests, upstream Python E2E tests, and downstream Python integration tests. The table below maps each test case to the epic requirement it validates and where it is automated.
+The test plan contains **69 test cases** across 6 categories, all automated across upstream Go unit
+tests, upstream Python E2E tests, and downstream Python integration tests. The table below maps
+each test case to the epic requirement it validates and where it is automated.
 
 | TC ID | Title | Pri | Epic Requirement | Where |
 |-------|-------|-----|------------------|-------|
@@ -113,11 +115,17 @@ The test plan contains **69 test cases** across 6 categories, all automated acro
 
 ## 3. Verdict
 
-**The epic is fully covered.** All 69 test plan cases are automated (100%) across upstream Go, upstream Python, and downstream Python. Every functional area the backend delivers (discovery, filtering, pagination, tools, remote servers, sources, labels, licensing, security, error handling, K8s prerequisites, securityIndicators, URI validation) is validated. All 20 dev stories/bugs — including the 7 without dedicated testing tickets — have automated coverage through existing tests.
+**The epic is fully covered.** All 69 test plan cases are automated (100%) across upstream Go,
+upstream Python, and downstream Python. Every functional area the backend delivers (discovery,
+filtering, pagination, tools, remote servers, sources, labels, licensing, security, error handling,
+K8s prerequisites, securityIndicators, URI validation) is validated. All 20 dev stories/bugs —
+including the 7 without dedicated testing tickets — have automated coverage through existing
+tests.
 
 ### Are additional tests beyond the test plan needed?
 
-**No.** The following areas were evaluated as potential gaps and found to be either already covered or not applicable:
+**No.** The following areas were evaluated as potential gaps and found to be either already covered
+or not applicable:
 
 | Area | Assessment | Why |
 |------|------------|-----|
@@ -127,4 +135,3 @@ The test plan contains **69 test cases** across 6 categories, all automated acro
 | RBAC / multi-user | Not applicable | API is read-only — all authenticated users have same access; TC-SEC-001 covers unauthenticated denial |
 | Operator ConfigMap setup | Out of scope | Covered by its own testing ticket RHOAIENG-54874 |
 | Performance / scale | Out of scope | Explicitly deferred for v1 per test plan |
-

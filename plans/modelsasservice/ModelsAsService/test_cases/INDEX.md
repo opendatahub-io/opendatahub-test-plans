@@ -1,6 +1,7 @@
 # MaaS Billing Test Cases Index
 
-This directory contains all test cases for the MaaS Billing feature, organized by category for easy reference and maintenance.
+This directory contains all test cases for the MaaS Billing feature, organized by category for
+easy reference and maintenance.
 
 ## Quick Stats
 
@@ -270,4 +271,5 @@ This directory contains all test cases for the MaaS Billing feature, organized b
 
 - **Main Test Plan:** [../TestPlan.md](../TestPlan.md)
 - **Coverage Assessment:** [../coverage-assessment.md](../coverage-assessment.md)
-- **Automation Repo:** [opendatahub-io/opendatahub-tests](https://github.com/opendatahub-io/opendatahub-tests) (`tests/model_serving/maas_billing/`)
+- **Automation Repo:** [opendatahub-io/opendatahub-tests](<https://github.com/opendatahub-io/>
+  opendatahub-tests) (`tests/model_serving/maas_billing/`)
