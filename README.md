@@ -1,12 +1,17 @@
 # opendatahub-test-plans
 
-Central repository for test plans and test case specifications for [Red Hat OpenShift AI (RHOAI)](https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-ai) and [Open Data Hub (ODH)](https://opendatahub.io/).
+Central repository for test plans and test case specifications for [Red Hat OpenShift AI
+(RHOAI)](https://www.redhat.com/en/technologies/cloud-computing/openshift/openshift-ai) and
+[Open Data Hub (ODH)](https://opendatahub.io/).
 
-Test plans document the test strategy, approach, and individual test cases for each feature. Automated tests based on these plans are implemented upstream in component repos (e.g., [kubeflow/hub](https://github.com/kubeflow/hub)) and downstream in [opendatahub-tests](https://github.com/opendatahub-io/opendatahub-tests).
+Test plans document the test strategy, approach, and individual test cases for each feature.
+Automated tests based on these plans are implemented upstream in component repos (e.g.,
+[kubeflow/hub](https://github.com/kubeflow/hub)) and downstream in
+[opendatahub-tests](https://github.com/opendatahub-io/opendatahub-tests).
 
 ## Repository Structure
 
-```
+```text
 opendatahub-test-plans/
 ├── README.md
 ├── CONTRIBUTING.md

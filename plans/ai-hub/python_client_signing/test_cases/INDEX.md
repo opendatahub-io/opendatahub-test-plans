@@ -16,7 +16,8 @@ This directory contains test cases for the Python Client Signing functionality.
 
 **Negative Tests (P0 Priority):**
 
-- **TC-011**: Signing Failure Scenarios (invalid TAS config, tampered model, invalid registry credentials, missing signature)
+- **TC-011**: Signing Failure Scenarios (invalid TAS config, tampered model, invalid registry
+  credentials, missing signature)
 
 **Integration Tests (P1 Priority):**
 

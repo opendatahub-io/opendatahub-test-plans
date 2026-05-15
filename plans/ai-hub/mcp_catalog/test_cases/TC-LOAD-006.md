@@ -19,7 +19,8 @@ No downstream integration test is needed because:
 
 1. The merge logic is thoroughly unit-tested in Go
 2. The loader integration is minimal (~20 lines in `mcp_loader.go`)
-3. There is no API endpoint to read back source-level fields (e.g., labels, Origin), making end-to-end verification of merge results not possible through the REST API
+3. There is no API endpoint to read back source-level fields (e.g., labels, Origin), making
+   end-to-end verification of merge results not possible through the REST API
 
 **Original Test Steps** (for reference):
 

@@ -3,7 +3,10 @@
 **Priority**: P1
 **Objective**: Verify all common SPDX IDs transformed correctly
 
-**Automation Status**: Covered by upstream Go unit tests — `catalog/internal/catalog/basecatalog/license_transform_test.go` (40+ test cases) and `catalog/internal/catalog/mcpcatalog/providers_test.go::TestYamlMCPServerLicenseTransformation` (16 test cases). No downstream automation needed.
+**Automation Status**: Covered by upstream Go unit tests —
+`catalog/internal/catalog/basecatalog/license_transform_test.go` (40+ test cases) and
+`catalog/internal/catalog/mcpcatalog/providers_test.go::TestYamlMCPServerLicenseTransformation`
+(16 test cases). No downstream automation needed.
 
 **Test Steps**:
 

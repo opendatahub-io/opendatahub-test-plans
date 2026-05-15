@@ -1,7 +1,8 @@
 # TC-API-027: List Catalog Sources (Default Behavior)
 
 **Priority**: P0
-**Objective**: Verify that a GET request to `/sources` without an `assetType` parameter returns only model catalog sources (not MCP sources)
+**Objective**: Verify that a GET request to `/sources` without an `assetType` parameter returns
+only model catalog sources (not MCP sources)
 
 **Preconditions**:
 

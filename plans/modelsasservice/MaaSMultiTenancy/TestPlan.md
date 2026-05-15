@@ -252,17 +252,27 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 
 ### 9.1 Infrastructure
 
-- **OpenShift**: 4.19+
-- **RHOAI**: 3.4+ with MaaS operator deployed
-- **Database**: PostgreSQL
-- **Kuadrant**: operator deployed for AuthPolicy and RateLimitPolicy
+- Single OpenShift cluster for Pattern 1 (gateway-per-tenant) testing
+- Single maas-controller deployment managing multiple tenants (expanded RBAC required)
+- Per-tenant Gateway instances (dedicated ingress paths, separate hostnames/TLS)
+- Kuadrant operator for AuthPolicy and RateLimitPolicy generation
+- Database infrastructure — decision pending per ADR open question 6.1 (shared DB with tenant_id partitioning vs separate DB per tenant vs separate maas-api per tenant)
+- External OIDC provider infrastructure for BYOIDP testing (depends on RHAISTRAT-1120)
+- Shared MaaSModelRef catalog accessible to all tenants with subscription-based gating
+- Observability backend capable of tenant-labeled metrics and logs
 
 ### 9.2 Configuration
 
-- At least 2 tenant namespaces labeled with `maas.opendatahub.io/tenant`
-- MaaSSubscription and MaaSAuthPolicy CRs per tenant
-- Webhook configured for MaaSSubscription/MaaSAuthPolicy admission (S6)
-- At least one model deployed and registered as a MaaSModelRef CR
+- Tenant CR specifications (gateway references, API/OIDC config per tenant)
+- RBAC policies for maas-controller to manage multi-tenant resources across namespaces
+- MaaSSubscription CRs defining model access limits per tenant
+- MaaSAuthPolicy CRs defining authentication rules per tenant
+- Kuadrant AuthPolicy generated from MaaSAuthPolicy CRs
+- Kuadrant RateLimitPolicy generated per tenant from subscription limits
+- OIDC issuer endpoints, JWKS URLs, client secrets per tenant
+- Namespace topology configuration — decision pending per ADR open question 6.3
+- Metric/log label configuration for per-tenant showback
+- Feature flags for multi-tenancy enablement (if applicable)
 
 ### 9.3 Test Tools
 

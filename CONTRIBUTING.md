@@ -8,12 +8,14 @@ To get an overview of the project, read the [README](README.md).
 
 ## Adding a new test plan
 
-You can create test plans **manually** or use the [odh-test-gen](https://github.com/opendatahub-io/odh-test-gen) skills to generate them from a Jira strategy (STRAT) or ADR.
+You can create test plans **manually** or use the [odh-test-gen](<https://github.com/opendatahub-io>
+/odh-test-gen) skills to generate them from a Jira strategy (STRAT) or ADR.
 
 ### Manual creation
 
 1. Create or use your team's directory under `plans/` (e.g., `plans/ai-hub/`, `plans/platform/`)
-2. Under your team folder, create a directory named after the feature using snake_case (e.g., `plans/ai-hub/mcp_catalog/`)
+2. Under your team folder, create a directory named after the feature using snake_case (e.g.,
+   `plans/ai-hub/mcp_catalog/`)
 3. Add the following files:
 
 | File | Required | Description |
@@ -49,8 +51,10 @@ Use categories that make sense for your feature. Keep numbering sequential withi
 
 ## Issues
 
-If you find a problem, [search if an issue already exists](https://github.com/opendatahub-io/opendatahub-test-plans/issues).
-If a related issue doesn't exist, you can open a new [issue](https://github.com/opendatahub-io/opendatahub-test-plans/issues/new).
+If you find a problem, [search if an issue already exists](<https://github.com/opendatahub-io/>
+opendatahub-test-plans/issues).
+If a related issue doesn't exist, you can open a new
+[issue](https://github.com/opendatahub-io/opendatahub-test-plans/issues/new).
 
 ## Pull requests
 

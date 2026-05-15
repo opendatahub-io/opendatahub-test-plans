@@ -1,16 +1,21 @@
 # MaaS Billing Test Plan
 
-This folder contains the comprehensive test plan and test cases for the MaaS (Model as a Service) Billing feature.
+This folder contains the comprehensive test plan and test cases for the MaaS (Model as a
+Service) Billing feature.
 
 ## 📚 Documentation
 
 ### Main Documents
+
 - [TestPlan.md](TestPlan.md) - Complete test strategy, approach, and execution plan
 - [test_cases/INDEX.md](test_cases/INDEX.md) - Index of all 104 test cases organized by category
 - [coverage-assessment.md](coverage-assessment.md) - Assessment of test automation coverage
 
 ### Test Cases
-All 104 test cases are documented in the [test_cases/INDEX.md](test_cases/INDEX.md) index, organized by category (Component Health, API Key, Subscription, OIDC, External Model). There are no individual test case files.
+
+All 104 test cases are documented in the [test_cases/INDEX.md](test_cases/INDEX.md) index,
+organized by category (Component Health, API Key, Subscription, OIDC, External Model). There
+are no individual test case files.
 
 ## 🔗 Related Links
 
@@ -19,7 +24,7 @@ All 104 test cases are documented in the [test_cases/INDEX.md](test_cases/INDEX.
 
 ## 📁 Directory Structure
 
-```
+```text
 maas_billing/
 ├── README.md                 # This file
 ├── TestPlan.md              # Main test plan document

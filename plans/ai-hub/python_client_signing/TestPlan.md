@@ -6,7 +6,8 @@
 
 - **Feature**: Python Client Signing Functionality
 - **Epic**: [RHOAIENG-45133](https://issues.redhat.com/browse/RHOAIENG-45133)
-- **Parent Feature**: [RHAISTRAT-1074](https://issues.redhat.com/browse/RHAISTRAT-1074) - Create ability to sign and verify AI Artifacts in Registry
+- **Parent Feature**: [RHAISTRAT-1074](https://issues.redhat.com/browse/RHAISTRAT-1074) - Create
+  ability to sign and verify AI Artifacts in Registry
 - **Team**: Model Registry / AI Hub
 - **Version**: 1.0
 - **Last Updated**: 2026-03-03
@@ -17,7 +18,9 @@
 
 ### 1.1 Purpose
 
-This test plan defines the testing approach for the **Python Client Signing Functionality** delivered by the Model Registry team. The Python client provides APIs for signing and verifying AI artifacts (models, datasets) and container images using industry-standard signing tools.
+This test plan defines the testing approach for the **Python Client Signing Functionality**
+delivered by the Model Registry team. The Python client provides APIs for signing and verifying AI
+artifacts (models, datasets) and container images using industry-standard signing tools.
 
 ### 1.2 Scope
 
@@ -48,7 +51,8 @@ This test plan defines the testing approach for the **Python Client Signing Func
 
 1. Validate model signing and verification (positive flow)
 2. Validate container image signing and verification (positive flow)
-3. Validate error handling and negative scenarios (invalid credentials, cross-identity verification, tampered signatures)
+3. Validate error handling and negative scenarios (invalid credentials, cross-identity verification,
+   tampered signatures)
 
 ---
 

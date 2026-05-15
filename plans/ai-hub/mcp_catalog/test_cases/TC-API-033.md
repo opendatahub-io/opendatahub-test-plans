@@ -1,7 +1,8 @@
 # TC-API-033: List Catalog Labels (Default Behavior)
 
 **Priority**: P0
-**Objective**: Verify that a GET request to `/labels` without an `assetType` parameter returns only model labels (backward compatibility)
+**Objective**: Verify that a GET request to `/labels` without an `assetType` parameter returns only
+model labels (backward compatibility)
 
 **Preconditions**:
 
