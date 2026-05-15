@@ -3,7 +3,8 @@
 **Priority**: P1
 **Objective**: Verify artifact URIs are valid on load
 **Coverage**: Upstream (API contract test, no full cluster needed)
-**Bug**: RHOAIENG-54555 — URI validation is currently missing for both MCP servers and model catalog sources
+**Bug**: RHOAIENG-54555 — URI validation is currently missing for both MCP servers and model
+catalog sources
 
 **Test Steps**:
 

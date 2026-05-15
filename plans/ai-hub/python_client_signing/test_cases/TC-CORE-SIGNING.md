@@ -134,7 +134,8 @@
 ## TC-011: Signing Failure Scenarios
 
 - **Priority**: P0
-- **Description**: Validate that signing failures are handled gracefully across multiple failure modes: invalid TAS configuration, invalid registry credentials, and missing signatures
+- **Description**: Validate that signing failures are handled gracefully across multiple failure
+  modes: invalid TAS configuration, invalid registry credentials, and missing signatures
 - **Preconditions**:
   - Valid TAS configuration (for baseline)
   - Sample model available locally

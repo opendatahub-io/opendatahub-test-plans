@@ -17,7 +17,8 @@
 **Expected Results**:
 
 - Status: 200 OK
-- Server details include: id, name, provider, description, version, transports, tools[], artifacts[], endpoints, customProperties, license, licenseLink, logo, readme
+- Server details include: id, name, provider, description, version, transports, tools[],
+  artifacts[], endpoints, customProperties, license, licenseLink, logo, readme
 
 **Test Data**:
 

@@ -96,7 +96,10 @@ The following sections provide detailed feedback for criteria that scored below 
 
 **Section 3.1 — Test Cluster Configuration**
 
-All software versions are listed as "TBD" with no resolution path or minimum version floor. A QE engineer picking up this plan cannot provision a cluster without first researching compatible versions. The plan should specify at minimum:
+All software versions are listed as "TBD" with no resolution path or minimum version floor. A QE
+engineer picking up this plan cannot provision a cluster without first researching compatible
+versions. The plan should specify at minimum:
+
 - OpenShift version range (e.g., 4.16+)
 - RHOAI operator version or channel (e.g., stable-2.x or fast channel)
 - Kuadrant operator version or compatibility requirement
@@ -106,35 +109,57 @@ Each TBD should include either a resolution owner or a fallback default.
 
 **Section 3.2 — Test Data Requirements**
 
-Test data items are listed as descriptions without concrete examples. The plan should include at least one sample YAML for each CR type (Tenant CR, MaaSSubscription, MaaSAuthPolicy, MaaSModelRef). For example, a minimal Tenant CR skeleton showing the expected spec fields would allow a QE engineer to start writing test fixtures immediately.
+Test data items are listed as descriptions without concrete examples. The plan should include at
+least one sample YAML for each CR type (Tenant CR, MaaSSubscription, MaaSAuthPolicy,
+MaaSModelRef). For example, a minimal Tenant CR skeleton showing the expected spec fields would
+allow a QE engineer to start writing test fixtures immediately.
 
-The access grant configuration format is listed as "TBD" — this is acceptable given the open architecture question, but the plan should state explicitly which architecture decision gates this and who owns the resolution.
+The access grant configuration format is listed as "TBD" — this is acceptable given the open
+architecture question, but the plan should state explicitly which architecture decision gates
+this and who owns the resolution.
 
 **Section 5 — Test Cases**
 
-Entirely empty. While this is expected at the pre-create-cases stage, the plan would score higher if it included at least placeholder test case descriptions for P0 interfaces.
+Entirely empty. While this is expected at the pre-create-cases stage, the plan would score higher
+if it included at least placeholder test case descriptions for P0 interfaces.
 
 **Section 6 — E2E Test Scenarios**
 
-Entirely empty. Same comment as Section 5 — expected at this stage, but contributes to the actionability gap.
+Entirely empty. Same comment as Section 5 — expected at this stage, but contributes to the
+actionability gap.
 
 ### Consistency (Score: 1)
 
 **Issue 1: UI Testing without UI Interfaces**
 
-Section 2.1 declares "UI Testing" as a test level with the description: "Validate platform admin experience for tenant provisioning and management, tenant-specific dashboards for model catalog and usage metrics." Section 2.3 assigns P2 priority to "Platform admin UI workflows for tenant management."
+Section 2.1 declares "UI Testing" as a test level with the description: "Validate platform admin
+experience for tenant provisioning and management, tenant-specific dashboards for model catalog
+and usage metrics." Section 2.3 assigns P2 priority to "Platform admin UI workflows for tenant
+management."
 
-However, Section 4 (Interfaces Under Test) contains zero UI interfaces. There are no dashboard endpoints, no admin console paths, no frontend components listed. Either:
+However, Section 4 (Interfaces Under Test) contains zero UI interfaces. There are no dashboard
+endpoints, no admin console paths, no frontend components listed. Either:
+
 - Add UI interfaces to Section 4 (if the feature includes a UI component), or
-- Remove "UI Testing" from Section 2.1 and P2 UI references from Section 2.3, noting that multi-tenancy is API/operator-driven with no dedicated UI in this release.
+- Remove "UI Testing" from Section 2.1 and P2 UI references from Section 2.3, noting that
+  multi-tenancy is API/operator-driven with no dedicated UI in this release.
 
 **Issue 2: Disconnected/Air-Gapped Justification**
 
-Section 7.1 states "Not Applicable" because "Identity realm integration and gateway provisioning are cluster-internal operations." This overlooks the BYOIDP requirement (Section 1.2, in scope): configuring an external identity provider requires outbound connectivity to external OIDC issuers, JWKS endpoints, and potentially external DNS resolution. In a disconnected environment, BYOIDP flows would fail unless the external IDP is mirrored or accessible within the air-gapped network.
+Section 7.1 states "Not Applicable" because "Identity realm integration and gateway provisioning
+are cluster-internal operations." This overlooks the BYOIDP requirement (Section 1.2, in scope):
+configuring an external identity provider requires outbound connectivity to external OIDC
+issuers, JWKS endpoints, and potentially external DNS resolution. In a disconnected environment,
+BYOIDP flows would fail unless the external IDP is mirrored or accessible within the air-gapped
+network.
 
 The justification should either:
-- Acknowledge that BYOIDP testing requires external connectivity and is therefore not applicable in disconnected environments (with a note that BYOIDP would be excluded from disconnected test runs), or
-- Add a disconnected test scenario verifying that non-BYOIDP tenant provisioning works without external network access.
+
+- Acknowledge that BYOIDP testing requires external connectivity and is therefore not applicable
+  in disconnected environments (with a note that BYOIDP would be excluded from disconnected test
+  runs), or
+- Add a disconnected test scenario verifying that non-BYOIDP tenant provisioning works without
+  external network access.
 
 ---
 

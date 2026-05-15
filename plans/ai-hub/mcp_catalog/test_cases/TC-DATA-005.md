@@ -2,7 +2,12 @@
 
 **Priority**: P1
 **Objective**: Verify all MetadataValue types supported
-**Coverage**: Covered upstream — Go tests (`openapi_embedmd_converter_util_test.go`) cover all metadata type conversions (MetadataBoolValue, MetadataIntValue, MetadataDoubleValue, MetadataStringValue, MetadataStructValue). Python `test_custom_properties_loaded` validates MCP server custom properties round-trip from YAML. `test_models_custom_properties_has_valid_structure` validates MetadataStringValue structure for models.
+**Coverage**: Covered upstream — Go tests (`openapi_embedmd_converter_util_test.go`) cover all
+metadata type conversions (MetadataBoolValue, MetadataIntValue, MetadataDoubleValue,
+MetadataStringValue, MetadataStructValue). Python `test_custom_properties_loaded` validates MCP
+server custom properties round-trip from YAML.
+`test_models_custom_properties_has_valid_structure` validates MetadataStringValue structure for
+models.
 
 **Test Steps**:
 

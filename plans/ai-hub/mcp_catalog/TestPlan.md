@@ -7,7 +7,8 @@
 - **Feature**: MCP Catalog – Enterprise Control of MCP Assets
 - **Epic**: [RHOAIENG-44926](https://issues.redhat.com/browse/RHOAIENG-44926)
 - **Feature Story**: [RHAISTRAT-1084](https://issues.redhat.com/browse/RHAISTRAT-1084)
-- **ADR**: [MCP Catalog Backend ADR](https://docs.google.com/document/d/17PBwS5DzDI79eGXUkHowmlQlVSKOwXbBl__DtNRAwfU/edit?usp=sharing) (January 7, 2026)
+- **ADR**: [MCP Catalog Backend ADR](<https://docs.google.com/document/d/17PBwS5DzDI79eGXUkHowmlQlVSK>
+  OwXbBl__DtNRAwfU/edit?usp=sharing) (January 7, 2026)
 - **Team**: AI Hub
 - **Version**: 1.9.1
 - **Last Updated**: 2026-03-27
@@ -18,7 +19,9 @@
 
 ### 1.1 Purpose
 
-This test plan defines the testing approach for the **MCP Catalog Backend** delivered by the AI Hub team. The backend provides REST API endpoints for discovering, browsing, and retrieving MCP (Model Context Protocol) server metadata from configured catalog sources.
+This test plan defines the testing approach for the **MCP Catalog Backend** delivered by the AI
+Hub team. The backend provides REST API endpoints for discovering, browsing, and retrieving MCP
+(Model Context Protocol) server metadata from configured catalog sources.
 
 ### 1.2 Scope
 
@@ -78,7 +81,8 @@ This test plan defines the testing approach for the **MCP Catalog Backend** deli
 
 ### 2.4 Performance Baseline Measurement
 
-While there are no formal performance requirements, response times should be measured and recorded to establish a performance baseline:
+While there are no formal performance requirements, response times should be measured and recorded
+to establish a performance baseline:
 
 **Measurement Points:**
 
@@ -96,7 +100,8 @@ While there are no formal performance requirements, response times should be mea
 - Identify potential optimization opportunities
 
 **Recording:**
-Response times should be documented in test execution reports but are informational only (no pass/fail criteria).
+Response times should be documented in test execution reports but are informational only (no
+pass/fail criteria).
 
 ---
 
@@ -162,7 +167,8 @@ catalogs:
 
 ## 5. Test Cases
 
-All test cases have been extracted into individual markdown files for better organization and maintainability.
+All test cases have been extracted into individual markdown files for better organization and
+maintainability.
 
 **📁 Test Cases Directory**: [test_cases/](test_cases/)
 
@@ -170,7 +176,8 @@ All test cases have been extracted into individual markdown files for better org
 
 ### 5.1 Test Case Organization
 
-Test cases are organized by category and stored as individual markdown files in the `test_cases/` directory:
+Test cases are organized by category and stored as individual markdown files in the `test_cases/`
+directory:
 
 | Category | Test Cases | Priority Distribution |
 |----------|------------|----------------------|
@@ -270,7 +277,8 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 | `GET /sources` | TC-API-027 to 029 | ✅ Complete |
 | `GET /labels` | TC-API-033 to 035 | ✅ Complete |
 
-**Note**: Tools can be accessed via `includeTools` and `toolLimit` parameters on server endpoints, or via dedicated `/tools` endpoints for detailed tool listing.
+**Note**: Tools can be accessed via `includeTools` and `toolLimit` parameters on server endpoints,
+or via dedicated `/tools` endpoints for detailed tool listing.
 
 ### 8.3 Document Change Log
 

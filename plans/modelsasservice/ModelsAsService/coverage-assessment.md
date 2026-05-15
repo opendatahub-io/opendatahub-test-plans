@@ -1,13 +1,14 @@
 # MaaS Billing — Test Coverage Assessment
 
-**Date:** 2026-04-29  
+**Date:** 2026-04-29
 **Author:** QA Team
 
 ---
 
 ## 1. Coverage Summary
 
-The test plan contains **104 test cases** across 5 categories. The table below maps each test case to its automation status and location.
+The test plan contains **104 test cases** across 5 categories. The table below maps each test
+case to its automation status and location.
 
 | TC ID | Title | Pri | Where | Status |
 |---|---|---|---|---|
@@ -135,6 +136,7 @@ The test plan contains **104 test cases** across 5 categories. The table below m
 
 | # | Priority | Action | Owner | Reference |
 |---|---|---|---|---|
+
 No outstanding action items. All 104 test cases are automated and merged.
 
 ---

@@ -2,7 +2,9 @@
 
 **Priority**: P1
 **Objective**: Verify retrieval of all tools for a specific MCP server with pagination
-**Automation Status**: Covered by upstream Go unit tests (`TestFindMCPServerTools` in `api_mcp_catalog_service_service_test.go`, BFF `TestGetMcpServersTools_Success` in `mcp_server_catalog_test.go`)
+**Automation Status**: Covered by upstream Go unit tests (`TestFindMCPServerTools` in
+`api_mcp_catalog_service_service_test.go`, BFF `TestGetMcpServersTools_Success` in
+`mcp_server_catalog_test.go`)
 
 **Preconditions**:
 

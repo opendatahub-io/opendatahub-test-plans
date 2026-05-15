@@ -2,7 +2,10 @@
 
 **Priority**: P1
 **Objective**: Verify documentation-related fields are stored and retrieved correctly
-**Coverage**: Covered upstream — `test_mcp_server_providers()` validates provider matches YAML, `test_mcp_servers_loaded()` checks required fields (id, name, provider, description). Documentation fields (readme, documentationUrl, repositoryUrl, sourceCode) are optional (`omitempty` in Go struct).
+**Coverage**: Covered upstream — `test_mcp_server_providers()` validates provider matches YAML,
+`test_mcp_servers_loaded()` checks required fields (id, name, provider, description).
+Documentation fields (readme, documentationUrl, repositoryUrl, sourceCode) are optional
+(`omitempty` in Go struct).
 
 **Preconditions**:
 

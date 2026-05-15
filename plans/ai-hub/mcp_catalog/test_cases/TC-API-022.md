@@ -2,7 +2,9 @@
 
 **Priority**: P1
 **Objective**: Verify tools excluded by default for single server GET
-**Automation Status**: Covered by upstream Go unit tests (`TestGetMCPServer` in `api_mcp_catalog_service_service_test.go`, BFF `TestGetMcpServer_WithIncludeTools` in `mcp_server_catalog_test.go`)
+**Automation Status**: Covered by upstream Go unit tests (`TestGetMCPServer` in
+`api_mcp_catalog_service_service_test.go`, BFF `TestGetMcpServer_WithIncludeTools` in
+`mcp_server_catalog_test.go`)
 
 **Test Steps**:
 

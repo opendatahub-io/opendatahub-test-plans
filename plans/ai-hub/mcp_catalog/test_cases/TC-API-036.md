@@ -1,7 +1,8 @@
 # TC-API-036: Filter MCP Servers by sourceLabel (Matching Source)
 
 **Priority**: P0
-**Objective**: Verify that the sourceLabel query parameter filters MCP servers to only those from matching sources
+**Objective**: Verify that the sourceLabel query parameter filters MCP servers to only those
+from matching sources
 
 **Preconditions**:
 

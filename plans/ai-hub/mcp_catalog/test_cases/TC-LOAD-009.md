@@ -3,7 +3,9 @@
 **Priority**: P1
 **Objective**: Verify SPDX license IDs are transformed on load via `basecatalog.TransformLicenseToHumanReadable()`
 
-**Automation Status**: Covered by upstream Go unit tests — `catalog/internal/catalog/mcpcatalog/providers_test.go::TestYamlMCPServerLicenseTransformation` and `TestYamlMCPServerLicenseConsistencyWithModels`. No downstream automation needed.
+**Automation Status**: Covered by upstream Go unit tests —
+`catalog/internal/catalog/mcpcatalog/providers_test.go::TestYamlMCPServerLicenseTransformation`
+and `TestYamlMCPServerLicenseConsistencyWithModels`. No downstream automation needed.
 
 **Preconditions**:
 
