@@ -1,20 +1,15 @@
----
-feature: maas_multi_tenancy
-source_key: RHAIRFE-1487
-version: 1.0.0
-status: Draft
-author: QE
-components: []
-additional_docs: []
-last_updated: '2026-05-05'
-source_type: null
-reviewers: []
----
 # MaaS Multi-Tenancy Test Plan
-**QE – Per-Tenant Gateway and Identity Isolation Testing**
 
-**Strategy**: [RHAIRFE-1487](https://redhat.atlassian.net/browse/RHAIRFE-1487)
-**Architecture (draft)**: MaaS Multi-Tenancy Architecture — RHAIRFE-1487
+## Document Information
+
+- **Feature**: MaaS Multi-Tenancy
+- **Epic**: [RHOAIENG-62570](https://redhat.atlassian.net/browse/RHOAIENG-62570)
+- **Feature Story**: [RHAIRFE-1487](https://redhat.atlassian.net/browse/RHAIRFE-1487)
+- **Strategy**: [RHAISTRAT-1741](https://redhat.atlassian.net/browse/RHAISTRAT-1741)
+- **Architecture (v2)**: [MaaS Multi-Tenancy Phase 1 — Working Design](https://docs.google.com/document/d/1Ie0hZFwPlQmVHzZLDtyHxviDXtvwY9wNPjnd1Tw8Gy8/edit?tab=t.0#heading=h.fi2ik433erf1)
+- **Team**: Models as a Service
+- **Version**: 1.1.0
+- **Last Updated**: 2026-05-18
 
 ---
 
@@ -22,28 +17,35 @@ reviewers: []
 
 ### 1.1 Purpose
 
-This test plan validates the operator-managed multi-tenancy capability for MaaS (Models as a Service) in RHOAI. The feature enables platform administrators to provision isolated organizational tenants via a Tenant CR (or ModelsAsService-like successor CR), where the operator automatically creates the tenant's namespace, dedicated Gateway, MaaSAuthPolicy, MaaSSubscription, identity configuration, and Kuadrant-generated rate-limit policies — and cleans them up on deletion.
+This test plan validates the **Phase 1** operator-managed multi-tenancy capability for MaaS (Models as a Service) in RHOAI, as scoped by [RHOAIENG-62570](https://redhat.atlassian.net/browse/RHOAIENG-62570) and refined in [RHAISTRAT-1741](https://redhat.atlassian.net/browse/RHAISTRAT-1741) / Architecture v2.
 
-Multi-tenancy is a critical requirement from AI Service Provider customers and enterprise deployments with multiple departments. Testing must verify that tenant isolation guarantees are maintained across six per-tenant surfaces identified in the architecture: Gateway (ingress/hostname/TLS), MaaSSubscription (model access and limits), MaaSAuthPolicy (auth rules and policy binding), generated Kuadrant policies (AuthPolicy/rate limits), tenant-scoped identity configuration (issuers/clients/JWKS), and usage/billing signals. A shared maas-controller and MaaSModelRef catalog serve all tenants, with access gated per tenant via subscriptions, auth policies, and grants. The test plan covers the gateway-per-tenant deployment pattern (aligned with the PoC) while remaining architecture-agnostic where possible.
+Phase 1 delivers **namespace-based tenant isolation** using a `maas.opendatahub.io/tenant` label. Tenants do not receive a dedicated Gateway — instead, all tenants share a single Gateway with tenant identity enforced through API key scoping, AuthPolicy claim checks, and a new `tenant` column in the `api_keys` table. The maas-controller watches multiple namespaces via label selection and reconciles MaaSSubscription + MaaSAuthPolicy into the shared Kuadrant policy stack. A webhook (S6) prevents out-of-namespace resource creation.
+
+This plan focuses on the engineering stories delivered under Epic [RHOAIENG-62570](https://redhat.atlassian.net/browse/RHOAIENG-62570): [S1/RHOAIENG-62761](https://redhat.atlassian.net/browse/RHOAIENG-62761) (controller multi-namespace reconciliation), [S2/RHOAIENG-62762](https://redhat.atlassian.net/browse/RHOAIENG-62762) (MaaSAuthPolicy policy propagation), [S3/RHOAIENG-62763](https://redhat.atlassian.net/browse/RHOAIENG-62763) (DB schema migration for tenant column), [S4/RHOAIENG-62764](https://redhat.atlassian.net/browse/RHOAIENG-62764) (API key management endpoints), [S5/RHOAIENG-62765](https://redhat.atlassian.net/browse/RHOAIENG-62765) (internal/gateway contract), and [S6/RHOAIENG-62766](https://redhat.atlassian.net/browse/RHOAIENG-62766) (admission webhook). Testing must verify that tenant isolation guarantees hold at the API, data, and policy layers without per-tenant Gateway instances.
 
 ### 1.2 Scope
 
-#### In Scope
+#### In Scope — Phase 1
 
-- Tenant provisioning via Tenant CR (or successor ModelsAsService-like CR) — automated creation of namespace, Gateway, MaaSAuthPolicy, MaaSSubscription, identity configuration, and Kuadrant policies
-- Tenant identity isolation — cross-tenant access prevention for models, API keys, subscriptions, and usage data
-- Long-lived API key support — generation, validation, and tenant-scoped authentication (months/years lifetime)
-- Bring Your Own IDP (BYOIDP) — external identity provider configuration per tenant (issuers, clients, JWKS, secrets)
-- Shared foundation model access grants — platform admin granting specific tenants access to shared MaaSModelRef resources
-- Per-tenant usage metrics isolation — token counts, request rates, showback data accuracy, billing signal partitioning
-- Tenant CR deletion and automated resource cleanup — namespace, Gateway, MaaSSubscription, MaaSAuthPolicy, Kuadrant policies, identity configuration
+- **[S1 / RHOAIENG-62761](https://redhat.atlassian.net/browse/RHOAIENG-62761) — Controller: tenant namespaces + reconcile subs/auth**: maas-controller label-selector watch, namespace discovery via `maas.opendatahub.io/tenant` label, Tenant CR lifecycle (CREATE/UPDATE/DELETE), reconciliation loops for MaaSSubscription + MaaSAuthPolicy
+- **[S2 / RHOAIENG-62762](https://redhat.atlassian.net/browse/RHOAIENG-62762) — Controller: propagate tenant context into policies**: Controller reconciliation of MaaSAuthPolicy into Kuadrant AuthPolicy on the shared Gateway; AuthPolicy attachment, update, and cleanup
+- **[S3 / RHOAIENG-62763](https://redhat.atlassian.net/browse/RHOAIENG-62763) — maas-api DB migration (tenant on api_keys)**: `tenant` column addition to `api_keys` table, sentinel/default-tenant backfill for existing rows, rollback procedure, zero-downtime migration verification
+- **[S4 / RHOAIENG-62764](https://redhat.atlassian.net/browse/RHOAIENG-62764) — maas-api mint/validate/list + tenant**: `POST /v1/api-keys` (create tenant-scoped key), `POST /internal/v1/api-keys/validate` (validate key and return `ValidationResult` with `tenant`, `userID`, `modelRef` fields), key scoping and cross-tenant denial
+- **[S5 / RHOAIENG-62765](https://redhat.atlassian.net/browse/RHOAIENG-62765) — Internal + gateway tenant contract**: `POST /internal/v1/subscriptions/select` with tenant context, `X-MaaS-Tenant` header propagation from gateway (pending Kuadrant/Authorino coordination)
+- **[S6 / RHOAIENG-62766](https://redhat.atlassian.net/browse/RHOAIENG-62766) — Webhook: unsupported namespaces**: Reject MaaSSubscription/MaaSAuthPolicy creation in namespaces without the `maas.opendatahub.io/tenant` label; fail-open vs fail-fast behavior per agreed strategy
+- Tenant identity isolation — cross-tenant access prevention for API keys, subscriptions, and model access
+- Long-lived API key support (months/years lifetime) — generation, validation, tenant column persistence
+- Shared foundation model access (MaaSModelRef) — subscription-based gating per tenant
+- Tenant CR deletion and automated resource cleanup (namespace, MaaSSubscription, MaaSAuthPolicy, generated Kuadrant policies)
 - Per-tenant rate limits and quota enforcement via Kuadrant RateLimitPolicy
-- Gateway-per-tenant deployment pattern (Pattern 1, aligned with PoC and architecture doc)
-- Negative testing: cross-tenant token reuse, model/key enumeration, subscription visibility across tenants (per ADR section 6.5)
+- Negative testing: cross-tenant API key reuse, subscription visibility across tenants, enumeration prevention
 
-#### Out of Scope (Other Teams)
+#### Out of Scope — Phase 1 (Deferred or Other Teams)
 
-- Hosted Control Planes (HCP) deployment pattern — depends on HCP availability in RHOAI; deferred until confirmed
+- **Per-tenant Gateway instances** — Phase 1 uses a shared Gateway; per-tenant Gateway deployment deferred to Phase 2 or a future architecture decision
+- **BYOIDP / External OIDC (AC4 of RHAISTRAT-1741)** — deferred to Phase 2; depends on RHAISTRAT-1656; tested by its own team when ready
+- **Tenant-model restriction (MaaSModelRef binding)** — Phase 2 / L1 scope per RHOAIENG-62570; `MaaSModelRef` tenant binding not implemented in S1–S6
+- **Hosted Control Planes (HCP)** — future direction, not Phase 1; no HCP-specific testing in this plan
 - External billing system implementation — only integration hooks are in scope
 - Foundation model training or fine-tuning per tenant
 - MaaS single-tenant functionality (covered by existing test suites)
@@ -52,13 +54,14 @@ Multi-tenancy is a critical requirement from AI Service Provider customers and e
 
 ### 1.3 Test Objectives
 
-1. Verify that a platform admin can provision a new tenant via a single ModelsAsService-like CR, and the operator automatically creates the tenant namespace, gateway, identity realm, and policies
-2. Verify that tenant users cannot discover or access models, API keys, or usage data belonging to other tenants (hard identity and data isolation)
-3. Verify that long-lived API keys (months/years lifetime) are supported, correctly scoped to tenant identity, and functional for model inference authentication
-4. Verify that a tenant can configure an external identity provider (BYOIDP) and authenticate users through the federated IDP
-5. Verify that platform admins can expose shared foundation models to specific tenants via an access grant mechanism, and unauthorized tenants are denied access
-6. Verify that per-tenant usage metrics (token counts, request rates) are correctly isolated and accurately attributed for showback
-7. Verify that tenant CR deletion triggers automatic cleanup of all tenant-owned resources (namespace, gateway, routes, identity configuration, policies) with no orphaned resources
+1. **[S1 / RHOAIENG-62761](https://redhat.atlassian.net/browse/RHOAIENG-62761)** Verify that the maas-controller discovers and reconciles all namespaces labeled `maas.opendatahub.io/tenant`, creating/updating/deleting corresponding tenant resources on Tenant CR lifecycle events
+2. **[S2 / RHOAIENG-62762](https://redhat.atlassian.net/browse/RHOAIENG-62762)** Verify that MaaSAuthPolicy changes are propagated to Kuadrant AuthPolicy on the shared Gateway with correct attachment, update, and deletion behavior
+3. **[S3 / RHOAIENG-62763](https://redhat.atlassian.net/browse/RHOAIENG-62763)** Verify the `tenant` column DB migration runs successfully, backfills existing `api_keys` rows with a sentinel/default-tenant value, and is rollback-safe
+4. **[S4 / RHOAIENG-62764](https://redhat.atlassian.net/browse/RHOAIENG-62764)** Verify `POST /v1/api-keys` creates API keys persisted with the correct `tenant` value, and `POST /internal/v1/api-keys/validate` returns a `ValidationResult` including `tenant`, `userID`, and `modelRef` fields; cross-tenant API key reuse is denied
+5. **[S5 / RHOAIENG-62765](https://redhat.atlassian.net/browse/RHOAIENG-62765)** Verify `POST /internal/v1/subscriptions/select` respects tenant context and that `X-MaaS-Tenant` header is forwarded by the Gateway for valid requests
+6. **[S6 / RHOAIENG-62766](https://redhat.atlassian.net/browse/RHOAIENG-62766)** Verify the admission webhook rejects MaaSSubscription/MaaSAuthPolicy creation in namespaces without the `maas.opendatahub.io/tenant` label, following the agreed failure strategy
+7. Verify that platform admins can expose shared foundation models to specific tenants via MaaSSubscription, and unauthorized tenants are denied access
+8. Verify that Tenant CR deletion triggers automatic cleanup of all tenant-owned Kubernetes resources with no orphaned objects
 
 ---
 
@@ -66,12 +69,9 @@ Multi-tenancy is a critical requirement from AI Service Provider customers and e
 
 ### 2.1 Test Levels
 
-- **API Integration Testing** — Validate tenant provisioning APIs, gateway route creation, identity realm configuration, and model access grant endpoints
-- **Data Validation Testing** — Verify tenant isolation at the data layer (API keys, usage metrics, model catalog visibility), cross-tenant data leakage prevention, and billing integration data accuracy
-- **Functional Testing** — Test tenant lifecycle (create, configure, delete), BYOIDP integration flows, shared model access grants, rate limit and quota enforcement per tenant
-- **Performance Testing** — Assess gateway routing overhead with multiple tenants, identity realm lookup latency, concurrent tenant provisioning, and multi-tenant workload scalability
-- **Security Testing** — Verify tenant identity isolation, RBAC boundaries between tenants, API key scoping and validation, external IDP authentication flows, and privilege escalation prevention
-
+- **API Integration Testing** — Validate tenant provisioning APIs, `POST /v1/api-keys`, `POST /internal/v1/api-keys/validate`, `POST /internal/v1/subscriptions/select`, and admission webhook responses
+- **Data Validation Testing** — Verify tenant isolation at the DB layer (`api_keys.tenant` column correctness, migration backfill), cross-tenant data leakage prevention, and `ValidationResult` field accuracy
+- **Functional Testing** — Test Tenant CR lifecycle (create, configure, delete), namespace label discovery, MaaSAuthPolicy propagation to Kuadrant, and webhook admit/reject decisions
 ### 2.2 Test Types
 
 - **Positive Testing** — Valid tenant provisioning workflows, successful BYOIDP configuration, authorized model access within tenant scope, API key lifecycle management
@@ -81,9 +81,9 @@ Multi-tenancy is a critical requirement from AI Service Provider customers and e
 
 ### 2.3 Test Priorities
 
-- **P0 (Critical)** — Tenant identity isolation (no cross-tenant access to models, API keys, or usage data), automated tenant resource cleanup on CR deletion, shared model access control enforcement
-- **P1 (High)** — BYOIDP integration flows, per-tenant rate limits and quotas, long-lived API key generation and validation, usage metrics isolation for billing integration
-- **P2 (Medium)** — Tenant-specific model catalog visibility, billing integration hooks, documentation coverage for onboarding and configuration
+- **P0 (Critical)** — Tenant identity isolation via API key `tenant` column (S3/S4), cross-tenant API key reuse denial (S4), maas-controller namespace reconciliation via label selector (S1), automated Tenant CR cleanup, shared model access control via MaaSSubscription
+- **P1 (High)** — MaaSAuthPolicy propagation to Kuadrant AuthPolicy (S2), admission webhook reject behavior (S6), `POST /internal/v1/subscriptions/select` tenant enforcement (S5), `ValidationResult` tenant/userID/modelRef fields (S4), `X-MaaS-Tenant` header forwarding (S5)
+- **P2 (Medium)** — DB migration rollback procedure (S3), billing integration hooks, documentation coverage for onboarding, edge cases in webhook failure strategy
 
 ---
 
@@ -91,36 +91,24 @@ Multi-tenancy is a critical requirement from AI Service Provider customers and e
 
 ### 3.1 Test Cluster Configuration
 
-- OpenShift cluster 4.14+
-- RHOAI with MaaS operator (from opendatahub-io/models-as-a-service repository)
-- Kuadrant operator (for AuthPolicy and RateLimitPolicy generation)
-- Gateway API implementation (for per-tenant Gateway resources)
-- Identity management system (TBD per open question 6.2: realm-per-tenant vs single IdP with audience/claim discrimination)
-- Metrics and monitoring stack for usage tracking (Prometheus, Thanos, or equivalent)
-- Database infrastructure (TBD per open question 6.1: shared DB with tenant_id partitioning vs separate DB per tenant vs separate maas-api per tenant)
+- **OpenShift** 4.19+
+- **RHOAI** 3.4+
+- **Database**: PostgreSQL
+- **Python** 3.11+ (for pytest tests)
 
 ### 3.2 Test Data Requirements
 
-- Sample Tenant CRs with varying gateway references and OIDC configurations
-- MaaSSubscription CRs defining model access and limits per tenant
-- MaaSAuthPolicy CRs with tenant-specific authentication rules
-- MaaSModelRef CRs representing the shared model catalog
-- Access grant configuration for cross-tenant model sharing (format TBD)
-- Mock OIDC issuer configurations (JWKS endpoints, client credentials) for BYOIDP testing
-- Sample API key sets scoped to different tenant identities
-- Usage/billing signal data for metric isolation verification
-- Sample Gateway and HTTPRoute configurations per tenant with ingress/hostname/TLS posture
-- Test model catalog data with varying visibility scopes per tenant
+- At least 3 test tenants (e.g., `tenant-a`, `tenant-b`, `tenant-c`)
+- Sample Tenant CRs, MaaSSubscription CRs, and MaaSAuthPolicy CRs per tenant
+- At least one model deployed and registered as a MaaSModelRef CR (deployed as part of test setup)
+- API keys scoped to each tenant (for cross-tenant denial testing)
+- Labeled and unlabeled namespaces (for webhook testing)
 
 ### 3.3 Test Users
 
-- **Platform admin** — Cluster-admin privileges for provisioning Tenant CRs, managing maas-controller, and configuring shared MaaSModelRef resources
-- **Tenant admin** — Namespace-scoped permissions for managing tenant resources (RBAC scope TBD per open question 6.3)
-- **Tenant user** — Regular user consuming models via tenant-scoped API keys
-- **BYOIDP test user** — Federated identities per tenant with different issuer/audience claims for external IDP testing
-- **Service account** — Per-tenant service accounts for API key validation and automation scenarios
-- **Cross-tenant attacker** — Users with valid credentials from Tenant A attempting access to Tenant B resources (negative testing)
-- **Anonymous user** — For unauthorized access testing
+- **Cluster admin** — Creates and manages tenants (tenant-a, tenant-b, etc.); provisions Tenant CRs and manages maas-controller
+- **Tenant user** — Regular user within a tenant consuming models via tenant-scoped API keys
+- **Cross-tenant attacker** — User with valid credentials from Tenant A attempting access to Tenant B resources (negative testing)
 
 ---
 
@@ -150,37 +138,42 @@ Multi-tenancy is a critical requirement from AI Service Provider customers and e
 
 | Interface | Method | Purpose | Priority |
 |-----------|--------|---------|----------|
-| MaaSModelRef CR | GET/LIST | Shared model catalog; list/get operations must enforce tenant scope and access grants — "shared" does not mean "visible in every tenant's API responses" | P0 |
-| Shared model access grant mechanism | CREATE | Platform admin grants tenant access to a shared foundation model (mechanism TBD — may be CR, API, or RBAC annotation) | P0 |
-| Shared model access grant mechanism | DELETE | Revoke a tenant's access to a shared model | P0 |
-| Shared model access grant mechanism | GET/LIST | List access grants for a tenant or model | P1 |
+| MaaSModelRef CR | GET/LIST | Shared model catalog; verify tenant can only see models they are subscribed to | P1 |
 
 ### 4.4 Tenant Resource Verification
 
 | Interface | Method | Purpose | Priority |
 |-----------|--------|---------|----------|
-| Tenant namespace | Verify creation | Confirm namespace is created with correct labels and network policies | P0 |
-| Tenant Gateway (Gateway API) | Verify creation | Confirm dedicated gateway with ingress/hostname/TLS posture is provisioned per tenant | P0 |
-| Tenant HTTPRoute | Verify creation | Confirm routes are created for tenant model endpoints on the tenant's gateway | P0 |
-| Tenant identity configuration | Verify creation | Confirm tenant-scoped issuers, clients, JWKS, and secrets are configured | P0 |
+| Tenant namespace | Verify creation | Confirm namespace is created with `maas.opendatahub.io/tenant` label and correct RBAC | P0 |
+| Shared Gateway | Verify routing | Confirm single shared Gateway routes tenant requests via AuthPolicy claim checks (no per-tenant Gateway) | P0 |
+| Tenant identity configuration | Verify | Confirm tenant-scoped claims/audiences are configured in shared IdP (realm-per-tenant deferred to Phase 2) | P1 |
 
-### 4.5 Authentication and Identity
-
-| Interface | Method | Purpose | Priority |
-|-----------|--------|---------|----------|
-| Tenant API key (via maas-api) | CREATE | Generate long-lived API key scoped to tenant identity | P0 |
-| Tenant API key (via maas-api) | VALIDATE | Authenticate model inference request with tenant-scoped API key | P0 |
-| BYOIDP configuration | CREATE/UPDATE | Configure external identity provider per tenant (issuer, client, JWKS endpoints) — depends on RHAISTRAT-1120 | P1 |
-| BYOIDP authentication | AUTH | Authenticate via federated external IDP with tenant-scoped claims and audiences | P1 |
-
-### 4.6 Metrics, Usage, and Billing
+### 4.5 Authentication, Identity, and API Keys (S4)
 
 | Interface | Method | Purpose | Priority |
 |-----------|--------|---------|----------|
-| Per-tenant usage metrics | GET | Retrieve token counts, request rates per tenant; must be partitioned so one tenant cannot read another's consumption | P1 |
-| Billing integration hooks | EXPORT | Export per-tenant metering data for cost attribution (format TBD) | P2 |
+| `POST /v1/api-keys` | CREATE | Generate long-lived API key; verify `tenant` field persisted in `api_keys` table | P0 |
+| `POST /internal/v1/api-keys/validate` | VALIDATE | Validate API key and return `ValidationResult{tenant, userID, modelRef}`; cross-tenant key returns 401 | P0 |
+| `GET /v1/api-keys` | LIST | List API keys scoped to the tenant; verify keys from other tenants are not visible | P1 |
 
-### 4.7 Isolation Enforcement (Negative Testing)
+### 4.6 Internal/Gateway Contract (S5)
+
+| Interface | Method | Purpose | Priority |
+|-----------|--------|---------|----------|
+| `POST /internal/v1/subscriptions/select` | SELECT | Verify tenant context is used to select correct subscription; unauthorized tenant returns 403 | P1 |
+| `X-MaaS-Tenant` header | FORWARD | Verify Gateway forwards `X-MaaS-Tenant` header on valid authenticated requests (pending Kuadrant/Authorino coordination) | P1 |
+
+### 4.7 Admission Webhook (S6)
+
+| Interface | Method | Purpose | Priority |
+|-----------|--------|---------|----------|
+| MaaSSubscription in unlabeled namespace | REJECT | Webhook rejects CREATE in namespace without `maas.opendatahub.io/tenant` label | P1 |
+| MaaSAuthPolicy in unlabeled namespace | REJECT | Webhook rejects CREATE in namespace without `maas.opendatahub.io/tenant` label | P1 |
+| MaaSSubscription in labeled namespace | ALLOW | Webhook admits CREATE in correctly labeled tenant namespace | P1 |
+| Webhook failure mode | VERIFY | Validate fail-open vs. fail-fast behavior matches agreed strategy from design doc | P2 |
+
+
+### 4.9 Isolation Enforcement (Negative Testing)
 
 | Interface | Method | Purpose | Priority |
 |-----------|--------|---------|----------|
@@ -201,86 +194,35 @@ Multi-tenancy is a critical requirement from AI Service Provider customers and e
 
 ### 5.1 Test Case Organization
 
-> **Note**: To be filled later in the process.
+Test cases are organized by category and stored as individual markdown files in the `test_cases/` directory:
 
 | Category | Test Cases | Priority Distribution |
 |----------|------------|----------------------|
-| | | |
+| Tenant Provisioning & CR Lifecycle | TC-PROV-001 to TBD | TBD |
+| Controller Reconciliation | TC-CTRL-001 to TBD | TBD |
+| AuthPolicy Propagation | TC-POLICY-001 to TBD | TBD |
+| API Key Management | TC-APIKEY-001 to TBD | TBD |
+| Internal/Gateway Contract | TC-CONTRACT-001 to TBD | TBD |
+| Admission Webhook | TC-WEBHOOK-001 to TBD | TBD |
+| Tenant Isolation (Negative) | TC-ISO-001 to TBD | TBD |
+| Tenant Cleanup | TC-CLEANUP-001 to TBD | TBD |
+| End-to-End Scenarios | TC-E2E-001 to TBD | TBD |
 
 ### 5.2 Test Case Naming Convention
 
 Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 
-- **TC-PROV** — Tenant provisioning and CR lifecycle
-- **TC-ISO** — Tenant isolation and cross-tenant access prevention
-- **TC-AUTH** — Authentication, API keys, and identity management
-- **TC-BYOIDP** — Bring Your Own IDP configuration and flows
-- **TC-GRANT** — Shared model access grants
-- **TC-METRICS** — Per-tenant usage metrics and billing integration
-- **TC-CLEANUP** — Tenant deletion and resource cleanup
-- **TC-POLICY** — Rate limits, quotas, and policy enforcement
-- **TC-E2E** — End-to-end tenant lifecycle scenarios
+- **TC-PROV-xxx** — Tenant provisioning and CR lifecycle (S1)
+- **TC-CTRL-xxx** — maas-controller multi-namespace reconciliation (S1)
+- **TC-POLICY-xxx** — MaaSAuthPolicy propagation and Kuadrant policy management (S2)
+- **TC-APIKEY-xxx** — API key create/validate/list, `ValidationResult` fields, cross-tenant denial (S4)
+- **TC-CONTRACT-xxx** — Internal/gateway contract: subscriptions select, X-MaaS-Tenant header (S5)
+- **TC-WEBHOOK-xxx** — Admission webhook admit/reject behavior (S6)
+- **TC-ISO-xxx** — Tenant isolation and cross-tenant access prevention
+- **TC-CLEANUP-xxx** — Tenant deletion and resource cleanup
+- **TC-E2E-xxx** — End-to-end tenant lifecycle scenarios
 
 ---
-
-## 6. E2E Test Scenarios
-
-End-to-end scenarios that validate the user journeys defined in the strategy. Each scenario maps to one or more TC-E2E-*.md test cases generated by `/test-plan.create-cases`.
-
-> **Requirement**: At least one E2E scenario MUST be generated for each P0 endpoint in Section 4.
-> E2E scenarios will be filled by `/test-plan.create-cases`.
-
-### 6.1 Scenario Summary
-
-> **Note**: E2E scenarios have not been generated yet. To be filled later in the process.
-
-| ID | Scenario | Endpoints Covered | Priority |
-|----|----------|-------------------|----------|
-| | | | |
-
-### 6.2 E2E Coverage Matrix
-
-> **Note**: To be filled later in the process.
-
-| Endpoint (from Section 4) | E2E Scenarios |
-|----------------------------|---------------|
-| | |
-
----
-
-## 7. Non-Functional Requirements
-
-Each category below must be explicitly addressed. If a category does not apply to this feature, state **Not Applicable** with a brief justification.
-
-### 7.1 Disconnected/Air-Gapped
-
-**Not Applicable** — The multi-tenancy feature operates on existing RHOAI infrastructure without introducing new external network dependencies. The strategy does not mention external registry dependencies, operator catalog sources, or runtime image pulls that would require disconnected environment testing. Identity realm integration and gateway provisioning are cluster-internal operations.
-
-### 7.2 Upgrade/Migration
-
-- **Single-tenant to multi-tenant migration** — Existing MaaSSubscription, MaaSAuthPolicy, and usage data must be migrated or assigned to a default tenant when upgrading from single-tenant to multi-tenant model
-- **Tenant CR schema stability** — Test upgrades where Tenant CRs created in older RHOAI versions must remain functional after operator upgrade; verify CRD schema changes are backwards compatible
-- **Backward compatibility** — Shared maas-controller must reconcile both single-tenant (legacy) and multi-tenant CRs during transition period
-- **Identity realm migration** — If identity configuration format changes between versions, test migration of existing tenant realms without forcing re-authentication or API key regeneration
-- **Shared model access grants** — Verify upgrade does not break existing cross-namespace model access configurations; test rollback scenarios where tenant namespaces must revert to previous state
-- **Multi-tenant to multi-tenant upgrade** — Test operator upgrade path when tenants are already provisioned (no manual intervention required to preserve tenant isolation)
-- **Data layer migration** — Migration strategy depends on final data layer decision (shared DB with tenant_id vs separate DB/maas-api per tenant); rollback scenarios must be tested
-
-### 7.3 Performance/Scalability
-
-- **Gateway routing overhead** — Test API request latency with 10, 50, 100+ tenants to identify routing table lookup degradation
-- **Identity realm lookup** — Measure authentication time when validating API keys across multiple tenant identity realms
-- **Concurrent tenant provisioning** — Test operator behavior when multiple tenant CRs are created simultaneously (namespace creation, gateway provisioning, policy application)
-- **Large model catalog filtering** — Assess UI and API response times when filtering shared model catalog visibility per tenant with hundreds of models
-- **Usage metrics aggregation** — Test billing integration hook performance when collecting per-tenant token counts and request rates at scale
-
-### 7.4 RBAC/Authorization
-
-- **Tenant-scoped API key validation** — Test that API keys generated for Tenant A cannot authenticate requests to Tenant B's gateway or model endpoints
-- **Platform admin vs. tenant user roles** — Verify platform admins can provision/delete tenants but cannot impersonate tenant users; tenant users cannot access platform-level tenant management APIs
-- **Shared model access grants** — Test that only explicitly granted tenants can access shared foundation models; unauthorized tenants receive 403 Forbidden responses
-- **BYOIDP permission mapping** — Validate that external IDP roles correctly map to tenant-scoped permissions and do not leak into other tenant realms
-- **Service account isolation** — Ensure operator service accounts managing tenant resources cannot be used to escalate privileges across tenant boundaries
 
 ---
 
@@ -288,17 +230,12 @@ Each category below must be explicitly addressed. If a category does not apply t
 
 | Risk | Impact | Probability | Mitigation |
 |------|--------|-------------|------------|
-| Dependency on RHAISTRAT-1120 (External OIDC Support) blocks BYOIDP testing until identity realm integration is complete | High | Medium | Coordinate with RHAISTRAT-1120 team for delivery timeline; implement tenant provisioning without BYOIDP first, add OIDC as phase 2 |
-| Open question 6.1 (Data layer decision) — Shared DB vs separate DB/maas-api per tenant impacts isolation guarantees, migration complexity, and test coverage | High | High | Escalate architectural decision to design review; defer detailed data migration tests until decision locked; prepare test scenarios for both options |
-| Open question 6.2 (Identity realm topology) — Realm-per-tenant vs single IdP design affects BYOIDP integration and token validation paths | Medium | High | Prototype both approaches in test environment; measure latency and operational complexity before committing |
-| Cross-tenant enumeration attacks — API keys, model names, or usage data leaked via timing attacks or error messages (per ADR section 6.5 verification requirements) | High | Medium | Implement negative E2E tests early; fuzz endpoints for information disclosure; audit all error responses for tenant identifiers |
-| Gateway policy merging conflicts — ADR section 4 notes "merging complications possible" for Kuadrant AuthPolicy/rate limits tied to tenant CRs | Medium | High | Test concurrent tenant provisioning; validate policy merge logic with Kuadrant team; implement conflict detection in maas-controller |
-| Open question 6.3 (Namespace topology) — One namespace per tenant vs multiple affects RBAC complexity and resource quotas | Medium | High | Define namespace strategy before E2E test environment setup; document in test plan prerequisites |
-| Shared model access grant mechanism is described at high level — unclear if grants are namespace-based, RBAC-based, or custom policy (MaaSModelRef is shared but access must be per-tenant) | Medium | High | Request API spec or design doc for shared model access grant implementation; delay access grant testing until specification is available |
-| Automated cleanup on tenant CR deletion may fail partially (orphaned MaaSSubscription, MaaSAuthPolicy, or Kuadrant policies) if operator crashes mid-deletion | Medium | Medium | Add finalizers to Tenant CR; test cascading deletion in CI; verify cleanup via automated post-deletion assertions |
-| Long-lived API keys (months/years) introduce key rotation and revocation complexity not addressed in strategy | Medium | Low | Test key lifecycle at accelerated timescales (mock expiration dates); define rotation SOP and test automation for revoked key propagation |
-| Per-tenant metric cardinality explosion — high tenant count multiplied by per-tenant labels (open question 6.4) may degrade observability backend | Medium | Medium | Load test metric collection with 100+ tenants; consult observability team for metric cardinality limits |
-| Test environment may not support multiple tenants at scale (limited cluster resources for 50+ tenant test) | Medium | Medium | Prioritize functional isolation tests over scale tests; use lightweight mock workloads per tenant; coordinate with infrastructure team for dedicated multi-tenant test cluster |
+| X-MaaS-Tenant header spec not finalized (S5) | Medium | Medium | Confirm header spec with Kuadrant/Authorino team before writing S5 test cases |
+| Webhook failure strategy not documented (S6) | Medium | Medium | Request finalized fail-open vs. fail-fast decision from dev team before writing TC-WEBHOOK cases |
+| ValidationResult JSON schema not specified (S4) | Medium | Low | Request OpenAPI spec or example response from dev team |
+| Architecture pivot (HCP vs. shared cluster) | High | Low | Test plan is grounded in Architecture v2 and S1–S6; re-scope if HCP re-enters Phase 1 |
+| Single shared Gateway — one tenant's misconfigured policy affects others | High | Medium | Add negative tests for cross-tenant policy contamination; coordinate with Kuadrant team |
+| Tenant CR deletion — partial cleanup if operator crashes mid-delete | Medium | Medium | Verify cascading deletion via finalizers; assert no orphaned resources post-delete |
 
 ---
 
@@ -306,42 +243,24 @@ Each category below must be explicitly addressed. If a category does not apply t
 
 ### 9.1 Infrastructure
 
-- Single OpenShift cluster for Pattern 1 (gateway-per-tenant) testing
-- Single maas-controller deployment managing multiple tenants (expanded RBAC required)
-- Per-tenant Gateway instances (dedicated ingress paths, separate hostnames/TLS)
-- Kuadrant operator for AuthPolicy and RateLimitPolicy generation
-- Database infrastructure — decision pending per ADR open question 6.1 (shared DB with tenant_id partitioning vs separate DB per tenant vs separate maas-api per tenant)
-- External OIDC provider infrastructure for BYOIDP testing (depends on RHAISTRAT-1120)
-- Shared MaaSModelRef catalog accessible to all tenants with subscription-based gating
-- Observability backend capable of tenant-labeled metrics and logs
+- **OpenShift**: 4.19+
+- **RHOAI**: 3.4+ with MaaS operator deployed
+- **Database**: PostgreSQL
+- **Kuadrant**: operator deployed for AuthPolicy and RateLimitPolicy
 
 ### 9.2 Configuration
 
-- Tenant CR specifications (gateway references, API/OIDC config per tenant)
-- RBAC policies for maas-controller to manage multi-tenant resources across namespaces
-- MaaSSubscription CRs defining model access limits per tenant
-- MaaSAuthPolicy CRs defining authentication rules per tenant
-- Kuadrant AuthPolicy generated from MaaSAuthPolicy CRs
-- Kuadrant RateLimitPolicy generated per tenant from subscription limits
-- OIDC issuer endpoints, JWKS URLs, client secrets per tenant
-- Namespace topology configuration — decision pending per ADR open question 6.3
-- Metric/log label configuration for per-tenant showback
-- Feature flags for multi-tenancy enablement (if applicable)
+- At least 2 tenant namespaces labeled with `maas.opendatahub.io/tenant`
+- MaaSSubscription and MaaSAuthPolicy CRs per tenant
+- Webhook configured for MaaSSubscription/MaaSAuthPolicy admission (S6)
+- At least one model deployed and registered as a MaaSModelRef CR
 
 ### 9.3 Test Tools
 
-- `oc`/`kubectl` for CR management and cluster inspection
-- `curl`/`httpie` for API endpoint testing with tenant-scoped API keys
-- `jq` for JSON response parsing and validation
-- Database query tools (psql/mysql) — pending data layer decision
-- OIDC token generators (jwt.io, custom scripts) for creating tenant-scoped tokens
-- Prometheus/Grafana for validating per-tenant usage metric isolation
-- Log aggregation tools (EFK/Loki) for tenant-partitioned log verification
-- CR validation tools (`kubectl dry-run`, `kubeconform`)
-- `yq` for YAML manipulation and validation
-- Network policy testing tools for tenant isolation verification
-- Load testing tools (`k6`, `Locust`, or Apache Bench) for rate-limit and performance testing
-- Git for accessing the reference PoC repository (bartoszmajsak/maas-multi-tenancy-poc)
+- **API Testing**: `curl`, `pytest` + `requests`
+- **CR Management**: `oc` / `kubectl`
+- **Database**: `psql`
+- **Log Viewing**: `oc logs`, `kubectl logs`
 
 ---
 
@@ -357,43 +276,51 @@ Each category below must be explicitly addressed. If a category does not apply t
 
 ### 10.2 Interface Coverage
 
-| Interface | Test Cases | Coverage |
-|-----------|------------|----------|
-| Tenant CR — CREATE | | |
-| Tenant CR — DELETE | | |
-| Tenant CR — UPDATE | | |
-| Tenant CR — GET/LIST | | |
-| MaaSSubscription CR — CREATE | | |
-| MaaSSubscription CR — UPDATE/DELETE | | |
-| MaaSAuthPolicy CR — CREATE | | |
-| MaaSAuthPolicy CR — UPDATE/DELETE | | |
-| Kuadrant AuthPolicy — Verify creation | | |
-| Kuadrant RateLimitPolicy — Verify creation | | |
-| MaaSModelRef CR — GET/LIST | | |
-| Shared model access grant — CREATE | | |
-| Shared model access grant — DELETE | | |
-| Shared model access grant — GET/LIST | | |
-| Tenant namespace — Verify creation | | |
-| Tenant Gateway — Verify creation | | |
-| Tenant HTTPRoute — Verify creation | | |
-| Tenant identity configuration — Verify creation | | |
-| Tenant API key — CREATE | | |
-| Tenant API key — VALIDATE | | |
-| BYOIDP configuration — CREATE/UPDATE | | |
-| BYOIDP authentication — AUTH | | |
-| Per-tenant usage metrics — GET | | |
-| Billing integration hooks — EXPORT | | |
-| Cross-tenant model access — DENY | | |
-| Cross-tenant API key reuse — DENY | | |
-| Cross-tenant metrics/usage — DENY | | |
-| Cross-tenant key/model enumeration — DENY | | |
-| Subscription change isolation — DENY | | |
+| Interface | Story | Test Cases | Coverage |
+|-----------|-------|------------|----------|
+| Tenant CR — CREATE | S1 | | |
+| Tenant CR — DELETE | S1 | | |
+| Tenant CR — UPDATE | S1 | | |
+| Tenant CR — GET/LIST | S1 | | |
+| MaaSSubscription CR — CREATE | S1 | | |
+| MaaSSubscription CR — UPDATE/DELETE | S1 | | |
+| MaaSAuthPolicy CR — CREATE | S2 | | |
+| MaaSAuthPolicy CR — UPDATE/DELETE | S2 | | |
+| Kuadrant AuthPolicy — Verify creation | S2 | | |
+| Kuadrant RateLimitPolicy — Verify creation | S2 | | |
+| MaaSModelRef CR — GET/LIST | S1 | | |
+| Shared model access grant — CREATE | S1 | | |
+| Shared model access grant — DELETE | S1 | | |
+| Shared model access grant — GET/LIST | S1 | | |
+| Tenant namespace — Verify creation (with label) | S1 | | |
+| Shared Gateway — Verify routing | S2 | | |
+| Tenant identity configuration — Verify | S1 | | |
+| `api_keys.tenant` column — DB migration | S3 | | |
+| `api_keys` backfill — sentinel value | S3 | | |
+| `POST /v1/api-keys` — CREATE | S4 | | |
+| `POST /internal/v1/api-keys/validate` — VALIDATE | S4 | | |
+| `ValidationResult` — tenant/userID/modelRef fields | S4 | | |
+| `POST /internal/v1/subscriptions/select` — tenant | S5 | | |
+| `X-MaaS-Tenant` header — FORWARD | S5 | | |
+| Webhook — MaaSSubscription reject (unlabeled ns) | S6 | | |
+| Webhook — MaaSAuthPolicy reject (unlabeled ns) | S6 | | |
+| Webhook — admit (labeled ns) | S6 | | |
+| BYOIDP configuration — CREATE/UPDATE | deferred | N/A — Phase 2 | |
+| BYOIDP authentication — AUTH | deferred | N/A — Phase 2 | |
+| Per-tenant usage metrics — GET | | | |
+| Billing integration hooks — EXPORT | | | |
+| Cross-tenant API key reuse — DENY | S4 | | |
+| Cross-tenant model access — DENY | S1 | | |
+| Cross-tenant metrics/usage — DENY | | | |
+| Cross-tenant key/model enumeration — DENY | S4 | | |
+| Subscription change isolation — DENY | S1 | | |
 
 ### 10.3 Document Change Log
 
 | Version | Date | Changes |
 |---------|------|---------|
-| 1.0.0 | 2026-05-04 | Initial test plan |
+| 1.0.0 | 2026-05-04 | Initial test plan (based on RHAIRFE-1487 strategy) |
+| 1.1.0 | 2026-05-18 | Major update: Incorporated RHAISTRAT-1741, Architecture v2 PDF, and RHOAIENG-62570 (S1–S6 child stories). Shifted scope from per-tenant Gateway to namespace-label / shared-gateway (Phase 1 posture). Added S1 controller reconciliation, S2 AuthPolicy propagation, S3 DB migration, S4 API key endpoints, S5 internal/gateway contract, S6 admission webhook. Deferred BYOIDP, per-tenant Gateway, and MaaSModelRef binding to Phase 2. Resolved data-layer and namespace-topology open questions. Added architecture-divergence, single-gateway blast-radius, and webhook-strategy risks. Updated NFRs, infra config, test tools, and interface coverage table. |
 
 ---
 
