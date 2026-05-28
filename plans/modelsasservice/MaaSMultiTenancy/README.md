@@ -1,6 +1,8 @@
 # MaaS Multi-Tenancy Test Plan
 
-Multi-tenancy support for MaaS enabling platform admins to provision isolated tenants, with automated policy propagation and API key scoping.
+Multi-tenancy support for MaaS enabling platform admins to
+provision isolated tenants, with automated policy
+propagation and API key scoping.
 
 ## Documentation
 
@@ -23,7 +25,7 @@ Multi-tenancy support for MaaS enabling platform admins to provision isolated te
 
 ## Directory Structure
 
-```
+```text
 MaaSMultiTenancy/
 ├── README.md          # This file
 ├── TestPlan.md        # Main test plan document

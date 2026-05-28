@@ -8,19 +8,25 @@ last_updated: "2026-05-18"
 ---
 # TC-CLEANUP-001: Delete Tenant CR — all tenant-owned resources removed
 
-**Objective**: Verify that deleting a Tenant CR triggers the maas-controller to remove all tenant-owned Kubernetes resources with no orphaned objects.
+**Objective**: Verify that deleting a Tenant CR triggers the
+maas-controller to remove all tenant-owned Kubernetes
+resources with no orphaned objects.
 
 **Preconditions**:
-- Tenant `tenant-a` is fully provisioned with: namespace, MaaSSubscription, MaaSAuthPolicy, Kuadrant AuthPolicy
+
+- Tenant `tenant-a` is fully provisioned with: namespace,
+  MaaSSubscription, MaaSAuthPolicy, Kuadrant AuthPolicy
 - At least one API key exists for `tenant-a`
 
 **Test Steps**:
+
 1. Record all resources owned by `tenant-a` (namespace, CRs, generated policies)
 2. Delete the Tenant CR: `kubectl delete tenant tenant-a`
 3. Wait for finalizer processing and controller reconciliation
 4. Check for existence of each recorded resource
 
 **Expected Results**:
+
 - Namespace `tenant-a` is deleted
 - MaaSSubscription in `tenant-a` is deleted
 - MaaSAuthPolicy in `tenant-a` is deleted
