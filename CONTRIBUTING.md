@@ -8,8 +8,10 @@ To get an overview of the project, read the [README](README.md).
 
 ## Adding a new test plan
 
-You can create test plans **manually** or use the [odh-test-gen](<https://github.com/opendatahub-io>
-/odh-test-gen) skills to generate them from a Jira strategy (STRAT) or ADR.
+You can create test plans **manually** or use the
+[odh-test-gen](<https://github.com/opendatahub-io/odh-test-gen>)
+skills to generate them from a Jira strategy (STRAT)
+or RHOAI ticket.
 
 ### Manual creation
 
