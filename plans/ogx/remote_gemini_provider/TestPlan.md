@@ -188,7 +188,7 @@ custom per-provider workarounds in the distribution.
     dependency
 - **Sample Request/Response Payloads**:
   - **Chat Completions (non-streaming)**:
-    ```
+    ```http
     POST /v1/chat/completions
     Content-Type: application/json
 
@@ -201,7 +201,7 @@ custom per-provider workarounds in the distribution.
     }
     ```
   - **Chat Completions (streaming)**:
-    ```
+    ```http
     POST /v1/chat/completions
     Content-Type: application/json
 
@@ -215,7 +215,7 @@ custom per-provider workarounds in the distribution.
     }
     ```
   - **Chat Completions (per-request API key override)**:
-    ```
+    ```http
     POST /v1/chat/completions
     Content-Type: application/json
     x-ogx-provider-data: {"gemini_api_key": "<SECONDARY-API-KEY>"}
@@ -228,7 +228,7 @@ custom per-provider workarounds in the distribution.
     }
     ```
   - **Tool Calling**:
-    ```
+    ```http
     POST /v1/chat/completions
     Content-Type: application/json
 
@@ -258,7 +258,7 @@ custom per-provider workarounds in the distribution.
     Expected response includes `tool_calls` array with
     `function.name` and `function.arguments`.
   - **Embeddings**:
-    ```
+    ```http
     POST <embeddings-endpoint>
     Content-Type: application/json
 

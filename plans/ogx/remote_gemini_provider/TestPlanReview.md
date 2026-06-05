@@ -61,27 +61,51 @@ error: null
 - Section 4 priorities vs Section 2.3 definitions: PASS
 - Section 10.2 vs Section 4 endpoints: PASS
 - Section 7 NFR categories vs feature scope: PASS
-- Section 6.2 E2E coverage vs Section 4 P0 endpoints: PASS (placeholder, pre-create-cases expected state)
+- Section 6.2 E2E coverage vs Section 4 P0 endpoints:
+  PASS (placeholder, pre-create-cases expected state)
 
 ## Section-by-Section Feedback
 
 ### Actionability (Score: 1)
 
-The revision meaningfully improved actionability by adding sample request/response payloads for 5 request types and documenting TBDs with explicit resolution paths. However, three items prevent a score of 2:
+The revision meaningfully improved actionability by adding sample
+request/response payloads for 5 request types and documenting TBDs
+with explicit resolution paths. However, three items prevent a
+score of 2:
 
-1. **OpenShift version TBD**: The test environment section does not specify which OpenShift version(s) the tests target. A QE engineer cannot provision a cluster without this.
-2. **Model IDs remain placeholders**: Sample payloads use placeholder model identifiers (e.g., `gemini-pro`) rather than the actual model IDs that the remote::gemini provider will register. Tests that assert on model availability or model-specific behavior cannot be written until real IDs are confirmed.
-3. **Embeddings endpoint path not concrete**: The embeddings test objective references an endpoint but does not specify the exact path or confirm whether it follows `/v1/embeddings` or a provider-specific route.
+1. **OpenShift version TBD**: The test environment section does
+   not specify which OpenShift version(s) the tests target. A QE
+   engineer cannot provision a cluster without this.
+2. **Model IDs remain placeholders**: Sample payloads use
+   placeholder model identifiers (e.g., `gemini-pro`) rather than
+   the actual model IDs that the remote::gemini provider will
+   register. Tests that assert on model availability or
+   model-specific behavior cannot be written until real IDs are
+   confirmed.
+3. **Embeddings endpoint path not concrete**: The embeddings test
+   objective references an endpoint but does not specify the exact
+   path or confirm whether it follows `/v1/embeddings` or a
+   provider-specific route.
 
-**To reach score 2**: Confirm the OpenShift version requirement with the team, replace placeholder model IDs with the actual values from the provider configuration, and specify the concrete embeddings endpoint path.
+**To reach score 2**: Confirm the OpenShift version requirement
+with the team, replace placeholder model IDs with the actual
+values from the provider configuration, and specify the concrete
+embeddings endpoint path.
 
 ### Consistency (Score: 1)
 
 Five of six cross-checks pass cleanly. The remaining finding:
 
-1. **Section 6.2 E2E coverage is empty**: While this is the expected state before test case creation (pre-create-cases phase), it means there is no verifiable mapping from P0 endpoints to E2E test cases yet. This is a structural gap that will resolve naturally when test cases are generated, but it prevents full consistency verification at this stage.
+1. **Section 6.2 E2E coverage is empty**: While this is the
+   expected state before test case creation (pre-create-cases
+   phase), it means there is no verifiable mapping from P0
+   endpoints to E2E test cases yet. This is a structural gap
+   that will resolve naturally when test cases are generated,
+   but it prevents full consistency verification at this stage.
 
-**To reach score 2**: Populate Section 6.2 after test case generation to close the traceability loop between endpoints and E2E coverage.
+**To reach score 2**: Populate Section 6.2 after test case
+generation to close the traceability loop between endpoints
+and E2E coverage.
 
 ## Revision History
 
@@ -90,6 +114,8 @@ Five of six cross-checks pass cleanly. The remaining finding:
 | 1.0.1 | 2026-06-05 | Auto-revision for Actionability gaps: (1) Added TBD with open-question rationale for Gemini model IDs in Section 3.2 — strategy explicitly lists model selection as an open question owned by PM/OGX Core Team, so no model IDs were fabricated. (2) Added sample request/response payloads for chat completions (non-streaming, streaming, per-request API key override), tool calling, and embeddings in Section 3.2 — payloads use strategy-grounded details (endpoint paths, x-ogx-provider-data header format, temperature parameter, missing usage statistics note). (3) Added TBD with rationale for MCP server harness in Sections 3.2 and 9.3 — strategy does not name a specific tool. (4) Replaced vague "Latest version" for OGX Operator in Section 3.1 with TBD and rationale — strategy does not pin a version; noted minimum capability requirement and instruction to pin once RHOAI 3.5 EA2 build manifest is available. |
 
 ### Cycle 1 Revision
-- Actionability: Added sample request/response payloads, TBDs with resolution paths for model IDs, operator version, MCP harness
+- Actionability: Added sample request/response payloads, TBDs
+  with resolution paths for model IDs, operator version,
+  MCP harness
 - All other criteria: N/A -- scored 2
 

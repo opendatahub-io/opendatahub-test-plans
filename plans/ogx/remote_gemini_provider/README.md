@@ -1,6 +1,7 @@
 # Remote Gemini Provider
 
-Enable native `remote::gemini` provider support in the RHOAI OGX distribution for proper Gemini model integration.
+Enable native `remote::gemini` provider support in the RHOAI OGX
+distribution for proper Gemini model integration.
 
 ## Links
 
