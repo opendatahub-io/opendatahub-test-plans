@@ -30,7 +30,7 @@ correctly.
 
 - Response status is HTTP 200 with `Content-Type` media type
   `text/event-stream` (charset parameter is acceptable)
-- Multiple SSE chunks are received, each prefixed with `data: `
+- Multiple SSE chunks are received, each prefixed with `data:`
 - Each chunk contains a `choices` array with delta content
 - The final chunk contains `finish_reason: stop`
 - The stream ends with `data: [DONE]`
