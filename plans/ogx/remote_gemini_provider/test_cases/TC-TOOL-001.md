@@ -14,16 +14,19 @@ succeeds and returns valid `tool_calls` output when using the
 `remote::gemini` provider.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Valid `GEMINI_API_KEY` configured
 
 **Test Steps**:
+
 1. Send a POST request to `/v1/chat/completions` with a
    `tools` array containing a function definition and a user
    message that should trigger tool invocation
 2. Inspect the response for `tool_calls` in the assistant message
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Response `choices[0].message` contains a `tool_calls` array
 - Each tool call has `type: function`, a valid `id`, and a
@@ -32,6 +35,7 @@ succeeds and returns valid `tool_calls` output when using the
 - `finish_reason` is `tool_calls`
 
 **Test Data**:
+
 ```json
 {
   "model": "<GEMINI-MODEL-ID>",

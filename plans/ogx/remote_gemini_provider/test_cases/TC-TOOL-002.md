@@ -14,10 +14,12 @@ handles tool definitions containing JSON schema fields that Gemini
 does not support, filtering them before sending to the Gemini API.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Valid `GEMINI_API_KEY` configured
 
 **Test Steps**:
+
 1. Send a POST request to `/v1/chat/completions` with a tool
    definition that includes JSON schema fields unsupported by
    Gemini: `additionalProperties`, `$schema`,
@@ -27,6 +29,7 @@ does not support, filtering them before sending to the Gemini API.
    valid chat completion
 
 **Expected Results**:
+
 - Response status is HTTP 200 (not HTTP 400 with
   "Invalid JSON payload")
 - The `remote::gemini` provider filters out unsupported schema
@@ -37,6 +40,7 @@ does not support, filtering them before sending to the Gemini API.
   should be called
 
 **Test Data**:
+
 ```json
 {
   "model": "<GEMINI-MODEL-ID>",

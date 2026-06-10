@@ -14,11 +14,13 @@ propagates the `GEMINI_API_KEY` environment variable from a
 ConfigMap or CR spec to the OGX distribution pod.
 
 **Preconditions**:
+
 - OGX K8s Operator installed and managing
   `LlamaStackDistribution` CRs
 - A Kubernetes Secret containing the Gemini API key
 
 **Test Steps**:
+
 1. Create a Kubernetes Secret with the Gemini API key:
    `kubectl create secret generic gemini-key
    --from-literal=GEMINI_API_KEY=<API-KEY>`
@@ -31,6 +33,7 @@ ConfigMap or CR spec to the OGX distribution pod.
    `remote::gemini` is listed
 
 **Expected Results**:
+
 - The OGX pod has `GEMINI_API_KEY` set in its environment
 - The `remote::gemini` provider activates based on the
   injected environment variable

@@ -15,10 +15,12 @@ which previously caused `AttributeError: 'NoneType' object has
 no attribute 'prompt_tokens'` with the `remote::openai` provider.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Valid `GEMINI_API_KEY` configured
 
 **Test Steps**:
+
 1. Send a POST request to the embeddings endpoint with a
    sample input text
 2. Inspect the response for the presence or absence of `usage`
@@ -27,6 +29,7 @@ no attribute 'prompt_tokens'` with the `remote::openai` provider.
    whether `usage` is present
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Response body contains valid embedding vectors in the `data`
   array
@@ -35,6 +38,7 @@ no attribute 'prompt_tokens'` with the `remote::openai` provider.
   absent, the response still succeeds
 
 **Test Data**:
+
 ```json
 {
   "model": "<GEMINI-MODEL-ID>",

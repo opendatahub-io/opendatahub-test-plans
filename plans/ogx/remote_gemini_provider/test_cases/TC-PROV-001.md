@@ -13,17 +13,20 @@ upgrade_phase: post
 in the list of available providers returned by the OGX distribution.
 
 **Preconditions**:
+
 - RHOAI 3.5 EA2+ deployed with OGX distribution including
   `remote::gemini` provider
 - `GEMINI_API_KEY` environment variable set in the
   `LlamaStackDistribution` CR or ConfigMap
 
 **Test Steps**:
+
 1. Send a GET request to the `/v1/providers` endpoint on the
    deployed OGX distribution
 2. Parse the JSON response and inspect the list of providers
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Response body contains a provider entry with
   `provider_type: remote::gemini`
@@ -31,6 +34,7 @@ in the list of available providers returned by the OGX distribution.
   is active
 
 **Test Data**:
+
 ```bash
 curl -s https://<OGX_ROUTE>/v1/providers | jq .
 ```

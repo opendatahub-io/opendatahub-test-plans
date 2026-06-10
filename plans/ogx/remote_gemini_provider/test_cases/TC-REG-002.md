@@ -14,10 +14,12 @@ distribution (Bedrock, WatsonX, Azure, Vertex AI) remain
 functional after adding `remote::gemini`.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` and at
   least one other cloud provider configured
 
 **Test Steps**:
+
 1. Send GET `/v1/providers` and verify all previously
    configured providers are still listed
 2. Send a test inference request through a non-Gemini
@@ -26,6 +28,7 @@ functional after adding `remote::gemini`.
 3. Verify the response is valid
 
 **Expected Results**:
+
 - `/v1/providers` lists all previously configured providers
   alongside `remote::gemini`
 - Inference requests through non-Gemini providers return

@@ -14,10 +14,12 @@ upgrade_phase: post
 workarounds in the distribution config.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` in `config.yaml`
 - No `network.headers` overrides configured for Gemini
 
 **Test Steps**:
+
 1. Inspect the deployed distribution's `config.yaml` and verify
    it uses `provider_type: remote::gemini` with the conditional
    activation pattern `${env.GEMINI_API_KEY:+gemini-inference}`
@@ -27,6 +29,7 @@ workarounds in the distribution config.
    using the configured Gemini model
 
 **Expected Results**:
+
 - The `config.yaml` uses `provider_type: remote::gemini`
 - No `network.headers` workaround is present in the config
 - The chat completion request returns HTTP 200 with a valid

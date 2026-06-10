@@ -13,15 +13,18 @@ upgrade_phase: post
 through the `remote::gemini` provider return valid responses.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Valid `GEMINI_API_KEY` configured
 
 **Test Steps**:
+
 1. Send a POST request to `/v1/chat/completions` with
    `stream: false` (or omitted) and a simple user message
 2. Inspect the response body for valid chat completion structure
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Response body contains `choices` array with at least one entry
 - Each choice contains a `message` object with `role: assistant`
@@ -29,6 +32,7 @@ through the `remote::gemini` provider return valid responses.
 - Response contains a valid `id` field
 
 **Test Data**:
+
 ```json
 {
   "model": "<GEMINI-MODEL-ID>",

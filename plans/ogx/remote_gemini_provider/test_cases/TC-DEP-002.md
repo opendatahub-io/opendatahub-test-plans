@@ -14,9 +14,11 @@ uses the correct conditional activation pattern for the Gemini
 provider.
 
 **Preconditions**:
+
 - Access to the OGX distribution's `config.yaml`
 
 **Test Steps**:
+
 1. Inspect the distribution's `config.yaml` file
 2. Locate the Gemini provider configuration section
 3. Verify the conditional activation pattern matches
@@ -25,6 +27,7 @@ provider.
    providers (Bedrock, WatsonX, Azure, OpenAI)
 
 **Expected Results**:
+
 - `config.yaml` contains a provider entry that activates
   conditionally based on `GEMINI_API_KEY`
 - The activation pattern is

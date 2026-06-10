@@ -13,15 +13,18 @@ upgrade_phase: post
 `remote::gemini` provider return valid embedding vectors.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Valid `GEMINI_API_KEY` configured
 
 **Test Steps**:
+
 1. Send a POST request to the embeddings endpoint with a
    sample input text
 2. Inspect the response body for valid embedding data
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Response body contains `data` array with at least one entry
 - Each entry contains an `embedding` array of floating-point
@@ -29,6 +32,7 @@ upgrade_phase: post
 - The embedding vector has a consistent, non-zero dimension
 
 **Test Data**:
+
 ```json
 {
   "model": "<GEMINI-MODEL-ID>",

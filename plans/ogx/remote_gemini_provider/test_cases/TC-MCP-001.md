@@ -13,12 +13,14 @@ upgrade_phase: post
 connected to Gemini models through the `remote::gemini` provider.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Valid `GEMINI_API_KEY` configured
 - MCP server configured and accessible (TBD — specific harness
   to be selected by QE team)
 
 **Test Steps**:
+
 1. Configure an MCP server that exposes callable tools
 2. Connect the MCP server to the OGX distribution using a
    Gemini model via `remote::gemini` provider
@@ -26,6 +28,7 @@ connected to Gemini models through the `remote::gemini` provider.
 4. Verify the model invokes the MCP tool and returns results
 
 **Expected Results**:
+
 - The MCP server connects successfully to the OGX distribution
 - The Gemini model receives tool definitions from the MCP server
 - Tool invocation through MCP completes without errors

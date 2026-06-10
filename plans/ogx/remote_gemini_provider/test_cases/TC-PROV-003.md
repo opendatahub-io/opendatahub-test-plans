@@ -13,11 +13,13 @@ upgrade_phase: post
 only when the `GEMINI_API_KEY` environment variable is set.
 
 **Preconditions**:
+
 - OGX distribution deployed with `config.yaml` containing the
   conditional activation pattern
   `${env.GEMINI_API_KEY:+gemini-inference}`
 
 **Test Steps**:
+
 1. Deploy the OGX distribution with `GEMINI_API_KEY` set to a
    valid Gemini API key
 2. Send GET `/v1/providers` and verify `remote::gemini` is listed
@@ -26,6 +28,7 @@ only when the `GEMINI_API_KEY` environment variable is set.
 4. Send GET `/v1/providers` and check the response
 
 **Expected Results**:
+
 - With `GEMINI_API_KEY` set: `/v1/providers` includes
   `remote::gemini` in the provider list
 - Without `GEMINI_API_KEY`: `/v1/providers` does not include

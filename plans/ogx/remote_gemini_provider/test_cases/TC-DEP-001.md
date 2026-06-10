@@ -13,9 +13,11 @@ upgrade_phase: post
 declares the `remote::gemini` provider as a build-time dependency.
 
 **Preconditions**:
+
 - Access to the OGX distribution image or its build artifacts
 
 **Test Steps**:
+
 1. Inspect the distribution's `build.yaml` file (from the image
    or source repository)
 2. Verify that `remote::gemini` appears in the list of providers
@@ -23,6 +25,7 @@ declares the `remote::gemini` provider as a build-time dependency.
    included
 
 **Expected Results**:
+
 - `build.yaml` contains an entry for the `remote::gemini`
   provider
 - The `google-genai` package is listed as a dependency

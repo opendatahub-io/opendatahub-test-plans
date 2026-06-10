@@ -13,10 +13,12 @@ upgrade_phase: post
 chat completions affects response variability as expected.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Valid `GEMINI_API_KEY` configured
 
 **Test Steps**:
+
 1. Send a POST to `/v1/chat/completions` with `temperature: 0`
    and a deterministic prompt (e.g., "Reply with exactly one
    word: yes or no")
@@ -27,6 +29,7 @@ chat completions affects response variability as expected.
    record responses
 
 **Expected Results**:
+
 - All requests return HTTP 200
 - With `temperature: 0`, the three responses are identical or
   nearly identical

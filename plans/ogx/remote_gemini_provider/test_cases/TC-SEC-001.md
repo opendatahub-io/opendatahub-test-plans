@@ -14,11 +14,13 @@ Kubernetes Secrets are not exposed in pod specifications,
 container logs, or API responses.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider
   active
 - `GEMINI_API_KEY` injected via Kubernetes Secret
 
 **Test Steps**:
+
 1. Inspect the OGX pod spec:
    `kubectl get pod <pod> -o yaml`
 2. Verify `GEMINI_API_KEY` value is referenced from a
@@ -31,6 +33,7 @@ container logs, or API responses.
 6. Send a chat completion request and inspect the response
 
 **Expected Results**:
+
 - Pod spec references the Secret by name, not the raw key
   value
 - Container logs do not contain the Gemini API key value

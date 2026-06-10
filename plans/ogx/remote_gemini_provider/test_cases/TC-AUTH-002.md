@@ -14,10 +14,12 @@ upgrade_phase: post
 without affecting the config-level key.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Valid primary `GEMINI_API_KEY` configured
 
 **Test Steps**:
+
 1. Send a POST to `/v1/chat/completions` with
    `x-ogx-provider-data: {"gemini_api_key": "invalid-key-12345"}`
 2. Verify the request fails with an authentication error
@@ -26,6 +28,7 @@ without affecting the config-level key.
 4. Verify the follow-up request succeeds
 
 **Expected Results**:
+
 - The request with the invalid key returns an HTTP error
   (401 or 403) indicating authentication failure
 - The follow-up request using the config-level key returns

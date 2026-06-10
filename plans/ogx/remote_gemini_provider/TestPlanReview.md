@@ -114,8 +114,8 @@ and E2E coverage.
 | 1.0.1 | 2026-06-05 | Auto-revision for Actionability gaps: (1) Added TBD with open-question rationale for Gemini model IDs in Section 3.2 — strategy explicitly lists model selection as an open question owned by PM/OGX Core Team, so no model IDs were fabricated. (2) Added sample request/response payloads for chat completions (non-streaming, streaming, per-request API key override), tool calling, and embeddings in Section 3.2 — payloads use strategy-grounded details (endpoint paths, x-ogx-provider-data header format, temperature parameter, missing usage statistics note). (3) Added TBD with rationale for MCP server harness in Sections 3.2 and 9.3 — strategy does not name a specific tool. (4) Replaced vague "Latest version" for OGX Operator in Section 3.1 with TBD and rationale — strategy does not pin a version; noted minimum capability requirement and instruction to pin once RHOAI 3.5 EA2 build manifest is available. |
 
 ### Cycle 1 Revision
+
 - Actionability: Added sample request/response payloads, TBDs
   with resolution paths for model IDs, operator version,
   MCP harness
 - All other criteria: N/A -- scored 2
-

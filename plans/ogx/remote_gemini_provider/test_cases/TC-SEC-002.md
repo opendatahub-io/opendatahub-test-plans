@@ -13,6 +13,7 @@ upgrade_phase: post
 distribution to the Gemini API enforce TLS 1.2 or higher.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider
   active
 - Valid `GEMINI_API_KEY` configured
@@ -20,6 +21,7 @@ distribution to the Gemini API enforce TLS 1.2 or higher.
   pod-level packet capture, or proxy logs)
 
 **Test Steps**:
+
 1. Send a chat completion request through the `remote::gemini`
    provider
 2. Capture the outbound TLS handshake from the OGX pod to
@@ -27,6 +29,7 @@ distribution to the Gemini API enforce TLS 1.2 or higher.
 3. Inspect the negotiated TLS version
 
 **Expected Results**:
+
 - The TLS handshake negotiates TLS 1.2 or TLS 1.3
 - No connections use TLS 1.1 or lower
 - The connection to the Gemini API endpoint uses a valid

@@ -12,6 +12,7 @@ version: 1.0.1
 reviewers: []
 ---
 # Remote Gemini Provider Test Plan
+
 **QE Team – OGX remote::gemini Provider Validation**
 
 **Strategy**: [RHAISTRAT-1245](https://redhat.atlassian.net/browse/RHAISTRAT-1245)
@@ -188,6 +189,7 @@ custom per-provider workarounds in the distribution.
     dependency
 - **Sample Request/Response Payloads**:
   - **Chat Completions (non-streaming)**:
+
     ```http
     POST /v1/chat/completions
     Content-Type: application/json
@@ -200,7 +202,9 @@ custom per-provider workarounds in the distribution.
       "temperature": 0.7
     }
     ```
+
   - **Chat Completions (streaming)**:
+
     ```http
     POST /v1/chat/completions
     Content-Type: application/json
@@ -214,7 +218,9 @@ custom per-provider workarounds in the distribution.
       "temperature": 0.5
     }
     ```
+
   - **Chat Completions (per-request API key override)**:
+
     ```http
     POST /v1/chat/completions
     Content-Type: application/json
@@ -227,7 +233,9 @@ custom per-provider workarounds in the distribution.
       ]
     }
     ```
+
   - **Tool Calling**:
+
     ```http
     POST /v1/chat/completions
     Content-Type: application/json
@@ -255,9 +263,11 @@ custom per-provider workarounds in the distribution.
       ]
     }
     ```
+
     Expected response includes `tool_calls` array with
     `function.name` and `function.arguments`.
   - **Embeddings**:
+
     ```http
     POST <embeddings-endpoint>
     Content-Type: application/json
@@ -267,6 +277,7 @@ custom per-provider workarounds in the distribution.
       "input": "Sample text for embedding generation"
     }
     ```
+
     Expected: response contains embedding vector; note that
     Gemini may omit `usage` statistics in the response, which
     the provider must handle gracefully.

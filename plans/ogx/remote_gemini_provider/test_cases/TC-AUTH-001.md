@@ -14,11 +14,13 @@ upgrade_phase: post
 config-level Gemini API key for that specific request.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Primary `GEMINI_API_KEY` configured in the distribution
 - A secondary valid Gemini API key available
 
 **Test Steps**:
+
 1. Send a POST request to `/v1/chat/completions` without the
    `x-ogx-provider-data` header (uses config-level key)
 2. Verify the request succeeds
@@ -27,6 +29,7 @@ config-level Gemini API key for that specific request.
 4. Verify the request succeeds using the secondary key
 
 **Expected Results**:
+
 - Both requests return HTTP 200
 - The request with `x-ogx-provider-data` header authenticates
   using the secondary API key (verified by successful response
@@ -35,6 +38,7 @@ config-level Gemini API key for that specific request.
   override
 
 **Test Data**:
+
 ```bash
 curl -X POST https://<OGX_ROUTE>/v1/chat/completions \
   -H "Content-Type: application/json" \

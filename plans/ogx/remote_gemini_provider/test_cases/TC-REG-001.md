@@ -14,11 +14,13 @@ configurations continue to function correctly after the
 `remote::gemini` provider is added to the distribution.
 
 **Preconditions**:
+
 - OGX distribution deployed with both `remote::openai` and
   `remote::gemini` providers available
 - Valid OpenAI API key configured for `remote::openai`
 
 **Test Steps**:
+
 1. Send a POST to `/v1/chat/completions` using an OpenAI
    model configured via `remote::openai` provider
 2. Verify the response is valid
@@ -27,6 +29,7 @@ configurations continue to function correctly after the
 4. Verify the embedding response is valid
 
 **Expected Results**:
+
 - Chat completion via `remote::openai` returns HTTP 200 with
   valid response structure
 - Embeddings via `remote::openai` return HTTP 200 with valid

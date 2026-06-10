@@ -14,10 +14,12 @@ through the `remote::gemini` provider deliver chunked responses
 correctly.
 
 **Preconditions**:
+
 - OGX distribution deployed with `remote::gemini` provider active
 - Valid `GEMINI_API_KEY` configured
 
 **Test Steps**:
+
 1. Send a POST request to `/v1/chat/completions` with
    `stream: true`
 2. Read the server-sent events (SSE) stream
@@ -25,14 +27,16 @@ correctly.
 4. Verify the stream terminates with a `[DONE]` marker
 
 **Expected Results**:
+
 - Response status is HTTP 200 with `Content-Type: text/event-stream`
-- Multiple SSE chunks are received, each prefixed with `data: `
+- Multiple SSE chunks are received, each prefixed with `data:`
 - Each chunk contains a `choices` array with delta content
 - The final chunk contains `finish_reason: stop`
 - The stream ends with `data: [DONE]`
 - Concatenating all delta content produces coherent text
 
 **Test Data**:
+
 ```json
 {
   "model": "<GEMINI-MODEL-ID>",
