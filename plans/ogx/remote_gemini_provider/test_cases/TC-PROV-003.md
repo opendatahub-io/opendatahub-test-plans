@@ -25,7 +25,9 @@ only when the `GEMINI_API_KEY` environment variable is set.
 2. Send GET `/v1/providers` and verify `remote::gemini` is listed
 3. Redeploy the OGX distribution without the `GEMINI_API_KEY`
    environment variable (remove it from the ConfigMap or CR spec)
-4. Send GET `/v1/providers` and check the response
+4. Wait for rollout completion and pod readiness
+   (`kubectl rollout status` or equivalent)
+5. Send GET `/v1/providers` and check the response
 
 **Expected Results**:
 

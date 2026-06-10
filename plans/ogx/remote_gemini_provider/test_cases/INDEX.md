@@ -90,7 +90,7 @@
 All test cases are tagged with `upgrade_phase` in their
 frontmatter to support upgrade/migration testing:
 
-- **`post`**: New `remote::gemini` functionality (16 TCs) —
+- **`post`**: New `remote::gemini` functionality (22 TCs) —
   only valid after upgrade to RHOAI 3.5 EA2+
 - **`both`**: Regression tests (2 TCs: TC-REG-001, TC-REG-002) —
   should pass on both pre-upgrade and post-upgrade distributions

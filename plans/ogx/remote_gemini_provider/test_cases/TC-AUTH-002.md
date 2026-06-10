@@ -29,8 +29,9 @@ without affecting the config-level key.
 
 **Expected Results**:
 
-- The request with the invalid key returns an HTTP error
-  (401 or 403) indicating authentication failure
+- The request with the invalid key returns a non-2xx HTTP
+  error indicating authentication failure (exact status code
+  is implementation-defined)
 - The follow-up request using the config-level key returns
   HTTP 200 with a valid response
 - The invalid per-request key does not corrupt or affect the

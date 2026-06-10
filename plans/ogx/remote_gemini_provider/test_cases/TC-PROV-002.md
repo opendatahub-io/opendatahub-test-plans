@@ -23,8 +23,8 @@ workarounds in the distribution config.
 1. Inspect the deployed distribution's `config.yaml` and verify
    it uses `provider_type: remote::gemini` with the conditional
    activation pattern `${env.GEMINI_API_KEY:+gemini-inference}`
-2. Verify no `network.headers` section exists for the Gemini
-   provider configuration
+2. Verify the `remote::gemini` provider stanza does not require
+   custom `network.headers` overrides (ignore unrelated providers)
 3. Send a chat completion request to `/v1/chat/completions`
    using the configured Gemini model
 

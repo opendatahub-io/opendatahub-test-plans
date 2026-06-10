@@ -1,7 +1,7 @@
 ---
 feature: remote_gemini_provider
 source_key: RHAISTRAT-1245
-score: 8
+score: 9
 pass: true
 verdict: Ready
 scores:
@@ -9,7 +9,7 @@ scores:
   grounding: 2
   scope_fidelity: 2
   actionability: 1
-  consistency: 1
+  consistency: 2
 auto_revised: true
 last_updated: '2026-06-05'
 before_score: 9
@@ -31,9 +31,9 @@ error: null
 | Grounding | 2 | All Section 4 entries trace to strategy. Zero fabrications. TBDs have rationale. | Cross-reference: all 12 entries grounded. |
 | Scope Fidelity | 2 | Every strategy AC maps to a test objective. Out-of-scope matches strategy. | No orphans in either direction. |
 | Actionability | 1 | Revision added sample payloads for 5 request types, TBDs with resolution paths for model IDs/operator version/MCP harness. But OpenShift version still TBD, model IDs still placeholder in payloads, embeddings endpoint path not concrete. | QE engineer could start writing test skeletons but needs 2-3 answers before executing. |
-| Consistency | 1 | 5 of 6 cross-checks pass. Section 10.2 matches Section 4. Section 6.2 E2E coverage empty (expected pre-TC). | E2E placeholder is expected state but still a gap for verifiable consistency. |
+| Consistency | 2 | 6 of 6 cross-checks pass. Section 10.2 matches Section 4. Section 6.2 E2E coverage populated. | All consistency checks pass. |
 
-**Total: 8/10**
+**Total: 9/10**
 
 **Verdict: Ready**
 
@@ -50,7 +50,7 @@ error: null
 | provider_type: remote::gemini | "provider_type: remote::gemini config works" (AC) | Grounded |
 | build.yaml | "Distribution config: build.yaml and config.yaml" (Strategy) | Grounded |
 | config.yaml | "Distribution config: build.yaml and config.yaml" (Strategy) | Grounded |
-| x-ogx-provider-data header | "x-llamastack-provider-data with gemini_api_key" (AC) | Grounded |
+| x-ogx-provider-data header | "x-ogx-provider-data with gemini_api_key" (AC) | Grounded |
 | MCP server connections | "MCP servers work" (AC/HLR P1) | Grounded |
 | Temperature parameter | "chat completions with streaming/temperature" (AC) | Grounded |
 
@@ -61,8 +61,7 @@ error: null
 - Section 4 priorities vs Section 2.3 definitions: PASS
 - Section 10.2 vs Section 4 endpoints: PASS
 - Section 7 NFR categories vs feature scope: PASS
-- Section 6.2 E2E coverage vs Section 4 P0 endpoints:
-  PASS (placeholder, pre-create-cases expected state)
+- Section 6.2 E2E coverage vs Section 4 P0 endpoints: PASS
 
 ## Section-by-Section Feedback
 
@@ -92,20 +91,11 @@ with the team, replace placeholder model IDs with the actual
 values from the provider configuration, and specify the concrete
 embeddings endpoint path.
 
-### Consistency (Score: 1)
+### Consistency (Score: 2)
 
-Five of six cross-checks pass cleanly. The remaining finding:
-
-1. **Section 6.2 E2E coverage is empty**: While this is the
-   expected state before test case creation (pre-create-cases
-   phase), it means there is no verifiable mapping from P0
-   endpoints to E2E test cases yet. This is a structural gap
-   that will resolve naturally when test cases are generated,
-   but it prevents full consistency verification at this stage.
-
-**To reach score 2**: Populate Section 6.2 after test case
-generation to close the traceability loop between endpoints
-and E2E coverage.
+All six cross-checks pass. Section 6.2 E2E coverage matrix
+is populated with mappings from P0 endpoints to E2E test cases,
+closing the traceability loop.
 
 ## Revision History
 

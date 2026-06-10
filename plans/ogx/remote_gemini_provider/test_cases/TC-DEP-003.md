@@ -27,8 +27,9 @@ ConfigMap or CR spec to the OGX distribution pod.
 2. Configure the `LlamaStackDistribution` CR or ConfigMap
    to reference the secret and inject `GEMINI_API_KEY`
 3. Apply the CR and wait for the OGX pod to start
-4. Verify the environment variable is set in the running pod:
-   `kubectl exec <pod> -- env | grep GEMINI_API_KEY`
+4. Verify the environment variable is set in the running pod
+   without exposing its value:
+   `kubectl exec <pod> -- sh -c 'test -n "${GEMINI_API_KEY}" && echo "GEMINI_API_KEY is set"'`
 5. Send a request to `/v1/providers` and verify
    `remote::gemini` is listed
 

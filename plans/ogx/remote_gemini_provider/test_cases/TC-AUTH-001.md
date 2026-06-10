@@ -40,9 +40,12 @@ config-level Gemini API key for that specific request.
 **Test Data**:
 
 ```bash
-curl -X POST https://<OGX_ROUTE>/v1/chat/completions \
+PROVIDER_DATA=$(jq -cn --arg k "$SECONDARY_GEMINI_API_KEY" \
+  '{"gemini_api_key":$k}')
+
+curl -X POST "https://${OGX_ROUTE}/v1/chat/completions" \
   -H "Content-Type: application/json" \
-  -H 'x-ogx-provider-data: {"gemini_api_key": "<SECONDARY-API-KEY>"}' \
+  -H "x-ogx-provider-data: ${PROVIDER_DATA}" \
   -d '{
     "model": "<GEMINI-MODEL-ID>",
     "messages": [{"role": "user", "content": "Hello"}]

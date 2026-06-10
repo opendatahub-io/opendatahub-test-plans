@@ -19,7 +19,7 @@ upgrade_phase: post
 
 **Test Steps**:
 
-1. Send a POST request to the embeddings endpoint with a
+1. Send a POST request to `/v1/embeddings` with a
    sample input text
 2. Inspect the response body for valid embedding data
 
