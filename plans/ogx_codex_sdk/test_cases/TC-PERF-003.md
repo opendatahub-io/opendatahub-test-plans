@@ -13,12 +13,14 @@ concurrent session load, ensuring session retrieval stays under
 10ms at p95.
 
 **Preconditions**:
+
 - LlamaStack deployed on port 8321 with PostgreSQL session store
 - PostgreSQL on port 5432 with connection pooling configured
 - Sufficient cluster resources for 100 concurrent sessions
 - Target model served via vLLM on port 8000
 
 **Test Steps**:
+
 1. Start 100 concurrent Codex CLI sessions, each with a unique
    `session_id`
 2. Each session performs 10 tool-call turns sequentially (mix of
@@ -34,6 +36,7 @@ concurrent session load, ensuring session retrieval stays under
    or returned stale state
 
 **Expected Results**:
+
 - Session state retrieval latency < 10ms at p95 across all
   100 sessions
 - No PostgreSQL connection pool exhaustion (active connections
@@ -42,6 +45,7 @@ concurrent session load, ensuring session retrieval stays under
 - No dropped sessions or HTTP 503 responses
 
 **Validation**:
+
 - `psql -h localhost -p 5432 -c "SELECT count(*) FROM
   pg_stat_activity WHERE datname = 'llamastack';"` stays
   below connection pool limit throughout the test

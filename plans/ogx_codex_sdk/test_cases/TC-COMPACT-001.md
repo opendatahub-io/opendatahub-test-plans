@@ -13,6 +13,7 @@ conversation history when the session approaches the model's context
 window limit.
 
 **Preconditions**:
+
 - LlamaStack deployed on port 8321 with Compaction API provider
   registered in config.yaml
 - PostgreSQL session store available on port 5432
@@ -21,6 +22,7 @@ window limit.
 - Compaction API (upstream PR #5327) merged or cherry-picked
 
 **Test Steps**:
+
 1. Create a new session by sending a POST to
    `/v1/chat/completions` with a unique `session_id` and
    `stream=true`
@@ -33,6 +35,7 @@ window limit.
 5. Query PostgreSQL to inspect session state metadata
 
 **Expected Results**:
+
 - Compaction API is invoked automatically before context window
   overflow (visible in LlamaStack FastAPI/Uvicorn logs)
 - Post-compaction session state contains a compressed summary
@@ -43,6 +46,7 @@ window limit.
   the session
 
 **Validation**:
+
 - `psql -h localhost -p 5432 -c "SELECT session_id,
   compaction_timestamp, original_token_count,
   compacted_token_count FROM session_compaction_log

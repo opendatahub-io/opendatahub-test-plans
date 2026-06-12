@@ -13,11 +13,13 @@ from earlier conversation turns after compaction has compressed
 the session history.
 
 **Preconditions**:
+
 - LlamaStack deployed with Compaction API provider enabled
 - PostgreSQL session store on port 5432
 - Session capable of reaching compaction threshold (100+ turns)
 
 **Test Steps**:
+
 1. Create a session with a unique `session_id`
 2. Over 50+ tool-call turns, embed 5 specific verifiable facts:
    - Turn 3: `read_file` on `/app/config.yaml` revealing
@@ -37,6 +39,7 @@ the session history.
    worker.py?"
 
 **Expected Results**:
+
 - Model correctly recalls at least 4 out of 5 facts from
   pre-compaction history
 - Responses do not contain hallucinated details (e.g.,

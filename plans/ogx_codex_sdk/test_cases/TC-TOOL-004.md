@@ -12,12 +12,14 @@ last_updated: "2026-06-12"
 correctly formatted tool calls for each target OSS model.
 
 **Preconditions**:
+
 - vLLM serving on port 8000 with configurable `--tool-call-parser`
 - At least three target models available: Qwen 3.5, Mistral Small 4,
   Llama 3.3 70B
 - LlamaStack on port 8321 proxying to vLLM
 
 **Test Steps**:
+
 1. Deploy Qwen 3.5 on vLLM with `--tool-call-parser hermes`
 2. POST to `/v1/chat/completions` via LlamaStack with the `bash`
    tool definition and prompt "List files in the current directory"
@@ -31,6 +33,7 @@ correctly formatted tool calls for each target OSS model.
    verify fallback behavior
 
 **Expected Results**:
+
 - Each model + parser combination produces well-formed tool_calls
 - `function.name` matches the requested tool exactly
 - `function.arguments` is valid JSON with required fields present
@@ -39,6 +42,7 @@ correctly formatted tool calls for each target OSS model.
   silently malformed output
 
 **Test Data**:
+
 ```bash
 # Parser mode matrix (expected valid combinations — TBD per
 # TestPlanGaps.md, test with all and document which pass)

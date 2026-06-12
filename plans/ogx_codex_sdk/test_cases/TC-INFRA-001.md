@@ -13,38 +13,48 @@ LlamaStack instance with PostgreSQL backend for session state
 persistence when a LlamaStackDistribution CR is created.
 
 **Preconditions**:
+
 - OpenShift cluster with RHOAI 3.5 deployed
 - llama-stack-k8s-operator installed and running
 - PostgreSQL instance available (either operator-managed or
   pre-provisioned) on port 5432
 
 **Test Steps**:
+
 1. Create a LlamaStackDistribution CR with config.yaml registering
    Memories and Compaction providers and PostgreSQL connection
    configuration.
 2. Wait for the operator to reconcile (watch CR status):
+
    ```bash
    oc get llamastackdistribution <name> -n <namespace> -w
    ```
+
 3. Verify the operator creates the expected resources:
+
    ```bash
    oc get deployment -l app=llamastack -n <namespace>
    oc get service -l app=llamastack -n <namespace>
    oc get pods -l app=llamastack -n <namespace>
    ```
+
 4. Verify the LlamaStack service is reachable on port 8321:
+
    ```bash
    oc exec -n <namespace> deploy/llamastack -- \
      curl -s http://localhost:8321/health
    ```
+
 5. Verify PostgreSQL connection is established and session store
    tables exist:
+
    ```bash
    psql -h <pg-host> -p 5432 -U <pg-user> -d <pg-db> \
      -c "\dt" | grep -i session
    ```
 
 **Expected Results**:
+
 - LlamaStackDistribution CR status transitions to Ready
 - Deployment created with correct container image and config
   volume mount
@@ -55,6 +65,7 @@ persistence when a LlamaStackDistribution CR is created.
   by implementation)
 
 **Test Data**:
+
 ```yaml
 apiVersion: llamastack.io/v1alpha1
 kind: LlamaStackDistribution
@@ -80,6 +91,7 @@ spec:
 ```
 
 **Validation**:
+
 - `oc get llamastackdistribution codex-test -o jsonpath='{.status.phase}'`
   returns `Ready`
 - `oc logs deploy/llamastack -n ds-project` contains no ERROR-level

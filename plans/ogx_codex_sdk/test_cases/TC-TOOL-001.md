@@ -13,11 +13,13 @@ tool_calls with function.arguments conforming to the tool's parameter
 schema.
 
 **Preconditions**:
+
 - LlamaStack running on port 8321 with a target OSS model
 - vLLM serving on port 8000 with appropriate `--tool-call-parser`
 - All six Codex CLI tool definitions registered in the request
 
 **Test Steps**:
+
 1. POST to `/v1/chat/completions` with `stream=true`, all six tool
    definitions, and the prompt "List all files in /tmp"
 2. Validate the response contains a tool_call with
@@ -37,6 +39,7 @@ schema.
    against the corresponding tool's parameter schema
 
 **Expected Results**:
+
 - All 6 tool calls have `function.name` matching the intended tool
 - `function.arguments` is valid JSON (not a string, not truncated)
 - Each tool's required parameters are present (e.g., `bash` has
@@ -44,6 +47,7 @@ schema.
 - No extraneous parameters outside the tool schema are present
 
 **Test Data**:
+
 ```json
 {
   "model": "<target_oss_model>",

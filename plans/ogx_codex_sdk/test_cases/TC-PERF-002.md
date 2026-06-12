@@ -13,12 +13,14 @@ LlamaStack proxy layer between the client and vLLM, confirming
 it stays under 5ms per hop at p95.
 
 **Preconditions**:
+
 - LlamaStack deployed on port 8321
 - vLLM serving target model on port 8000
 - Both services accessible from the test client pod
 - No other load on the cluster during measurement
 
 **Test Steps**:
+
 1. Prepare an identical request payload:
    `{"model": "<target_model>", "messages": [{"role": "user",
    "content": "What is 2 + 2?"}], "stream": true}`
@@ -33,6 +35,7 @@ it stays under 5ms per hop at p95.
 5. Compute p50, p95, and p99 of the overhead distribution
 
 **Expected Results**:
+
 - p95 proxy overhead < 5ms
 - p50 proxy overhead < 2ms
 - No requests where LlamaStack adds > 20ms overhead (outlier

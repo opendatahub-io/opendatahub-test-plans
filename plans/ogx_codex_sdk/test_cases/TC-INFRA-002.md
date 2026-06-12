@@ -13,33 +13,41 @@ registers the Memories API and Compaction API providers and that both
 are active after deployment.
 
 **Preconditions**:
+
 - LlamaStack deployed via LlamaStackDistribution CR with config.yaml
   containing Memories and Compaction provider entries
 - LlamaStack pod in Running/Ready state on port 8321
 
 **Test Steps**:
+
 1. Deploy LlamaStack with a config.yaml that includes Memories and
    Compaction provider registrations (see TC-INFRA-001 for CR
    example).
 2. Verify the config.yaml was mounted correctly in the pod:
+
    ```bash
    oc exec deploy/llamastack -n <namespace> -- \
      cat /app/config.yaml | grep -A5 "memory\|compaction"
    ```
+
 3. Query LlamaStack's provider listing endpoint to verify both
    providers are registered:
+
    ```bash
    oc exec deploy/llamastack -n <namespace> -- \
      curl -s http://localhost:8321/providers/list
    ```
+
 4. Check LlamaStack startup logs for provider registration
    confirmations and absence of errors:
+
    ```bash
    oc logs deploy/llamastack -n <namespace> | \
      grep -i "provider\|memory\|compaction"
    ```
 
 **Expected Results**:
+
 - config.yaml contains entries for both `memory` and `compaction`
   providers
 - Provider listing endpoint returns JSON array including both

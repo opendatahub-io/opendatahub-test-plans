@@ -12,11 +12,13 @@ last_updated: "2026-06-12"
 where each call depends on the output of the prior call.
 
 **Preconditions**:
+
 - LlamaStack running on port 8321 with session_id enabled
 - A sample repository with Python files available on the test cluster
 - All six Codex CLI tool definitions registered
 
 **Test Steps**:
+
 1. Start a new session with a unique session_id
 2. Send the prompt: "Find all Python files in the project, read the
    first one, then add a module-level docstring to it"
@@ -32,6 +34,7 @@ where each call depends on the output of the prior call.
    read_file output (e.g., module name or existing imports)
 
 **Expected Results**:
+
 - 3 or more tool calls are produced in sequence
 - Each subsequent tool call references information from the prior
   tool's output (file path from glob, content from read)

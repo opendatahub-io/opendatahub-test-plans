@@ -12,6 +12,7 @@ last_updated: "2026-06-12"
 `session_id` is provided to `/v1/chat/completions`.
 
 **Test Steps**:
+
 1. Generate a random UUID that does not exist in the PostgreSQL
    session store
 2. POST to `/v1/chat/completions` on port 8321 with the non-existent
@@ -21,6 +22,7 @@ last_updated: "2026-06-12"
    turn with the same `session_id` referencing prior context
 
 **Expected Results**:
+
 - LlamaStack does not return HTTP 500 or crash
 - One of two acceptable behaviors:
   - HTTP 200 with a new session created (empty context, no stale data

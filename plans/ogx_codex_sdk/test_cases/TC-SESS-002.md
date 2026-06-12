@@ -13,6 +13,7 @@ context intact after a network interruption, using the same
 `session_id`.
 
 **Preconditions**:
+
 - LlamaStack running on port 8321 with Memories API and PostgreSQL
   session store configured
 - Network disruption tooling available (iptables, tc, or ability to
@@ -20,6 +21,7 @@ context intact after a network interruption, using the same
 - Target OSS model serving on vLLM (port 8000)
 
 **Test Steps**:
+
 1. Generate a unique `session_id` and establish a session by sending
    turn 1: prompt requesting `read_file` on a known test file
 2. Send turn 2: prompt requesting `grep_search` for a pattern in the
@@ -35,6 +37,7 @@ context intact after a network interruption, using the same
    describe what edits were made — do NOT resend prior history
 
 **Expected Results**:
+
 - Turn 4 response correctly references the edit made in turn 3
 - No session data loss — model has full conversation context from
   PostgreSQL
@@ -42,6 +45,7 @@ context intact after a network interruption, using the same
 - Session continuity is seamless from the client perspective
 
 **Validation**:
+
 - Query PostgreSQL: `SELECT count(*) FROM session_turns WHERE
   session_id = '<uuid>';` returns same count as recorded in step 4
   (turns are not duplicated or lost)

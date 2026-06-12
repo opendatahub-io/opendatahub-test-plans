@@ -13,10 +13,12 @@ returns a complete JSON response containing tool calls in
 `choices[0].message.tool_calls`.
 
 **Preconditions**:
+
 - LlamaStack distribution running on port 8321
 - vLLM serving a target OSS model with `--tool-call-parser` enabled
 
 **Test Steps**:
+
 1. Send a POST request to `http://<llamastack>:8321/v1/chat/completions`
    with `stream: false` and a user message that triggers a tool call
 2. Include the `bash` tool definition in the `tools` array
@@ -29,6 +31,7 @@ returns a complete JSON response containing tool calls in
 7. Verify `choices[0].finish_reason` is `"tool_calls"`
 
 **Expected Results**:
+
 - HTTP status code is 200
 - Response `Content-Type` is `application/json`
 - Response body is a single JSON object with `id`, `object`, `choices`
@@ -37,6 +40,7 @@ returns a complete JSON response containing tool calls in
 - `choices[0].finish_reason` is `"tool_calls"`
 
 **Test Data**:
+
 ```bash
 curl -X POST http://llamastack:8321/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -66,6 +70,7 @@ curl -X POST http://llamastack:8321/v1/chat/completions \
 ```
 
 **Expected Response**:
+
 ```json
 {
   "id": "chatcmpl-abc123",

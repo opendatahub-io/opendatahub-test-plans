@@ -13,6 +13,7 @@ communication paths between LlamaStack, vLLM, and PostgreSQL pods
 while blocking unauthorized access from other pods.
 
 **Preconditions**:
+
 - LlamaStack deployed on port 8321
 - vLLM serving on port 8000
 - PostgreSQL on port 5432
@@ -20,33 +21,42 @@ while blocking unauthorized access from other pods.
 - A test pod deployed in the same namespace for negative testing
 
 **Test Steps**:
+
 1. Deploy NetworkPolicies restricting ingress to vLLM (port 8000)
    and PostgreSQL (port 5432) to only allow traffic from
    LlamaStack pods.
 2. From the LlamaStack pod, verify connectivity to vLLM:
+
    ```bash
    oc exec deploy/llamastack -n <namespace> -- \
      curl -s -o /dev/null -w "%{http_code}" \
      http://vllm:8000/health
    ```
+
 3. From the LlamaStack pod, verify connectivity to PostgreSQL:
+
    ```bash
    oc exec deploy/llamastack -n <namespace> -- \
      pg_isready -h postgresql -p 5432
    ```
+
 4. From a test pod (not LlamaStack), attempt to reach vLLM
    directly:
+
    ```bash
    oc exec deploy/test-pod -n <namespace> -- \
      curl -s --connect-timeout 5 http://vllm:8000/health
    ```
+
 5. From the test pod, attempt to reach PostgreSQL directly:
+
    ```bash
    oc exec deploy/test-pod -n <namespace> -- \
      pg_isready -h postgresql -p 5432 -t 5
    ```
 
 **Expected Results**:
+
 - LlamaStack → vLLM (port 8000): connection succeeds, HTTP 200
 - LlamaStack → PostgreSQL (port 5432): connection succeeds,
   pg_isready reports accepting connections

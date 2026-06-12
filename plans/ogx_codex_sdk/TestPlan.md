@@ -13,6 +13,7 @@ version: 1.0.0
 reviewers: []
 ---
 # OGX Codex SDK Test Plan
+
 **OGX Core – OpenAI Codex CLI Compatibility Testing**
 
 **Strategy**: [RHAISTRAT-1456](https://redhat.atlassian.net/browse/RHAISTRAT-1456)

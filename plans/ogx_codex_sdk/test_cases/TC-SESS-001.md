@@ -13,6 +13,7 @@ conversation context across 5+ chained tool calls without the client
 resending full conversation history.
 
 **Preconditions**:
+
 - LlamaStack running on port 8321 with Memories API provider
   registered in config.yaml
 - PostgreSQL session store running on port 5432
@@ -21,6 +22,7 @@ resending full conversation history.
 - Codex CLI configured with `OPENAI_BASE_URL` pointing to LlamaStack
 
 **Test Steps**:
+
 1. Generate a unique `session_id` (UUID format)
 2. Send turn 1: prompt requesting `read_file` on a known file in the
    test repo, include `session_id` parameter
@@ -37,6 +39,7 @@ resending full conversation history.
    server-side session state
 
 **Expected Results**:
+
 - Turn 6 response correctly references all five prior tool results
   (file read, grep match, edit, bash output, verification read)
 - No "I don't have context" or "I don't have information about
@@ -46,6 +49,7 @@ resending full conversation history.
   history
 
 **Validation**:
+
 - Query PostgreSQL session store: `SELECT count(*) FROM session_turns
   WHERE session_id = '<uuid>';` returns at least 5 rows
 - Verify turn ordering: `SELECT turn_number, role FROM session_turns

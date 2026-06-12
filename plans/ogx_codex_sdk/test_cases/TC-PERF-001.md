@@ -12,6 +12,7 @@ last_updated: "2026-06-12"
 under 200ms at p95 on A100-80GB or H100 GPU hardware.
 
 **Preconditions**:
+
 - LlamaStack deployed on port 8321
 - vLLM serving target OSS model on port 8000 with A100-80GB or
   H100 GPU
@@ -19,6 +20,7 @@ under 200ms at p95 on A100-80GB or H100 GPU hardware.
 - Network latency between test client and cluster < 5ms
 
 **Test Steps**:
+
 1. Prepare a simple prompt (no tool definitions):
    `{"model": "<target_model>", "messages": [{"role": "user",
    "content": "Explain what a Kubernetes pod is in one
@@ -36,12 +38,14 @@ under 200ms at p95 on A100-80GB or H100 GPU hardware.
    measure tool-call-aware TTFT
 
 **Expected Results**:
+
 - p95 TTFT < 200ms for simple prompts without tools
 - p50 TTFT < 100ms for simple prompts without tools
 - p99 TTFT < 500ms (soft target)
 - Tool-call-aware TTFT does not exceed 1.5x baseline
 
 **Test Data**:
+
 ```bash
 # Measurement script outline
 for i in $(seq 1 100); do

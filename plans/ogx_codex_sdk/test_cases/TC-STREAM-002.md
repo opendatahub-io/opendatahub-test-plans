@@ -13,12 +13,14 @@ a single response, each tool call receives a unique index in the SSE
 delta stream and arguments are streamed independently per index.
 
 **Preconditions**:
+
 - LlamaStack distribution running on port 8321
 - vLLM serving a target OSS model with `--tool-call-parser` enabled
 - Tools array includes at least `grep_search` and `read_file`
   definitions
 
 **Test Steps**:
+
 1. Send a POST request to `http://<llamastack>:8321/v1/chat/completions`
    with `stream: true` and a prompt that requires two sequential tool
    calls (e.g., "Find all TODO comments in main.py and then show me the
@@ -34,6 +36,7 @@ delta stream and arguments are streamed independently per index.
    incrementally across multiple chunks
 
 **Expected Results**:
+
 - Delta chunks contain `tool_calls` entries with `index: 0` and
   `index: 1`
 - Index 0 has one `function.name` (e.g., `grep_search`), index 1 has
@@ -43,6 +46,7 @@ delta stream and arguments are streamed independently per index.
 - Stream terminates with `data: [DONE]`
 
 **Test Data**:
+
 ```bash
 curl -N -X POST http://llamastack:8321/v1/chat/completions \
   -H "Content-Type: application/json" \
