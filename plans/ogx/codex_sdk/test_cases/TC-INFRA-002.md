@@ -13,11 +13,13 @@ registers the Memories API and Compaction API providers and that both
 are active after deployment.
 
 **Preconditions**:
+
 - OGX deployed via LlamaStackDistribution CR with config.yaml
   containing Memories and Compaction provider entries
 - OGX pod in Running/Ready state on port 8321
 
 **Test Steps**:
+
 1. Deploy OGX with a config.yaml that includes Memories and
    Compaction provider registrations (see TC-INFRA-001 for CR
    example).
@@ -29,6 +31,7 @@ are active after deployment.
    error-level entries.
 
 **Expected Results**:
+
 - config.yaml contains entries for both `memory` and `compaction`
   providers
 - Provider listing endpoint returns JSON array including both

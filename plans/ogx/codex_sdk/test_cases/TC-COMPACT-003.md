@@ -12,11 +12,13 @@ last_updated: "2026-06-12"
 interfere with other active sessions running concurrently.
 
 **Preconditions**:
+
 - OGX deployed with Compaction API provider enabled
 - PostgreSQL session store on port 5432
 - Sufficient resources for 2+ concurrent sessions
 
 **Test Steps**:
+
 1. Start session A (`session_id=sess-a-<uuid>`) and session B
    (`session_id=sess-b-<uuid>`) concurrently
 2. In session A, send enough turns to reach the configured
@@ -29,6 +31,7 @@ interfere with other active sessions running concurrently.
    asking it to recall facts from its own earlier turns
 
 **Expected Results**:
+
 - Session B continues to respond normally during session A's
   compaction (no timeouts, no stalled responses)
 - Session B's conversation history is unaffected — no turns

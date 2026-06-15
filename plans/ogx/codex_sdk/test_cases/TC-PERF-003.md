@@ -13,12 +13,14 @@ concurrent session load, ensuring session retrieval stays within the
 configured performance budget.
 
 **Preconditions**:
+
 - OGX deployed on port 8321 with PostgreSQL session store
 - PostgreSQL on port 5432 with connection pooling configured
 - Sufficient cluster resources for 100 concurrent sessions
 - Target model served via vLLM on port 8000
 
 **Test Steps**:
+
 1. Start 100 concurrent Codex CLI sessions, each with a unique
    `session_id`
 2. Each session performs 10 tool-call turns sequentially (mix of
@@ -36,6 +38,7 @@ configured performance budget.
    or returned stale state
 
 **Expected Results**:
+
 - Session state retrieval latency remains within the configured
   budget across all sessions
 - No PostgreSQL connection pool exhaustion (active connections
@@ -44,6 +47,7 @@ configured performance budget.
 - No dropped sessions or HTTP 503 responses
 
 **Validation**:
+
 - `pg_stat_statements` or the equivalent database telemetry identifies
   the session retrieval query from TC-SESS-001 and shows it remains
   within the configured latency budget

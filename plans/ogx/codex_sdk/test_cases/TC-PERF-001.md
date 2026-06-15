@@ -12,6 +12,7 @@ last_updated: "2026-06-12"
 meets the configured baseline for the selected model and hardware.
 
 **Preconditions**:
+
 - OGX deployed on port 8321
 - vLLM serving target OSS model on port 8000 with A100-80GB or
   H100 GPU
@@ -20,6 +21,7 @@ meets the configured baseline for the selected model and hardware.
   for baseline measurement
 
 **Test Steps**:
+
 1. Prepare a simple prompt (no tool definitions):
    `{"model": "<target_model>", "messages": [{"role": "user",
    "content": "Explain what a Kubernetes pod is in one
@@ -37,6 +39,7 @@ meets the configured baseline for the selected model and hardware.
    measure tool-call-aware TTFT
 
 **Expected Results**:
+
 - Simple prompt TTFT remains within the configured baseline for the
   selected model and hardware
 - Percentile results are captured for comparison across runs
@@ -44,6 +47,7 @@ meets the configured baseline for the selected model and hardware.
   budget relative to the baseline
 
 **Test Data**:
+
 ```bash
 # Measurement script outline
 for i in $(seq 1 100); do

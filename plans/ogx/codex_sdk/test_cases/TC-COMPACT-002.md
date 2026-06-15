@@ -13,11 +13,13 @@ from earlier conversation turns after compaction has compressed
 the session history.
 
 **Preconditions**:
+
 - OGX deployed with Compaction API provider enabled
 - PostgreSQL session store on port 5432
 - Session capable of reaching the configured compaction threshold
 
 **Test Steps**:
+
 1. Create a session with a unique `session_id`
 2. Across enough tool-call turns to trigger compaction, embed several
    specific verifiable facts:
@@ -38,6 +40,7 @@ the session history.
    worker.py?"
 
 **Expected Results**:
+
 - Model recalls the configured set of critical facts from
   pre-compaction history
 - Responses do not contain hallucinated details (e.g.,

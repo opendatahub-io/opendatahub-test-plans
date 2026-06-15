@@ -13,6 +13,7 @@ conversation history when the session approaches the model's context
 window limit.
 
 **Preconditions**:
+
 - OGX deployed on port 8321 with Compaction API provider
   registered in config.yaml
 - PostgreSQL session store available on port 5432
@@ -20,6 +21,7 @@ window limit.
 - Compaction API (upstream PR #5327) merged or cherry-picked
 
 **Test Steps**:
+
 1. Create a new session by sending a POST to
    `/v1/chat/completions` with a unique `session_id` and
    `stream=true`
@@ -31,6 +33,7 @@ window limit.
 5. Inspect session state through the supported observability path
 
 **Expected Results**:
+
 - Compaction API is invoked automatically before context window
   overflow
 - Post-compaction session state contains a compressed summary
@@ -41,6 +44,7 @@ window limit.
   the session
 
 **Validation**:
+
 - Automation verifies compaction metadata and size reduction using
   the configured harness metrics or storage inspection path.
 

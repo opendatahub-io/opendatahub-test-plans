@@ -12,11 +12,13 @@ last_updated: "2026-06-12"
 `session_id` values do not cross-contaminate conversation context.
 
 **Preconditions**:
+
 - OGX running on port 8321 with Memories API configured
 - PostgreSQL session store on port 5432
 - Two separate test repositories (repo-a and repo-b) available
 
 **Test Steps**:
+
 1. Generate two unique session IDs: `uuid-a` and `uuid-b`
 2. Start session A (`session_id=uuid-a`): send a prompt requesting
    `read_file` on `repo-a/main.py`
@@ -30,6 +32,7 @@ last_updated: "2026-06-12"
    only session B accessed)
 
 **Expected Results**:
+
 - Session A follow-up (step 4) references `repo-a/main.py` only
 - Session B follow-up (step 5) references `repo-b/server.js` only
 - Session A (step 6) has no knowledge of `server.js` — responds that
@@ -37,6 +40,7 @@ last_updated: "2026-06-12"
 - No cross-session context leakage in any response
 
 **Validation**:
+
 - Use the public session retrieval path or harness abstraction to
   confirm each session only exposes its own turns in sequence.
 

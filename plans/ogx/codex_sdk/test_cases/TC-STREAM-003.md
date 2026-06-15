@@ -13,12 +13,14 @@ malformed SSE streams gracefully without crashing or executing partial
 tool calls.
 
 **Preconditions**:
+
 - OGX distribution running on port 8321
 - Active Codex CLI session connected via OPENAI_BASE_URL
 - Ability to kill OGX pod or inject network disruption
   (e.g., `oc delete pod` or `iptables` rule)
 
 **Test Steps**:
+
 1. Start a Codex CLI session with
    `OPENAI_BASE_URL=http://llamastack:8321/v1`
 2. Issue a prompt that triggers a tool call (e.g., "Read the file
@@ -32,6 +34,7 @@ tool calls.
    or exit cleanly
 
 **Expected Results**:
+
 - Codex CLI displays a connection error or timeout message
 - Codex CLI does not crash or produce an unhandled exception
 - No tool is partially executed based on incomplete arguments

@@ -13,12 +13,14 @@ OGX proxy layer between the client and vLLM using paired request
 samples.
 
 **Preconditions**:
+
 - OGX deployed on port 8321
 - vLLM serving target model on port 8000
 - Both services accessible from the test client pod
 - No other load on the cluster during measurement
 
 **Test Steps**:
+
 1. Prepare an identical request payload:
    `{"model": "<target_model>", "messages": [{"role": "user",
    "content": "What is 2 + 2?"}], "stream": true}`
@@ -32,6 +34,7 @@ samples.
 5. Compute p50, p95, and p99 over the paired overhead distribution
 
 **Expected Results**:
+
 - Proxy overhead remains within the configured performance budget
   for the selected model and hardware
 - Paired samples show stable overhead without unexplained outliers
