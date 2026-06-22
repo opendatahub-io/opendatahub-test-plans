@@ -50,9 +50,12 @@ resending full conversation history.
 
 **Validation**:
 
-- Use the public session retrieval path or harness abstraction to
-  verify the session returns the expected turns.
-- Verify returned turns are chronological or sequential by the public
+- Use the Codex SDK session-state validation fixture to query the
+  configured PostgreSQL session store by `session_id` and authenticated
+  principal.
+- Verify the fixture returns the expected five prior turns from the
+  `session_turns` records without requiring client-resubmitted history.
+- Verify returned turns are chronological or sequential by the stored
   turn number or timestamp fields.
 
 **Notes**: To be filled later in the process.

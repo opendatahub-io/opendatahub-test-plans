@@ -41,7 +41,11 @@ last_updated: "2026-06-12"
 
 **Validation**:
 
-- Use the public session retrieval path or harness abstraction to
-  confirm each session only exposes its own turns in sequence.
+- Use the same Codex SDK session-state validation fixture as
+  TC-SESS-001 to query the configured PostgreSQL session store by
+  `session_id` and authenticated principal.
+- Confirm `uuid-a` returns only session A turns, `uuid-b` returns only
+  session B turns, and neither retrieval path exposes the other
+  session's tool results.
 
 **Notes**: To be filled later in the process.

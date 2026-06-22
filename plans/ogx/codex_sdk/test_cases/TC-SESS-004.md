@@ -18,15 +18,21 @@ last_updated: "2026-06-12"
 2. POST to `/v1/chat/completions` on port 8321 with the non-existent
    `session_id` and a prompt requesting `read_file` on a known file
 3. Observe the HTTP response code and body
-4. Verify the response body contains a clear error explaining that
-   the session was not found or is not owned by the authenticated
-   principal
+4. Verify the response body uses the documented error schema and the
+   same safe error shape for "not found" and "not owned" cases
+5. Repeat with an existing `session_id` owned by a different
+   authenticated principal
 
 **Expected Results**:
 
 - OGX does not return HTTP 500 or crash
-- HTTP 404 or 422 with a clear error message indicating the
-  `session_id` was not found or is not accessible to the caller
+- HTTP 404 or 422 with the documented JSON error schema, including a
+  stable error code such as `session_not_accessible`
+- Error details do not expose stack traces, SQL queries, database
+  schema names, framework exception names, internal resource names, or
+  whether the `session_id` exists for another principal
+- The non-existent and not-owned `session_id` cases return the same
+  status code family and safe error shape
 - No stale or orphaned data from other sessions is returned
 
 **Notes**: To be filled later in the process.
