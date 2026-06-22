@@ -21,7 +21,7 @@ or RHOAI ticket.
 3. Add the following files:
 
 | File | Required | Description |
-|------|----------|-------------|
+| ------ | ---------- | ------------- |
 | `README.md` | Yes | Feature overview with links to ADR, Epic, and STRAT |
 | `TestPlan.md` | Yes | Full test strategy and execution plan |
 | `TestPlanGaps.md` | No | Open questions or gaps identified during planning |

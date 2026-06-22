@@ -282,7 +282,7 @@ layers without per-tenant Gateway instances.
 ### 4.1 Tenant CR Operations
 
 | Interface | Method | Purpose | Priority |
-|-----------|--------|---------|----------|
+| ----------- | -------- | --------- | ---------- |
 | Tenant CR (or successor ModelsAsService-like CR) | CREATE | Provision new tenant — triggers operator to create namespace, Gateway, MaaSAuthPolicy, MaaSSubscription, identity configuration, and Kuadrant policies | P0 |
 | Tenant CR | DELETE | Remove tenant — triggers automated cleanup of all tenant-owned resources via finalizers | P0 |
 | Tenant CR | UPDATE | Modify tenant configuration (gateway references, OIDC config, quota settings) | P1 |
@@ -291,7 +291,7 @@ layers without per-tenant Gateway instances.
 ### 4.2 Per-Tenant Custom Resources
 
 | Interface | Method | Purpose | Priority |
-|-----------|--------|---------|----------|
+| ----------- | -------- | --------- | ---------- |
 | MaaSSubscription CR | CREATE | Define which models a tenant can use and under what limits; must be tenant-scoped | P0 |
 | MaaSSubscription CR | UPDATE/DELETE | Modify or remove model subscriptions for a tenant | P1 |
 | MaaSAuthPolicy CR | CREATE | Define tenant-specific authentication rules, IdP claims, audiences, and policy binding | P0 |
@@ -308,7 +308,7 @@ layers without per-tenant Gateway instances.
 ### 4.4 Tenant Resource Verification
 
 | Interface | Method | Purpose | Priority |
-|-----------|--------|---------|----------|
+| ----------- | -------- | --------- | ---------- |
 | Tenant namespace | Verify creation | Confirm namespace is created with `maas.opendatahub.io/tenant` label and correct RBAC | P0 |
 | Shared Gateway | Verify routing | Confirm single shared Gateway routes tenant requests via AuthPolicy claim checks (no per-tenant Gateway) | P0 |
 | Tenant identity configuration | Verify | Confirm tenant-scoped claims/audiences are configured in shared IdP (realm-per-tenant deferred to Phase 2) | P1 |
@@ -316,7 +316,7 @@ layers without per-tenant Gateway instances.
 ### 4.5 Authentication, Identity, and API Keys (S4)
 
 | Interface | Method | Purpose | Priority |
-|-----------|--------|---------|----------|
+| ----------- | -------- | --------- | ---------- |
 | `POST /v1/api-keys` | CREATE | Generate long-lived API key; verify `tenant` field persisted in `api_keys` table | P0 |
 | `POST /internal/v1/api-keys/validate` | VALIDATE | Validate API key and return `ValidationResult{tenant, userID, modelRef}`; cross-tenant key returns 401 | P0 |
 | `GET /v1/api-keys` | LIST | List API keys scoped to the tenant; verify keys from other tenants are not visible | P1 |
@@ -331,7 +331,7 @@ layers without per-tenant Gateway instances.
 ### 4.7 Admission Webhook (S6)
 
 | Interface | Method | Purpose | Priority |
-|-----------|--------|---------|----------|
+| ----------- | -------- | --------- | ---------- |
 | MaaSSubscription in unlabeled namespace | REJECT | Webhook rejects CREATE in namespace without `maas.opendatahub.io/tenant` label | P1 |
 | MaaSAuthPolicy in unlabeled namespace | REJECT | Webhook rejects CREATE in namespace without `maas.opendatahub.io/tenant` label | P1 |
 | MaaSSubscription in labeled namespace | ALLOW | Webhook admits CREATE in correctly labeled tenant namespace | P1 |
@@ -340,7 +340,7 @@ layers without per-tenant Gateway instances.
 ### 4.9 Isolation Enforcement (Negative Testing)
 
 | Interface | Method | Purpose | Priority |
-|-----------|--------|---------|----------|
+| ----------- | -------- | --------- | ---------- |
 | Cross-tenant model access | DENY | Tenant A cannot discover or access Tenant B's models or subscriptions | P0 |
 | Cross-tenant API key reuse | DENY | API key from Tenant A cannot authenticate on Tenant B's gateway; no cross-tenant token reuse | P0 |
 | Cross-tenant metrics/usage access | DENY | Tenant A cannot view Tenant B's usage data or billing signals | P0 |
@@ -359,7 +359,7 @@ layers without per-tenant Gateway instances.
 Test cases are organized by category and stored as individual markdown files in the `test_cases/` directory:
 
 | Category | Test Cases | Priority Distribution |
-|----------|------------|----------------------|
+| ---------- | ------------ | ---------------------- |
 | Tenant Provisioning & CR Lifecycle | TC-PROV-001 to TC-PROV-004 | P0: 3, P1: 1 |
 | Controller Reconciliation | TC-CTRL-001 to TC-CTRL-003 | P0: 1, P1: 2 |
 | AuthPolicy Propagation | TC-POLICY-001 to TC-POLICY-003 | P1: 3 |
@@ -391,7 +391,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ## 8. Risks and Mitigation
 
 | Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
+| ------ | -------- | ------------- | ------------ |
 | X-MaaS-Tenant header spec not finalized (S5) | Medium | Medium | Confirm header spec with Kuadrant/Authorino team before writing S5 test cases |
 | Webhook failure strategy not documented (S6) | Medium | Medium | Request finalized fail-open vs. fail-fast decision from dev team before writing TC-WEBHOOK cases |
 | ValidationResult JSON schema not specified (S4) | Medium | Low | Request OpenAPI spec or example response from dev team |
@@ -452,7 +452,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ### 10.2 Interface Coverage
 
 | Interface | Story | Test Cases | Coverage |
-|-----------|-------|------------|----------|
+| ----------- | ------- | ------------ | ---------- |
 | Tenant CR — CREATE | S1 | | |
 | Tenant CR — DELETE | S1 | | |
 | Tenant CR — UPDATE | S1 | | |

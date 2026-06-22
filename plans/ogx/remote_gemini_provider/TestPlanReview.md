@@ -26,7 +26,7 @@ error: null
 ## Rubric Scores
 
 | Criterion | Score | Evidence | Notes |
-|-----------|-------|----------|-------|
+| ----------- | ------- | ---------- | ------- |
 | Specificity | 2 | P0 definitions name remote::gemini specific scenarios. Risks name AIPCC wheel availability, /v1/responses limitation, JSON schema fields. | Swap test passes. |
 | Grounding | 2 | All Section 4 entries trace to strategy. Zero fabrications. TBDs have rationale. | Cross-reference: all 12 entries grounded. |
 | Scope Fidelity | 2 | Every strategy AC maps to a test objective. Out-of-scope matches strategy. | No orphans in either direction. |
@@ -40,7 +40,7 @@ error: null
 ## Grounding Cross-Reference
 
 | Section 4 Entry | Source Match | Status |
-|-----------------|-------------|--------|
+| ----------------- | ------------- | -------- |
 | /v1/providers GET | "provider available" (AC) | Grounded |
 | /v1/chat/completions POST (non-streaming) | "chat completions with streaming/temperature" (AC) | Grounded |
 | /v1/chat/completions POST (streaming) | "chat completions with streaming/temperature" (AC) | Grounded |

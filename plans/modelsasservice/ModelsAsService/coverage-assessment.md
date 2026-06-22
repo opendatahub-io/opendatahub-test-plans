@@ -11,7 +11,7 @@ The test plan contains **104 test cases** across 5 categories. The table below m
 case to its automation status and location.
 
 | TC ID | Title | Pri | Where | Status |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | TC-HEALTH-001 | MaaS Management State is MANAGED in DSC | P0 | `component_health/test_maas_api_health_check.py` | ✅ Merged |
 | TC-HEALTH-002 | ModelsAsServiceReady Condition is True in DSC | P0 | `component_health/test_maas_api_health_check.py` | ✅ Merged |
 | TC-HEALTH-003 | maas-api Deployment Available | P0 | `component_health/test_maas_api_health_check.py` | ✅ Merged |
@@ -122,7 +122,7 @@ case to its automation status and location.
 ## 2. Summary by Category
 
 | Category | Total | Automated (Merged) | Automated (PR) |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Component Health (TC-HEALTH) | 11 | 11 (100%) | 0 |
 | API Key (TC-API) | 33 | 33 (100%) | 0 |
 | Subscription (TC-SUB) | 35 | 35 (100%) | 0 |
