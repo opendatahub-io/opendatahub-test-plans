@@ -13,7 +13,7 @@ tests, upstream Python E2E tests, and downstream Python integration tests. The t
 each test case to the epic requirement it validates and where it is automated.
 
 | TC ID | Title | Pri | Epic Requirement | Where |
-|-------|-------|-----|------------------|-------|
+| ------- | ------- | ----- | ------------------ | ------- |
 | TC-API-001 | List All MCP Servers | P0 | Discovery | Downstream `test_data_integrity.py`; Upstream Python `test_servers.py` |
 | TC-API-002 | List with Pagination | P0 | Pagination | Upstream Python `test_servers.py` |
 | TC-API-003 | Filter by Provider | P0 | Filtering | Downstream `test_filtering.py`; Upstream Python `test_filtering.py` |
@@ -87,13 +87,13 @@ each test case to the epic requirement it validates and where it is automated.
 **Additional coverage not in the test plan** (dev story bugs with upstream Go tests):
 
 | Area | Dev Story | Where |
-|------|-----------|-------|
+| ------ | ----------- | ------- |
 | K8s prerequisites metadata | RHOAIENG-54413 | Upstream Go `mcp_server_prerequisites_test.go` |
 | Tool accessType & inputParameters | RHOAIENG-54119 | Upstream Go `loader_test.go::TestMCPLoaderToolAccessTypeAndParameters` |
 | securityIndicators from YAML | RHOAIENG-54715 | Upstream Go `providers_test.go::TestYamlMCPServerSecurityIndicatorsToStandardProperties` |
 
 | Category | Total | Automated |
-|----------|-------|-----------|
+| ---------- | ------- | ----------- |
 | API (TC-API) | 39 | 39 (100%) |
 | DATA (TC-DATA) | 5 | 5 (100%) |
 | ERROR (TC-ERROR) | 7 | 7 (100%) |
@@ -128,7 +128,7 @@ tests.
 or not applicable:
 
 | Area | Assessment | Why |
-|------|------------|-----|
+| ------ | ------------ | ----- |
 | API endpoints | No gap | All 7 endpoints have positive, negative, and edge case coverage |
 | Bug fix regressions | No gap | RHOAIENG-54119, 54555, 54579, 54715 all have upstream Go tests |
 | New data model fields | No gap | K8s prerequisites, securityIndicators, documentation fields, tool parameters all have round-trip tests |

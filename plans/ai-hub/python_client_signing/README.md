@@ -105,7 +105,7 @@ result = signer.sign_model('path/to/model')
 The signer auto-configures from environment variables:
 
 | Variable | Description | Default |
-|----------|-------------|---------|
+| ---------- | ------------- | --------- |
 | `SIGNING_FULCIO_URL` | Fulcio CA URL | Auto-discovered from cluster |
 | `SIGNING_REKOR_URL` | Rekor transparency log URL | Auto-discovered from cluster |
 | `SIGNING_TUF_URL` | TUF metadata URL | Auto-discovered from cluster |

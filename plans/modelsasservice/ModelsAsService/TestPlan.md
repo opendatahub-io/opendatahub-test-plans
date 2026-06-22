@@ -5,7 +5,7 @@
 ## Document Information
 
 | Field | Value |
-|---|---|
+| --- | --- |
 | **Feature** | ModelsAsService (MaaS) |
 | **Team** | MaaS |
 | **Version** | 1.5 |
@@ -77,7 +77,7 @@ authentication policies enforced at the Kuadrant-based gateway.
 ### 2.3 Test Priorities
 
 | Priority | Description | Examples |
-|---|---|---|
+| --- | --- | --- |
 | **P0 (smoke)** | Critical path — must pass for basic functionality | API key creation, model listing, auth enforcement |
 | **P1 (tier1)** | Core functional tests | Authorization, bulk ops, subscription enforcement, OIDC model access |
 | **P2 (tier2)** | Extended coverage and edge cases | Pagination, double revoke, JWT group claims, expiration boundary |
@@ -125,7 +125,7 @@ authentication policies enforced at the Kuadrant-based gateway.
 ### 4.1 API Key Endpoints
 
 | Endpoint | Method | Purpose | Priority |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `/v1/api-keys` | POST | Create an API key | P0 |
 | `/v1/api-keys/search` | POST | List/search API keys with filters | P1 |
 | `/v1/api-keys/{id}` | GET | Get API key details | P1 |
@@ -136,7 +136,7 @@ authentication policies enforced at the Kuadrant-based gateway.
 ### 4.2 Model & Inference Endpoints
 
 | Endpoint | Method | Purpose | Priority |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `/v1/models` | GET | List available models | P0 |
 | `/llm/{model}/v1/chat/completions` | POST | Run chat completion inference | P0 |
 
@@ -149,7 +149,7 @@ authentication policies enforced at the Kuadrant-based gateway.
 ### 4.4 Subscription Endpoints
 
 | Endpoint | Method | Purpose | Priority |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `/v1/subscriptions` | GET | List user's accessible subscriptions | P1 |
 | `/v1/model/{model-id}/subscriptions` | GET | List subscriptions for a specific model | P1 |
 
@@ -165,7 +165,7 @@ case files — all cases are documented in the index.
 ### 5.1 Test Case Organization
 
 | Category | Test Cases | Priority Distribution |
-|---|---|---|
+| --- | --- | --- |
 | Component Health - API | TC-HEALTH-001 to 004 | P0: 4 |
 | Component Health - Controller | TC-HEALTH-005 to 011 | P0: 7 |
 | API Key - CRUD | TC-API-001 to 004 | P0: 2, P1: 1, P2: 1 |
@@ -212,7 +212,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ## 6. Risks and Mitigation
 
 | Risk | Impact | Probability | Mitigation |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Keycloak unavailability on byoidc clusters | High | Medium | OIDC tests skip on non-byoidc clusters; separate test runs |
 | Rate limit timing sensitivity | Medium | Medium | Use `timeout-sampler` with polling; allow 429-optional for token-rate |
 | Subscription controller race conditions | Medium | Low | Fixtures include `wait_for_condition(Ready)` with generous timeouts |
@@ -236,7 +236,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ### 7.2 Key Fixtures
 
 | Fixture | Scope | Purpose |
-|---|---|---|
+| --- | --- | --- |
 | `maas_unprivileged_model_namespace` | class | Namespace for model resources |
 | `maas_subscription_controller_enabled_latest` | session | Subscription controller enabled |
 | `maas_gateway_api` | session | MaaS gateway deployed |
@@ -262,7 +262,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ### 8.1 Test Case Summary
 
 | Category | Total | P0 | P1 | P2 | P3 |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- |
 | Component Health - API | 4 | 4 | 0 | 0 | 0 |
 | Component Health - Controller | 7 | 7 | 0 | 0 | 0 |
 | API Key - CRUD | 4 | 2 | 1 | 1 | 0 |
@@ -298,7 +298,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ### 8.2 API Endpoint Coverage
 
 | Endpoint | Test Cases | Coverage |
-|---|---|---|
+| --- | --- | --- |
 | POST `/v1/api-keys` | TC-API-001, TC-OIDC-001 to 005, TC-OIDC-014 | ✅ Complete |
 | POST `/v1/api-keys/search` | TC-API-002, TC-API-003, TC-API-005 to 008, TC-OIDC-013 | ✅ Complete |
 | GET `/v1/api-keys/{id}` | TC-API-001, TC-API-004, TC-API-006 | ✅ Complete |
@@ -313,7 +313,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ### 8.3 Document Change Log
 
 | Version | Date | Author | Changes |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1.0 | 2026-04-15 | QA Team | Initial test plan for ModelsAsService — API Key (25 tests), Subscription (23 tests), OIDC (17 tests); 65 test cases total (P0: 11, P1: 39, P2: 11, P3: 4) |
 | 1.1 | 2026-04-16 | QA Team | Fixed endpoint path `{model}` → `{model-id}`; Fixed fixture scope `maas_unprivileged_model_namespace` to class; Updated terminology "tier-based" → subscription-based; Removed General/tier-based tests (10 tests); Removed internal endpoints section; Merged OIDC PR #1399; Updated from 75 to 65 test cases |
 | 1.2 | 2026-04-17 | QA Team | Added 12 new `/v1/models` endpoint tests (TC-SUB-024 to TC-SUB-035) from PR #1411: filtering (8), access control (3), rate limit exemption (1); Updated from 65 to 77 test cases |
