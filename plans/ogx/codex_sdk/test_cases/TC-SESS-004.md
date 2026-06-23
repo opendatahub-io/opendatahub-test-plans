@@ -22,6 +22,8 @@ last_updated: "2026-06-12"
    same safe error shape for "not found" and "not owned" cases
 5. Repeat with an existing `session_id` owned by a different
    authenticated principal
+6. From an isolated test pod with no background load, repeat both
+   cases enough times to compare response latency distributions
 
 **Expected Results**:
 
@@ -33,6 +35,9 @@ last_updated: "2026-06-12"
   whether the `session_id` exists for another principal
 - The non-existent and not-owned `session_id` cases return the same
   status code family and safe error shape
+- Response latency for non-existent and not-owned `session_id` cases
+  stays within the same expected distribution, so session existence
+  cannot be inferred from timing alone
 - No stale or orphaned data from other sessions is returned
 
 **Notes**: To be filled later in the process.
