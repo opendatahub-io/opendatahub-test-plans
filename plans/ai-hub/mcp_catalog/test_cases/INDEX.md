@@ -15,7 +15,7 @@ markdown files for easy reference and maintenance.
 ### API Testing
 
 | Test Case ID | Title | Priority |
-|--------------|-------|----------|
+| -------------- | ------- | ---------- |
 | [TC-API-001](TC-API-001.md) | List All MCP Servers | P0 |
 | [TC-API-002](TC-API-002.md) | List MCP Servers with Pagination | P0 |
 | [TC-API-003](TC-API-003.md) | Filter MCP Servers by Provider | P0 |
@@ -59,7 +59,7 @@ markdown files for easy reference and maintenance.
 ### Data Validation
 
 | Test Case ID | Title | Priority |
-|--------------|-------|----------|
+| -------------- | ------- | ---------- |
 | [TC-DATA-001](TC-DATA-001.md) | Verify All SPDX License Transformations | P1 |
 | [TC-DATA-002](TC-DATA-002.md) | Verify Tool Parameters Schema | P1 |
 | [TC-DATA-003](TC-DATA-003.md) | Verify Artifact URIs Validated | P1 |
@@ -69,7 +69,7 @@ markdown files for easy reference and maintenance.
 ### Error Handling
 
 | Test Case ID | Title | Priority |
-|--------------|-------|----------|
+| -------------- | ------- | ---------- |
 | [TC-ERROR-001](TC-ERROR-001.md) | Invalid Filter Query Syntax | P1 |
 | [TC-ERROR-002](TC-ERROR-002.md) | Invalid Field Name in Filter | P1 |
 | [TC-ERROR-003](TC-ERROR-003.md) | Invalid Page Token | P1 |
@@ -81,7 +81,7 @@ markdown files for easy reference and maintenance.
 ### YAML Loading
 
 | Test Case ID | Title | Priority |
-|--------------|-------|----------|
+| -------------- | ------- | ---------- |
 | [TC-LOAD-001](TC-LOAD-001.md) | Load MCP Servers from YAML | P0 |
 | [TC-LOAD-002](TC-LOAD-002.md) | YAML Loading with Multiple Sources | P1 |
 | [TC-LOAD-003](TC-LOAD-003.md) | YAML Loading with Glob Filtering (Include) | P1 |

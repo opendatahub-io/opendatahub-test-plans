@@ -35,7 +35,7 @@ This directory contains test cases for the Python Client Signing functionality.
 ## Test Summary
 
 | Priority | Test Cases | File |
-|----------|------------|------|
+| ---------- | ------------ | ------ |
 | P0 | TC-001, TC-002, TC-004, TC-011 | TC-CORE-SIGNING.md |
 | P0 | TC-009, TC-010, TC-012 | TC-ASYNC-SIGNING.md |
 | P1 | TC-005 to TC-006 | TC-CORE-SIGNING.md |
