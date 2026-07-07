@@ -144,7 +144,7 @@ catalogs:
 ### 4.1 MCP Server Endpoints
 
 | Endpoint | Method | Purpose | Priority |
-|----------|--------|---------|----------|
+| ---------- | -------- | --------- | ---------- |
 | `/api/model_catalog/v1alpha1/mcp_servers` | GET | List MCP servers with filtering | P0 |
 | `/api/model_catalog/v1alpha1/mcp_servers/{id}` | GET | Get specific MCP server by ID | P0 |
 | `/api/model_catalog/v1alpha1/mcp_servers/{id}/tools` | GET | List tools for specific MCP server | P1 |
@@ -180,7 +180,7 @@ Test cases are organized by category and stored as individual markdown files in 
 directory:
 
 | Category | Test Cases | Priority Distribution |
-|----------|------------|----------------------|
+| ---------- | ------------ | ---------------------- |
 | **API - Listing & Filtering** | TC-API-001 to 015, TC-API-032, TC-API-036 to 039 | P0: 5, P1: 14, P2: 1 |
 | **API - Server Details** | TC-API-016 to 018 | P0: 1, P1: 2 |
 | **API - Tools Parameters** | TC-API-019 to 025 | P1: 6, P2: 1 |
@@ -210,7 +210,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ## 6. Risks and Mitigation
 
 | Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
+| ------ | -------- | ------------- | ------------ |
 | **Dependency on MCP Gateway CRDs** | High | Medium | Test backend independently; mock Gateway integration if needed |
 | **Database schema changes** | Medium | Low | Coordinate with dev team on schema; update tests accordingly |
 | **Test data unavailable** | Medium | Low | Create comprehensive YAML test fixtures early |
@@ -250,7 +250,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ### 8.1 Test Case Summary
 
 | Category | Total | P0 | P1 | P2 |
-|----------|-------|----|----|-----|
+| ---------- | ------- | ---- | ---- | ----- |
 | API - Listing & Filtering | 20 | 5 | 14 | 1 |
 | API - Server Details | 3 | 1 | 2 | 0 |
 | API - Tools Parameters | 7 | 0 | 6 | 1 |
@@ -268,7 +268,7 @@ Test cases follow the naming pattern: `TC-<CATEGORY>-<NUMBER>`
 ### 8.2 API Endpoint Coverage
 
 | Endpoint | Test Cases | Coverage |
-|----------|------------|----------|
+| ---------- | ------------ | ---------- |
 | `GET /mcp_servers` | TC-API-001 to 015, 019-021, 032, 036-039 | ✅ Complete |
 | `GET /mcp_servers/{id}` | TC-API-016 to 018, 022 | ✅ Complete |
 | `GET /mcp_servers/{id}/tools` | TC-API-030 | ✅ Complete |
@@ -283,7 +283,7 @@ or via dedicated `/tools` endpoints for detailed tool listing.
 ### 8.3 Document Change Log
 
 | Version | Date | Author | Changes |
-|---------|------|--------|---------|
+| --------- | ------ | -------- | --------- |
 | 1.0 | 2026-02-09 | QA Team | Initial test plan for AI Hub backend |
 | 1.1 | 2026-02-09 | QA Team | Aligned with ADR: Removed separate tools endpoints, added includeTools/toolLimit parameters, added 7 new test cases (TC-API-034 to 036, TC-LOAD-011 to 014) |
 | 1.2 | 2026-02-09 | QA Team | Restructured: Added ADR reference; Extracted all 64 test cases to individual markdown files in test_cases/ directory for better organization and maintainability |

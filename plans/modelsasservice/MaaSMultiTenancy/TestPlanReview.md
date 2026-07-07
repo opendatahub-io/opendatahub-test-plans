@@ -10,7 +10,7 @@ last_updated: '2026-05-18'
 ## Review Summary
 
 | Criterion | Score | Notes |
-|---|---|---|
+| --- | --- | --- |
 | Specificity | 2/2 | Test cases reference concrete endpoints, CR kinds, label names, and DB column names |
 | Grounding | 2/2 | All Phase 1 scope grounded in S1–S6 Jira stories and Architecture v2 doc |
 | Scope Fidelity | 2/2 | In-scope items match S1–S6; BYOIDP, HCP, and per-tenant Gateway explicitly deferred |
@@ -83,6 +83,6 @@ Minor inconsistencies identified:
 ## Revision History
 
 | Cycle | Change |
-|---|---|
+| --- | --- |
 | v1.0.0 | Initial review: Score 6/10. Major gaps: data layer TBD, namespace topology TBD, API key surface undefined, BYOIDP blocking. |
 | v1.1.0 | Re-review after update with RHAISTRAT-1741, Architecture v2, S1–S6 stories. Score improved to 9/10. Key resolutions: data layer (PostgreSQL + tenant column), namespace topology (label-selector), API key endpoints (S4), BYOIDP deferred. Remaining gaps: ValidationResult schema, webhook failure strategy, X-MaaS-Tenant header spec. |

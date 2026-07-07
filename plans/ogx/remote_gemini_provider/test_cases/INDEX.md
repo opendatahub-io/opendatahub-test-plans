@@ -14,7 +14,7 @@
 ## Provider Availability (TC-PROV)
 
 | Test Case | Title | Priority |
-|-----------|-------|----------|
+| ----------- | ------- | ---------- |
 | [TC-PROV-001](TC-PROV-001.md) | Verify remote::gemini provider listed in /v1/providers | P0 |
 | [TC-PROV-002](TC-PROV-002.md) | Verify provider configuration without network.headers workaround | P0 |
 | [TC-PROV-003](TC-PROV-003.md) | Verify conditional provider activation with GEMINI_API_KEY | P0 |
@@ -22,7 +22,7 @@
 ## Chat Completions (TC-CHAT)
 
 | Test Case | Title | Priority |
-|-----------|-------|----------|
+| ----------- | ------- | ---------- |
 | [TC-CHAT-001](TC-CHAT-001.md) | Non-streaming chat completions with Gemini | P0 |
 | [TC-CHAT-002](TC-CHAT-002.md) | Streaming chat completions with Gemini | P0 |
 | [TC-CHAT-003](TC-CHAT-003.md) | Temperature parameter controls response variability | P0 |
@@ -57,7 +57,7 @@
 ## Deployment (TC-DEP)
 
 | Test Case | Title | Priority |
-|-----------|-------|----------|
+| ----------- | ------- | ---------- |
 | [TC-DEP-001](TC-DEP-001.md) | build.yaml includes remote::gemini provider | P0 |
 | [TC-DEP-002](TC-DEP-002.md) | config.yaml conditional activation pattern | P0 |
 | [TC-DEP-003](TC-DEP-003.md) | OGX K8s Operator ConfigMap injection for GEMINI_API_KEY | P0 |
@@ -79,7 +79,7 @@
 ## End-to-End Scenarios (TC-E2E)
 
 | Test Case | Title | Priority |
-|-----------|-------|----------|
+| ----------- | ------- | ---------- |
 | [TC-E2E-001](TC-E2E-001.md) | Deploy OGX with Gemini and run chat completion | P0 |
 | [TC-E2E-002](TC-E2E-002.md) | Full tool calling workflow with Gemini | P0 |
 | [TC-E2E-003](TC-E2E-003.md) | Embedding generation end-to-end with Gemini | P0 |

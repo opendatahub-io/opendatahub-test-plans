@@ -143,7 +143,7 @@ metadata:
 ### 4.1 Unified Signer Class
 
 | Method | Purpose | Priority |
-|--------|---------|----------|
+| -------- | --------- | ---------- |
 | `Signer.__init__()` | Initialize signer with auto-configuration | P0 |
 | `Signer.sign_model(artifact_path)` | Sign OMS artifact (model/dataset) | P0 |
 | `Signer.verify_model(artifact_path)` | Verify OMS artifact signature | P0 |
@@ -153,7 +153,7 @@ metadata:
 ### 4.2 Configuration Interface
 
 | Method | Purpose | Priority |
-|--------|---------|----------|
+| -------- | --------- | ---------- |
 | `Config.from_environment()` | Auto-configure from env vars | P1 |
 | `Config.from_service_account()` | Load config from SA token | P1 |
 | `Config.validate()` | Validate configuration | P1 |
@@ -165,7 +165,7 @@ metadata:
 ### 5.1 Core Functionality Tests
 
 | Test Case | Description | Priority |
-|-----------|-------------|----------|
+| ----------- | ------------- | ---------- |
 | TC-001 | Sign and verify a model | P0 |
 | TC-002 | Sign and verify a container image | P0 |
 | TC-004 | Sign with invalid credentials | P0 |
