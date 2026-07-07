@@ -13,10 +13,12 @@ agent catalog YAML are forwarded through the API response without
 modification.
 
 **Preconditions**:
+
 - Custom catalog includes agents with source-specific custom properties
   (e.g., `modelProvider`, `tooling`, `complexity`)
 
 **Test Steps**:
+
 1. Send GET request to
    `/api/agent_catalog/v1alpha1/agents/{agent_id}` for an agent known
    to have custom properties
@@ -24,6 +26,7 @@ modification.
    properties with correct values
 
 **Expected Results**:
+
 - `customProperties` contains all custom fields defined in the source
   YAML
 - Property values match the source YAML exactly (no transformation

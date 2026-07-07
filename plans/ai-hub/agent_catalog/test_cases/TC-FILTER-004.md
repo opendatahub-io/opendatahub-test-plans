@@ -12,17 +12,20 @@ last_updated: "2026-07-07"
 operator performs case-insensitive partial string matching.
 
 **Test Steps**:
+
 1. Send GET request to `/api/agent_catalog/v1alpha1/agents` with
    `filterQuery=name ILIKE "%REACT%"`
 2. Verify that agents whose name contains "react" in any case are returned
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Returned agents include names containing `react`, `React`, `REACT`,
   or any mixed case
 - ILIKE behaves identically to LIKE except for case sensitivity
 
 **Test Data**:
+
 ```bash
 curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/api/agent_catalog/v1alpha1/agents?filterQuery=name%20ILIKE%20%22%25REACT%25%22"

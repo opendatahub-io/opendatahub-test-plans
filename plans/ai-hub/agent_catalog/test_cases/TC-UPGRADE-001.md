@@ -15,11 +15,13 @@ section to the ConfigMap, creates volume mounts, and wires the
 `--catalogs-path` argument.
 
 **Preconditions**:
+
 - RHOAI operator at a version that does not include the agent catalog
   feature
 - Model catalog and MCP catalog plugins are functional
 
 **Test Steps**:
+
 1. Record the current `default-catalog-sources` ConfigMap contents
    (no agent_catalogs section expected)
 2. Upgrade the RHOAI operator to the version with agent catalog support
@@ -32,6 +34,7 @@ section to the ConfigMap, creates volume mounts, and wires the
 7. Verify `/readyz` reports the agent_catalog plugin as healthy
 
 **Expected Results**:
+
 - Pre-upgrade ConfigMap does not contain `agent_catalogs`
 - Post-upgrade ConfigMap contains `agent_catalogs` with at least one
   default source entry

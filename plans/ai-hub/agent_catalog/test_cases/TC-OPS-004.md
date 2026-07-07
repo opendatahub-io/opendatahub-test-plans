@@ -13,10 +13,12 @@ upgrade_phase: both
 break existing model catalog and MCP catalog plugins.
 
 **Preconditions**:
+
 - Model catalog and MCP catalog plugins were functional before agent
   plugin deployment
 
 **Test Steps**:
+
 1. Send GET request to the model catalog endpoint to verify models
    are returned
 2. Send GET request to the MCP catalog endpoint to verify MCP servers
@@ -27,6 +29,7 @@ break existing model catalog and MCP catalog plugins.
    sources for all asset types are present
 
 **Expected Results**:
+
 - Model catalog endpoint returns HTTP 200 with model data
 - MCP catalog endpoint returns HTTP 200 with MCP server data
 - `/readyz` reports healthy for model, MCP, and agent plugins

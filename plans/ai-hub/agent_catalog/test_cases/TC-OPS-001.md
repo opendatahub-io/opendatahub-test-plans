@@ -14,9 +14,11 @@ upgrade_phase: post
 section with Red Hat starter kits.
 
 **Preconditions**:
+
 - RHOAI operator installed with agent catalog feature enabled
 
 **Test Steps**:
+
 1. Verify the `default-catalog-sources` ConfigMap exists in the RHOAI
    namespace
 2. Read the ConfigMap data and check for the `agent_catalogs` section
@@ -24,6 +26,7 @@ section with Red Hat starter kits.
    catalog
 
 **Expected Results**:
+
 - ConfigMap `default-catalog-sources` exists in the RHOAI namespace
 - ConfigMap data contains an `agent_catalogs` key with at least one
   catalog entry
@@ -31,6 +34,7 @@ section with Red Hat starter kits.
 - The `enabled` field for the default agent source is `true`
 
 **Test Data**:
+
 ```bash
 oc get configmap default-catalog-sources \
   -n ${RHOAI_NAMESPACE} -o yaml \

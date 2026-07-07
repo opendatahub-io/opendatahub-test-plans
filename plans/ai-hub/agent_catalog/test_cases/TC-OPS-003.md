@@ -14,6 +14,7 @@ plugin registers successfully and loads agents from the configured
 catalog source files.
 
 **Test Steps**:
+
 1. Check the catalog service pod logs for agent plugin registration
    messages
 2. Verify `/readyz` returns healthy status including the agent plugin
@@ -21,6 +22,7 @@ catalog source files.
    agents are loaded
 
 **Expected Results**:
+
 - Pod logs contain messages indicating agent catalog plugin registration
 - Pod logs show the number of agents loaded from the catalog YAML
 - `/readyz` reports healthy and includes the agent_catalog plugin
@@ -28,6 +30,7 @@ catalog source files.
   from default Red Hat starter kits)
 
 **Test Data**:
+
 ```bash
 oc logs deployment/model-catalog \
   -n ${RHOAI_NAMESPACE} \

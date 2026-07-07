@@ -12,10 +12,12 @@ last_updated: "2026-07-07"
 in the list agents response.
 
 **Preconditions**:
+
 - A custom agent catalog source is configured and enabled
 - Agents from the source are visible in the API
 
 **Test Steps**:
+
 1. Verify agents from the custom source appear in
    `/api/agent_catalog/v1alpha1/agents`
 2. Patch the `model-catalog-sources` ConfigMap to set the custom source
@@ -25,6 +27,7 @@ in the list agents response.
 5. Verify agents from the disabled source are no longer returned
 
 **Expected Results**:
+
 - After disabling, no agents from the disabled source appear in the
   listing
 - Agents from other enabled sources remain visible

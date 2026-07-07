@@ -14,10 +14,12 @@ correctly supports new agent context types alongside existing model and
 MCP context types after upgrade.
 
 **Preconditions**:
+
 - Pre-upgrade: model and MCP catalog data exists in the database
 - Upgrade to version with agent catalog plugin
 
 **Test Steps**:
+
 1. Pre-upgrade: verify model catalog queries return data
 2. Pre-upgrade: verify MCP catalog queries return data
 3. Perform the operator upgrade
@@ -28,6 +30,7 @@ MCP context types after upgrade.
    logs
 
 **Expected Results**:
+
 - Pre-upgrade model and MCP data is preserved intact after upgrade
 - New agent context types are registered in the MLMD schema without
   affecting existing types

@@ -13,17 +13,20 @@ last_updated: "2026-07-07"
 newest agents first.
 
 **Test Steps**:
+
 1. Send GET request to `/api/agent_catalog/v1alpha1/agents` with
    `orderBy=CREATE_TIME&sortOrder=DESC`
 2. Verify the returned agents are in descending order by creation
    timestamp
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Agent `createTimeSinceEpoch` values are in descending order
 - The first agent in the list has the most recent creation timestamp
 
 **Test Data**:
+
 ```bash
 curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/api/agent_catalog/v1alpha1/agents?orderBy=CREATE_TIME&sortOrder=DESC" \

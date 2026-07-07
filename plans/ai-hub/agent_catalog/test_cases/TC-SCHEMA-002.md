@@ -13,10 +13,12 @@ is loaded successfully, with optional fields either absent or set to
 default values.
 
 **Preconditions**:
+
 - Custom catalog includes an agent with minimal metadata (name and
   description only, no framework or tags)
 
 **Test Steps**:
+
 1. Send GET request to `/api/agent_catalog/v1alpha1/agents` and identify
    the minimal-metadata agent
 2. Send GET request to
@@ -25,6 +27,7 @@ default values.
    gracefully
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Required fields (`name`, `description`, `id`) are present and
   non-empty

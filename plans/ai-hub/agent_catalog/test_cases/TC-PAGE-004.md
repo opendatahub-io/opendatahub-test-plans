@@ -12,9 +12,11 @@ last_updated: "2026-07-07"
 consistent ordering — no duplicates or missing agents across pages.
 
 **Preconditions**:
+
 - Filtered result set has more agents than pageSize
 
 **Test Steps**:
+
 1. Send GET request to `/api/agent_catalog/v1alpha1/agents` with
    `filterQuery=framework = "langgraph"&pageSize=2&orderBy=NAME&sortOrder=ASC`
 2. Collect all agent IDs from page 1
@@ -22,6 +24,7 @@ consistent ordering — no duplicates or missing agents across pages.
 4. Verify no overlap between pages and ordering is maintained
 
 **Expected Results**:
+
 - No agent ID appears on more than one page
 - Agent names remain in ascending alphabetical order across pages
 - The total count of unique agents across all pages matches the
@@ -29,6 +32,7 @@ consistent ordering — no duplicates or missing agents across pages.
 - The last page has an empty `nextPageToken`
 
 **Test Data**:
+
 ```bash
 curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/api/agent_catalog/v1alpha1/agents?filterQuery=framework%20%3D%20%22langgraph%22&pageSize=2&orderBy=NAME&sortOrder=ASC"

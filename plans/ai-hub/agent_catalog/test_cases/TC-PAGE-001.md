@@ -12,10 +12,12 @@ last_updated: "2026-07-07"
 agents returned per page and provides a nextPageToken for subsequent pages.
 
 **Preconditions**:
+
 - Total agent count exceeds the pageSize used in the test (22 agents
   loaded)
 
 **Test Steps**:
+
 1. Send GET request to `/api/agent_catalog/v1alpha1/agents` with
    `pageSize=5`
 2. Verify the response contains exactly 5 items and a non-empty
@@ -25,6 +27,7 @@ agents returned per page and provides a nextPageToken for subsequent pages.
 4. Verify the second page returns agents not present in the first page
 
 **Expected Results**:
+
 - First response contains exactly 5 items
 - First response `nextPageToken` is non-empty
 - Second response contains the next batch of agents (up to 5)
@@ -32,6 +35,7 @@ agents returned per page and provides a nextPageToken for subsequent pages.
 - Combined results from all pages equal the total agent count
 
 **Test Data**:
+
 ```bash
 PAGE1=$(curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/api/agent_catalog/v1alpha1/agents?pageSize=5")

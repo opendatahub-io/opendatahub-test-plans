@@ -13,6 +13,7 @@ agentType, tags, description, license) returns all fields correctly
 in the API response.
 
 **Test Steps**:
+
 1. Send GET request to `/api/agent_catalog/v1alpha1/agents` and identify
    an agent known to have complete metadata
 2. Send GET request to
@@ -20,6 +21,7 @@ in the API response.
 3. Verify all expected fields are present and populated
 
 **Expected Results**:
+
 - Response contains `name`, `description`, `externalId`,
   `createTimeSinceEpoch`, `lastUpdateTimeSinceEpoch`
 - `customProperties` includes `framework`, `agentType`, `tags`,

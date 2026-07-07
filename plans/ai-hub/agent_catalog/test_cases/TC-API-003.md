@@ -12,11 +12,13 @@ last_updated: "2026-07-07"
 filterable fields and their available values from loaded agents.
 
 **Test Steps**:
+
 1. Send GET request to
    `/api/agent_catalog/v1alpha1/agents/filter_options`
 2. Verify the response contains filter fields relevant to agent metadata
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Response contains filterable fields including `framework`, `agentType`,
   and `tags`
@@ -26,6 +28,7 @@ filterable fields and their available values from loaded agents.
 - Values reflect agents from both default and custom sources
 
 **Test Data**:
+
 ```bash
 curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/api/agent_catalog/v1alpha1/agents/filter_options"

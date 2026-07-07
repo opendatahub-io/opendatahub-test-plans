@@ -12,11 +12,13 @@ last_updated: "2026-07-07"
 sources when filtered by assetType=agents.
 
 **Test Steps**:
+
 1. Send GET request to
    `/api/model_catalog/v1alpha1/sources?assetType=agents`
 2. Verify the response lists all configured agent catalog sources
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Response contains sources configured for agent catalogs
 - Each source includes `name`, `label`, `enabled`, and `assetType` fields
@@ -25,6 +27,7 @@ sources when filtered by assetType=agents.
   appear in the response
 
 **Test Data**:
+
 ```bash
 curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/api/model_catalog/v1alpha1/sources?assetType=agents"

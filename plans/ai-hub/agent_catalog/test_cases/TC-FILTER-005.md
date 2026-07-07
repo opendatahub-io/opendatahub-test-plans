@@ -12,12 +12,14 @@ last_updated: "2026-07-07"
 matches agents whose field value is in the provided list.
 
 **Test Steps**:
+
 1. Send GET request to `/api/agent_catalog/v1alpha1/agents` with
    `filterQuery=framework IN ("langgraph", "crewai")`
 2. Verify that only agents with framework `langgraph` or `crewai`
    are returned
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Every returned agent has `customProperties.framework` value of either
   `langgraph` or `crewai`
@@ -26,6 +28,7 @@ matches agents whose field value is in the provided list.
 - `size` equals the sum of langgraph and crewai agents
 
 **Test Data**:
+
 ```bash
 curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/api/agent_catalog/v1alpha1/agents?filterQuery=framework%20IN%20(%22langgraph%22%2C%20%22crewai%22)"

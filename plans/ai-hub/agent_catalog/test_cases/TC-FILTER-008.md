@@ -12,10 +12,12 @@ last_updated: "2026-07-07"
 to only those from the specified catalog source.
 
 **Preconditions**:
+
 - Multiple agent catalog sources configured (default Red Hat starter kits
   and custom user source)
 
 **Test Steps**:
+
 1. Send GET request to
    `/api/model_catalog/v1alpha1/sources?assetType=agents` to obtain
    a source label
@@ -24,12 +26,14 @@ to only those from the specified catalog source.
 3. Verify that only agents from that source are returned
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - All returned agents belong to the source with the specified label
 - Agents from other sources are excluded
 - The sourceLabel is correctly resolved to a sourceID internally
 
 **Test Data**:
+
 ```bash
 SOURCE_LABEL="redhat-starter-kits"
 curl -s -H "Authorization: Bearer ${TOKEN}" \

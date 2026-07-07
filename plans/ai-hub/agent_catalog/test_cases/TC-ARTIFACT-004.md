@@ -12,9 +12,11 @@ last_updated: "2026-07-07"
 via `pageSize` and `nextPageToken` parameters.
 
 **Preconditions**:
+
 - An agent has more artifacts than the pageSize used in the test
 
 **Test Steps**:
+
 1. Obtain a valid agent ID with multiple artifacts
 2. Send GET request to
    `/api/agent_catalog/v1alpha1/agents/{agent_id}/artifacts?pageSize=1`
@@ -24,12 +26,14 @@ via `pageSize` and `nextPageToken` parameters.
 5. Verify the second page contains different artifacts
 
 **Expected Results**:
+
 - First response contains exactly 1 artifact item
 - `nextPageToken` is non-empty on the first page
 - Second page returns a different artifact not present on page 1
 - No artifact appears on multiple pages
 
 **Test Data**:
+
 ```bash
 PAGE1=$(curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/api/agent_catalog/v1alpha1/agents/${AGENT_ID}/artifacts?pageSize=1")

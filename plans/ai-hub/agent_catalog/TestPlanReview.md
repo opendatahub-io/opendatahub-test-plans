@@ -69,6 +69,7 @@ Feedback is provided only for criteria scoring below 2.
 The seven endpoints listed are plausible but only partially grounded. The strategy text describes capabilities (list, filter, search, detail, sources) without specifying REST paths, API versions, or query parameter schemas. The test plan presents `/api/agent_catalog/v1alpha1/agents` as established fact, but the `v1alpha1` version string, the exact path structure, and the query parameter set (filterQuery operators, orderBy enum values, nextPageToken) are not in the strategy.
 
 Two endpoints are suspected fabrications:
+
 - `filter_options` -- The strategy mentions filtering but does not describe a metadata endpoint that returns available filter fields and values. If this endpoint exists, cite the ADR or implementation PR.
 - `artifacts` -- The strategy does not mention artifacts at all. If agent artifacts (images, templates) are part of the feature, the strategy or an ADR should be linked.
 
@@ -85,6 +86,7 @@ ConfigMap names (`default-catalog-sources`, `model-catalog-sources`), the `--cat
 **Section 1.2 -- In Scope**
 
 The in-scope list includes items that go beyond the strategy:
+
 - "Artifacts endpoint with type filtering (image-artifact, template-artifact)" -- not in strategy
 - "Custom properties forwarding from upstream YAML" -- strategy describes metadata extraction but not custom properties specifically
 - "sourceLabel-to-sourceID resolution" -- strategy mentions source management but not this specific resolution mechanism
@@ -102,6 +104,7 @@ Objective 5 (artifacts endpoint) has no strategy backing. Objective 3 (sourceLab
 **Section 3.1 -- Test Cluster Configuration**
 
 No version requirements are specified for any component:
+
 - OpenShift version (4.x?)
 - RHOAI operator version (minimum version with agent catalog support)
 - PostgreSQL version

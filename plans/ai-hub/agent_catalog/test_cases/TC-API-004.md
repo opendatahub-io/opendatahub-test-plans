@@ -12,15 +12,18 @@ last_updated: "2026-07-07"
 healthy via the `/readyz` endpoint.
 
 **Test Steps**:
+
 1. Send GET request to `/readyz`
 2. Verify the response indicates the agent plugin is ready
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Response body indicates agent plugin is healthy/ready
 - Plugin name `agent_catalog` appears in the readiness response
 
 **Test Data**:
+
 ```bash
 curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/readyz"

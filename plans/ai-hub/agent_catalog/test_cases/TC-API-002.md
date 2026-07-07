@@ -12,9 +12,11 @@ last_updated: "2026-07-07"
 complete agent metadata including all fields and custom properties.
 
 **Preconditions**:
+
 - At least one agent loaded in the catalog with a known ID
 
 **Test Steps**:
+
 1. Send GET request to `/api/agent_catalog/v1alpha1/agents` to obtain
    a valid agent ID from the response
 2. Send GET request to
@@ -22,6 +24,7 @@ complete agent metadata including all fields and custom properties.
 3. Verify the response contains all expected fields for that agent
 
 **Expected Results**:
+
 - Response status is HTTP 200
 - Response body contains the agent object (not wrapped in `items`)
 - Agent object includes: `id`, `name`, `description`, `externalId`,
@@ -31,6 +34,7 @@ complete agent metadata including all fields and custom properties.
   source-specific metadata
 
 **Test Data**:
+
 ```bash
 AGENT_ID=$(curl -s -H "Authorization: Bearer ${TOKEN}" \
   "${CATALOG_ROUTE}/api/agent_catalog/v1alpha1/agents" \
