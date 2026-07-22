@@ -181,7 +181,7 @@ operator wiring, and compatibility with existing catalog plugins.
 
 ## 5. Test Cases
 
-> **Note**: 50 test cases generated across 11 categories. See the
+> **Note**: 47 test cases generated across 11 categories. See the
 > complete index at [test_cases/INDEX.md](test_cases/INDEX.md).
 
 **Test Cases Directory**: [test_cases/](test_cases/)
@@ -198,7 +198,7 @@ operator wiring, and compatibility with existing catalog plugins.
 | TC-SRC | 4 | 0×P0, 3×P1, 1×P2 |
 | TC-SCHEMA | 3 | 0×P0, 3×P1, 0×P2 |
 | TC-ARTIFACT | 4 | 0×P0, 4×P1, 0×P2 |
-| TC-OPS | 4 | 3×P0, 1×P1, 0×P2 |
+| TC-OPS | 1 | 0×P0, 1×P1, 0×P2 |
 | TC-NEG | 5 | 1×P0, 2×P1, 2×P2 |
 | TC-E2E | 4 | 4×P0, 0×P1, 0×P2 |
 | TC-UPGRADE | 3 | 2×P0, 1×P1, 0×P2 |
@@ -356,11 +356,11 @@ via ADR or security specification.
 | TC-SRC | 4 | 0 | 3 | 1 |
 | TC-SCHEMA | 3 | 0 | 3 | 0 |
 | TC-ARTIFACT | 4 | 0 | 4 | 0 |
-| TC-OPS | 4 | 3 | 1 | 0 |
+| TC-OPS | 1 | 0 | 1 | 0 |
 | TC-NEG | 5 | 1 | 2 | 2 |
 | TC-E2E | 4 | 4 | 0 | 0 |
 | TC-UPGRADE | 3 | 2 | 1 | 0 |
-| **Total** | **50** | **15** | **29** | **6** |
+| **Total** | **47** | **12** | **29** | **6** |
 
 ### 10.2 Endpoint Coverage
 
@@ -379,7 +379,7 @@ via ADR or security specification.
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0.0 | 2026-07-07 | Initial test plan |
-| 1.1.0 | 2026-07-07 | Generated 50 test cases across 11 categories |
+| 1.1.0 | 2026-07-07 | Generated 47 test cases across 11 categories |
 
 ---
 

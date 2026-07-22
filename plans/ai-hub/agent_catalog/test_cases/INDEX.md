@@ -9,8 +9,8 @@
 
 | Metric | Count |
 | -------- | ------- |
-| Total Test Cases | 50 |
-| P0 (Critical) | 15 |
+| Total Test Cases | 47 |
+| P0 (Critical) | 12 |
 | P1 (High) | 29 |
 | P2 (Medium) | 6 |
 
@@ -89,10 +89,9 @@
 
 | Test Case ID | Title | Priority |
 | ------------- | ------- | ---------- |
-| [TC-OPS-001](TC-OPS-001.md) | Operator creates default-catalog-sources ConfigMap with agent section | P0 |
-| [TC-OPS-002](TC-OPS-002.md) | Operator mounts agent catalog volume to catalog service pod | P0 |
-| [TC-OPS-003](TC-OPS-003.md) | Agent plugin registers and loads agents on pod startup | P0 |
 | [TC-OPS-004](TC-OPS-004.md) | Existing model and MCP plugins remain functional after agent deployment | P1 |
+
+> TC-OPS-001, 002, 003 removed — covered by [TC-E2E-004](TC-E2E-004.md).
 
 ## Negative and Error Handling (TC-NEG)
 
